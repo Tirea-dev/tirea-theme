@@ -1,0 +1,114 @@
+/* ============================================
+   TIREA — Result : mécanisme du slider avant/après
+   Le wrapper, les labels et le cadre image sont gérés
+   dans tirea-product.css (design d'origine conservé).
+   Ce fichier ne traite QUE le slider interactif lui-même.
+   ============================================ */
+
+.tirea-result-slider {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 900 / 650;
+    overflow: hidden;
+    border-radius: 12px;
+    cursor: ew-resize;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    background: #f5f5f5;
+    container-type: inline-size;
+}
+
+.tirea-result-slider:focus-visible {
+    outline: 3px solid #1e6fc4;
+    outline-offset: 4px;
+}
+
+.tirea-result-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+}
+
+/* Wrapper de l'image AVANT : largeur clippée par la position du curseur */
+.tirea-result-before-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 50%;
+    overflow: hidden;
+    pointer-events: none;
+    will-change: width;
+}
+
+.tirea-result-before-wrap .tirea-result-img-before {
+    width: 100cqw;
+    height: 100%;
+    max-width: none;
+}
+
+/* ============================================
+   Poignée du curseur
+   ============================================ */
+
+.tirea-result-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: #fff;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 3;
+    will-change: left;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.tirea-result-handle-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #fff;
+    color: #1e6fc4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ============================================
+   Animation d'apparition (hint visuel)
+   ============================================ */
+
+@keyframes tirea-result-hint {
+    0%, 100% { transform: translateX(-50%); }
+    25%      { transform: translateX(-50%) translateX(-24px); }
+    75%      { transform: translateX(-50%) translateX(24px); }
+}
+
+.tirea-result-slider.is-hinting .tirea-result-handle {
+    animation: tirea-result-hint 1.6s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tirea-result-slider.is-hinting .tirea-result-handle {
+        animation: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .tirea-result-handle-circle {
+        width: 38px;
+        height: 38px;
+    }
+}

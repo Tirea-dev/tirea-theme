@@ -1,0 +1,203 @@
+/* ============================================
+   TIREA RÉASSURANCE PILULE — Styles
+   Bandeau défilant infini desktop + 2 lignes inversées mobile
+   ============================================ */
+
+/* Liste accessible cachée visuellement, lue par les lecteurs d'écran */
+.tirea-reassurance-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
+  margin: -1px;
+}
+
+.tirea-reassurance {
+  background: #f0f0f0;
+  border-top: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 20px 0;
+  overflow: hidden;
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+
+/* Fondus latéraux gauche / droite */
+.tirea-reassurance::before,
+.tirea-reassurance::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+.tirea-reassurance::before {
+  left: 0;
+  background: linear-gradient(90deg, #f0f0f0 0%, transparent 100%);
+}
+.tirea-reassurance::after {
+  right: 0;
+  background: linear-gradient(-90deg, #f0f0f0 0%, transparent 100%);
+}
+
+.tirea-reassurance-row {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: tirea-reassurance-scroll 60s linear infinite;
+}
+
+/* Pause au survol (UX : permet de lire un item qui passe) */
+.tirea-reassurance:hover .tirea-reassurance-row {
+  animation-play-state: paused;
+}
+
+/* DESKTOP : ligne unique visible, lignes mobile cachées */
+.tirea-reassurance-row-mobile {
+  display: none;
+}
+
+.tirea-reassurance-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+  color: #333;
+  background: white;
+  padding: 16px 28px;
+  border-radius: 50px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.tirea-reassurance-icon {
+  width: 28px;
+  height: 28px;
+  color: #1e6fc4;
+  flex-shrink: 0;
+}
+
+.tirea-reassurance-text {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.tirea-reassurance-text strong {
+  color: #000;
+  font-weight: 600;
+}
+
+@keyframes tirea-reassurance-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Animation inverse pour la ligne 2 mobile */
+@keyframes tirea-reassurance-scroll-reverse {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* ============================================
+   RESPECT prefers-reduced-motion
+   Coupe l'animation pour les utilisateurs sensibles au mouvement (WCAG)
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .tirea-reassurance-row,
+  .tirea-reassurance-row-mobile {
+    animation: none;
+  }
+}
+
+/* ============================================
+   RESPONSIVE TABLETTE (≤1024px)
+   ============================================ */
+@media (max-width: 1024px) {
+  .tirea-reassurance {
+    padding: 16px 0;
+  }
+  .tirea-reassurance-row {
+    gap: 14px;
+    animation-duration: 40s;
+  }
+  .tirea-reassurance-item {
+    padding: 14px 22px;
+  }
+  .tirea-reassurance-text {
+    font-size: 14px;
+  }
+  .tirea-reassurance-icon {
+    width: 24px;
+    height: 24px;
+  }
+  .tirea-reassurance::before,
+  .tirea-reassurance::after {
+    width: 60px;
+  }
+}
+
+/* ============================================
+   RESPONSIVE MOBILE (≤640px)
+   - Cache la ligne desktop (6 cards)
+   - Affiche les 2 lignes mobile (impaires + paires) en sens inverse
+   ============================================ */
+@media (max-width: 640px) {
+  .tirea-reassurance {
+    padding: 14px 0;
+  }
+
+  .tirea-reassurance-row-desktop {
+    display: none;
+  }
+
+  .tirea-reassurance-row-mobile {
+    display: flex;
+    gap: 10px;
+    width: max-content;
+    animation: tirea-reassurance-scroll 35s linear infinite;
+  }
+  /* La 2ème ligne mobile (3e enfant) défile dans l'autre sens */
+  .tirea-reassurance-row-mobile:nth-of-type(3) {
+    animation: tirea-reassurance-scroll-reverse 35s linear infinite;
+    margin-top: 10px;
+  }
+
+  .tirea-reassurance-item {
+    padding: 12px 18px;
+    gap: 10px;
+  }
+  .tirea-reassurance-text {
+    font-size: 13px;
+  }
+  .tirea-reassurance-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .tirea-reassurance::before,
+  .tirea-reassurance::after {
+    width: 30px;
+  }
+}
+
+/* ============================================
+   RESPONSIVE TRÈS PETIT MOBILE (≤380px)
+   ============================================ */
+@media (max-width: 380px) {
+  .tirea-reassurance-item {
+    padding: 10px 14px;
+  }
+  .tirea-reassurance-text {
+    font-size: 12px;
+  }
+}

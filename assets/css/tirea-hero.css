@@ -1,0 +1,442 @@
+/* ============================================
+   TIREA HERO — Styles
+   Migration depuis widget HTML Elementor
+   ============================================ */
+
+/* Image sémantique pour lecteurs d'écran et SEO, masquée visuellement */
+.tirea-hero-img-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* ============================================
+   HERO DESKTOP
+   ============================================ */
+.tirea-hero {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  height: 70vh;
+  height: 70dvh;
+  min-height: 700px;
+  background-image: url('https://tirea.fr/wp-content/uploads/2026/05/ajusteur-tirea-homme-femme.webp');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+
+/* Overlay dégradé pour lisibilité du texte */
+.tirea-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 35%, rgba(255,255,255,0) 60%);
+  z-index: 1;
+}
+
+.tirea-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 60px;
+}
+
+.tirea-hero-text {
+  max-width: 600px;
+}
+
+/* Badge */
+.tirea-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(240,244,249,0.95);
+  border: 1px solid #d4e0ed;
+  border-radius: 30px;
+  padding: 9px 18px;
+  font-size: 11px;
+  color: #1e6fc4;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  margin-bottom: 32px;
+}
+.tirea-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #1e6fc4;
+}
+
+/* Titres */
+.tirea-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 88px;
+  line-height: 0.95;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: -2px;
+  margin: 0 0 36px;
+}
+.tirea-title-line {
+  display: block;
+}
+.tirea-title-italic {
+  font-style: italic;
+  color: #1e6fc4;
+  font-weight: 600;
+}
+
+/* Sous-titre */
+.tirea-subtitle {
+  border-left: 2px solid #1e6fc4;
+  padding-left: 18px;
+  margin-bottom: 40px;
+  max-width: 460px;
+}
+.tirea-subtitle p {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* CTAs */
+.tirea-cta-group {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+.tirea-btn {
+  border-radius: 50px;
+  padding: 18px 32px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+  white-space: nowrap;
+}
+.tirea-btn-primary {
+  background: #000;
+  color: white;
+}
+.tirea-btn-primary:hover { background: #1e6fc4; color: white; }
+.tirea-btn-secondary {
+  background: rgba(255,255,255,0.9);
+  color: #333;
+  border: 1px solid #ddd;
+}
+.tirea-btn-secondary:hover { border-color: #1e6fc4; color: #1e6fc4; }
+
+/* Preuve sociale */
+.tirea-social-proof {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.tirea-avatars {
+  display: flex;
+}
+
+.tirea-avatar {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
+  object-position: center;
+  background-size: cover;
+  background-position: center;
+  display: block;
+}
+
+img.tirea-avatar {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.tirea-avatar:not(:first-child) {
+  margin-left: -12px;
+}
+
+.tirea-avatar-1 { background: linear-gradient(135deg, #d4a574, #8b6f47); }
+.tirea-avatar-2 { background: linear-gradient(135deg, #c9a876, #6b4f37); }
+.tirea-avatar-3 { background: linear-gradient(135deg, #b8956a, #4a3527); }
+.tirea-avatar-4 { background: linear-gradient(135deg, #d9b889, #7a5a3a); }
+
+.tirea-social-text {
+  font-size: 14px;
+  color: #333;
+}
+.tirea-social-text strong { color: #000; }
+
+/* Badge flottant sur le hero */
+.tirea-floating-card {
+  position: absolute;
+  bottom: 80px;
+  right: 80px;
+  background: white;
+  border-radius: 18px;
+  padding: 18px 22px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+  max-width: 260px;
+  z-index: 3;
+}
+.tirea-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+}
+.tirea-card-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+}
+.tirea-card-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  color: #555;
+}
+.tirea-card-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  line-height: 1.3;
+  color: #000;
+  margin: 0;
+}
+
+/* ============================================
+   RESPONSIVE LAPTOP (≤1280px)
+   ============================================ */
+@media (max-width: 1280px) {
+  .tirea-title {
+    font-size: 72px;
+  }
+  .tirea-hero-content {
+    padding: 0 40px;
+  }
+  .tirea-floating-card {
+    bottom: 60px;
+    right: 40px;
+  }
+}
+
+/* ============================================
+   RESPONSIVE TABLETTE (≤1024px)
+   ============================================ */
+@media (max-width: 1024px) {
+  .tirea-hero {
+    height: 70vh;
+    height: 70dvh;
+  }
+  .tirea-title {
+    font-size: 60px;
+  }
+  .tirea-badge {
+    font-size: 10px;
+    padding: 8px 16px;
+  }
+  .tirea-subtitle p {
+    font-size: 15px;
+  }
+  .tirea-btn {
+    padding: 16px 28px;
+    font-size: 13px;
+  }
+  .tirea-hero-content {
+    padding: 0 40px;
+  }
+  .tirea-floating-card {
+    bottom: 40px;
+    right: 30px;
+    padding: 14px 18px;
+    max-width: 220px;
+  }
+  .tirea-card-text {
+    font-size: 15px;
+  }
+}
+
+/* ============================================
+   RESPONSIVE MOBILE (≤640px)
+   ⚙️ TOUTES LES VARIABLES SONT GROUPÉES ICI
+   Modifie juste les chiffres à droite, c'est tout
+   ============================================ */
+@media (max-width: 640px) {
+
+  /* === IMAGE DE FOND SPÉCIALE MOBILE === */
+  section.tirea-hero {
+    background-image: url('https://tirea.fr/wp-content/uploads/2026/05/ajusteur-tirea-unisexe.webp');
+    background-position: center;
+    background-size: cover;
+    min-height: auto;
+    height: auto;
+    padding: 50px 0 40px;
+  }
+
+  /* === OVERLAY === */
+  section.tirea-hero::before {
+    background: linear-gradient(180deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.25) 100%);
+  }
+
+  /* === BADGE === */
+  section.tirea-hero .tirea-badge {
+    font-size: 10px;
+    padding: 7px 12px;
+    letter-spacing: 0.8px;
+    margin-bottom: 18px;
+    white-space: nowrap;
+  }
+
+  /* === GROS TITRES === */
+  section.tirea-hero .tirea-title {
+    font-size: 44px;
+    letter-spacing: -1px;
+    line-height: 0.95;
+    margin-bottom: 22px;
+  }
+
+  /* === SOUS-TITRE === */
+  section.tirea-hero .tirea-subtitle {
+    padding-left: 12px;
+    margin-bottom: 24px;
+  }
+
+  section.tirea-hero .tirea-subtitle p {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  /* === BOUTONS CTA === */
+  section.tirea-hero .tirea-cta-group {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  section.tirea-hero .tirea-btn {
+    width: auto;
+    padding: 12px 26px;
+    font-size: 13px;
+  }
+
+  /* === PREUVE SOCIALE === */
+  section.tirea-hero .tirea-social-proof {
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+
+  section.tirea-hero .tirea-avatar,
+  section.tirea-hero img.tirea-avatar {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    border-width: 1.5px;
+  }
+
+  section.tirea-hero .tirea-avatar:not(:first-child) {
+    margin-left: -8px;
+  }
+
+  section.tirea-hero .tirea-social-text {
+    font-size: 11px;
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  /* === BADGE "RÉSULTAT INSTANTANÉ" === */
+  section.tirea-hero .tirea-floating-card {
+    position: static;
+    margin: 24px auto 0;
+    padding: 12px 16px;
+    max-width: 280px;
+    background: #ffffff;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  }
+
+  section.tirea-hero .tirea-card-label {
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: #555555;
+  }
+
+  section.tirea-hero .tirea-card-text {
+    font-size: 13px;
+    color: #000000;
+    font-family: 'Playfair Display', serif;
+  }
+
+  section.tirea-hero .tirea-card-dot {
+    width: 6px;
+    height: 6px;
+    background: #22c55e;
+  }
+
+  /* === LAYOUT GÉNÉRAL MOBILE === */
+  section.tirea-hero .tirea-hero-content {
+    padding: 0 20px;
+    align-items: flex-start;
+  }
+
+  section.tirea-hero .tirea-hero-text {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+/* ============================================
+   RESPONSIVE TRÈS PETIT MOBILE (≤380px)
+   ============================================ */
+@media (max-width: 380px) {
+  section.tirea-hero .tirea-title {
+    font-size: 38px;
+  }
+  section.tirea-hero .tirea-hero-content {
+    padding: 0 16px;
+  }
+  section.tirea-hero .tirea-badge {
+    font-size: 8px;
+    padding: 6px 10px;
+  }
+  section.tirea-hero .tirea-social-text {
+    font-size: 10px;
+  }
+}
+
+/* ============================================
+   SCROLL FLUIDE + OFFSET POUR HEADER STICKY
+   ============================================ */
+html {
+  scroll-behavior: smooth;
+}
+
+#mode-emploi {
+  scroll-margin-top: 100px;
+}

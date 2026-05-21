@@ -1,0 +1,989 @@
+/* ==========================================================================
+   TIREA — HEADER
+   Banner promo + Header normal + Header sticky + Drawer mobile 
+   + Overlay recherche + Bouton remonter
+   ========================================================================== */
+
+/* ==========================================================================
+   1. VARIABLES — modifie ici pour changer le design global
+   ========================================================================== */
+:root {
+  --tirea-color-primary: #1e6fc4;
+  --tirea-color-primary-bg: #f0f4f9;
+  --tirea-color-text: #000;
+  --tirea-color-text-soft: #555;
+  --tirea-color-text-muted: #888;
+  --tirea-color-text-faint: #999;
+  --tirea-color-border: #ececec;
+  --tirea-color-border-soft: #f0f0f0;
+  --tirea-color-bg-soft: #f7f7f7;
+  --tirea-color-white: #fff;
+
+  --tirea-font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  --tirea-shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.06);
+  --tirea-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --tirea-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
+  --tirea-shadow-pill: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  
+  --tirea-ease: cubic-bezier(0.32, 0.72, 0.25, 1);
+  --tirea-duration-fast: 0.2s;
+  --tirea-duration-base: 0.3s;
+  --tirea-duration-slow: 0.4s;
+  
+  --tirea-z-sticky: 9990;
+  --tirea-z-back-to-top: 9989;
+  --tirea-z-overlay-menu: 9998;
+  --tirea-z-overlay-search: 9999;
+}
+
+/* ==========================================================================
+   2. ACCESSIBILITÉ — Skip link & focus
+   ========================================================================== */
+
+/* Skip link visible uniquement au focus clavier (WCAG 2.1 niveau A) */
+.tirea-skip-link {
+  position: absolute;
+  top: -100px;
+  left: 12px;
+  z-index: 100000;
+  padding: 12px 20px;
+  background: var(--tirea-color-text);
+  color: var(--tirea-color-white);
+  font-family: var(--tirea-font);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: top var(--tirea-duration-fast) ease;
+}
+.tirea-skip-link:focus {
+  top: 12px;
+  outline: 3px solid var(--tirea-color-primary);
+  outline-offset: 2px;
+}
+
+/* Focus visible pour navigation clavier — invisible à la souris */
+.tirea-header :focus-visible,
+.tirea-sticky-header :focus-visible,
+.tirea-mobile-menu :focus-visible,
+.tirea-search-overlay :focus-visible,
+.tirea-back-to-top:focus-visible {
+  outline: 2px solid var(--tirea-color-primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   3. BANNIÈRE PROMO
+   ========================================================================== */
+.tirea-promo-bar {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw); /* sortie de container sans -50vw négatif */
+  background: var(--tirea-color-primary);
+  color: var(--tirea-color-white);
+  text-align: center;
+  padding: 11px 20px;
+  font-family: var(--tirea-font);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   4. HEADER PRINCIPAL — Structure 3 colonnes
+   ========================================================================== */
+.tirea-header {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw); /* full-bleed safe */
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 20px;
+  padding: 5px 25px 0px;
+  background: var(--tirea-color-white);
+  font-family: var(--tirea-font);
+  box-shadow: var(--tirea-shadow-sm);
+  box-sizing: border-box;
+}
+
+.tirea-header-logo  { justify-self: start; }
+.tirea-header-nav   { justify-self: center; }
+.tirea-header-icons {
+  justify-self: end;
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+
+/* Logo */
+.tirea-logo-link {
+  display: inline-block;
+  text-decoration: none;
+}
+.tirea-logo {
+  width: 85px;
+  height: auto;
+  display: block;
+  max-width: 100%;
+}
+
+/* ==========================================================================
+   5. MENU PILULE CENTRAL (desktop)
+   ========================================================================== */
+.tirea-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  background: var(--tirea-color-bg-soft);
+  border: 1px solid var(--tirea-color-border);
+  border-radius: 50px;
+  padding: 6px;
+}
+.tirea-nav-pill a {
+  padding: 10px 22px;
+  font-size: 13px;
+  color: var(--tirea-color-text-soft);
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: color var(--tirea-duration-base) ease,
+              background var(--tirea-duration-base) ease,
+              box-shadow var(--tirea-duration-base) ease;
+}
+.tirea-nav-pill a.active {
+  background: var(--tirea-color-white);
+  color: var(--tirea-color-text);
+  font-weight: 600;
+  box-shadow: var(--tirea-shadow-pill);
+}
+.tirea-nav-pill a:hover:not(.active) {
+  color: var(--tirea-color-text);
+}
+
+/* ==========================================================================
+   6. ICÔNES HEADER
+   ========================================================================== */
+.tirea-icon-link {
+  color: #333;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  transition: opacity var(--tirea-duration-fast);
+}
+.tirea-icon-link:hover,
+.tirea-icon-link:focus,
+.tirea-icon-link:active {
+  opacity: 0.6;
+  background: transparent;
+  color: #333;
+}
+button.tirea-icon-link {
+  -webkit-appearance: none;
+  appearance: none;
+}
+.tirea-icon-link svg { width: 22px; height: 22px; }
+
+/* ==========================================================================
+   7. BURGER DESKTOP + DROPDOWN "Informations"
+   ========================================================================== */
+.tirea-burger-desktop-wrapper { position: relative; }
+
+.tirea-burger-desktop,
+.tirea-burger-mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.tirea-burger-desktop:hover,
+.tirea-burger-desktop:focus,
+.tirea-burger-desktop:active,
+.tirea-burger-mobile:hover,
+.tirea-burger-mobile:focus,
+.tirea-burger-mobile:active {
+  background: transparent;
+}
+.tirea-burger-mobile { display: none; }
+
+.tirea-burger-desktop span,
+.tirea-burger-mobile span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--tirea-color-text);
+  border-radius: 2px;
+  transition: transform var(--tirea-duration-base) ease,
+              opacity var(--tirea-duration-fast) ease;
+}
+.tirea-burger-desktop.active span:nth-child(1),
+.tirea-burger-mobile.active span:nth-child(1)  { transform: translateY(7px) rotate(45deg); }
+.tirea-burger-desktop.active span:nth-child(2),
+.tirea-burger-mobile.active span:nth-child(2)  { opacity: 0; }
+.tirea-burger-desktop.active span:nth-child(3),
+.tirea-burger-mobile.active span:nth-child(3)  { transform: translateY(-7px) rotate(-45deg); }
+
+/* Dropdown */
+.tirea-dropdown {
+  position: absolute;
+  top: calc(100% + 18px);
+  right: 0;
+  min-width: 280px;
+  padding: 16px;
+  background: var(--tirea-color-white);
+  border-radius: 16px;
+  box-shadow: var(--tirea-shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity var(--tirea-duration-base) ease,
+              visibility var(--tirea-duration-base) ease,
+              transform var(--tirea-duration-base) ease;
+  z-index: 100;
+}
+.tirea-dropdown.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.tirea-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -7px;
+  right: 12px;
+  width: 14px;
+  height: 14px;
+  background: var(--tirea-color-white);
+  transform: rotate(45deg);
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  border-left: 1px solid rgba(0, 0, 0, 0.04);
+}
+.tirea-dropdown-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: var(--tirea-color-text-faint);
+  text-transform: uppercase;
+  padding: 6px 12px 12px;
+  border-bottom: 1px solid var(--tirea-color-border-soft);
+  margin-bottom: 6px;
+}
+.tirea-dropdown a {
+  display: block;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #333;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 500;
+  transition: background var(--tirea-duration-fast),
+              color var(--tirea-duration-fast);
+}
+.tirea-dropdown a:hover {
+  background: var(--tirea-color-bg-soft);
+  color: var(--tirea-color-primary);
+}
+.tirea-dropdown a.active {
+  color: var(--tirea-color-primary);
+  background: var(--tirea-color-primary-bg);
+}
+
+/* ==========================================================================
+   8. OVERLAY RECHERCHE
+   ========================================================================== */
+.tirea-search-overlay {
+  position: fixed;
+  inset: 0 0 auto 0; /* top/right/left=0, bottom=auto */
+  width: 100vw;
+  background: var(--tirea-color-white);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  transform: translateY(-100%);
+  transition: transform var(--tirea-duration-slow) var(--tirea-ease);
+  visibility: hidden;
+  z-index: var(--tirea-z-overlay-search);
+}
+.tirea-search-overlay.active {
+  transform: translateY(0);
+  visibility: visible;
+}
+.tirea-search-form {
+  position: relative;
+  width: 100%;
+  padding: 50px 60px;
+  margin: 0;
+}
+.tirea-search-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  color: var(--tirea-color-text);
+  cursor: pointer;
+  transition: color var(--tirea-duration-fast),
+              transform var(--tirea-duration-fast);
+}
+.tirea-search-close:hover {
+  color: var(--tirea-color-primary);
+  transform: rotate(90deg);
+}
+.tirea-search-close svg { width: 26px; height: 26px; }
+
+.tirea-search-inner { max-width: 800px; margin: 0 auto; }
+.tirea-search-label {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--tirea-color-text-faint);
+  text-transform: uppercase;
+}
+.tirea-search-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 2px solid var(--tirea-color-text);
+}
+.tirea-search-icon {
+  display: inline-flex;
+  margin-right: 16px;
+  color: var(--tirea-color-text);
+  flex-shrink: 0;
+}
+.tirea-search-icon svg { width: 24px; height: 24px; }
+
+.tirea-search-field input[type="search"] {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--tirea-font);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--tirea-color-text);
+  padding: 8px 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.tirea-search-field input[type="search"]::placeholder {
+  color: #aaa;
+  font-weight: 300;
+}
+.tirea-search-field input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+.tirea-search-submit {
+  margin-left: 12px;
+  padding: 10px 22px;
+  background: var(--tirea-color-text);
+  color: var(--tirea-color-white);
+  border: none;
+  border-radius: 50px;
+  font-family: var(--tirea-font);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity var(--tirea-duration-fast);
+}
+.tirea-search-submit:hover { opacity: 0.85; }
+
+.tirea-search-hint {
+  margin: 16px 0 0;
+  font-size: 12px;
+  color: var(--tirea-color-text-faint);
+  font-weight: 400;
+}
+.tirea-search-hint kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  margin: 0 2px;
+  background: #f5f5f5;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 11px;
+  color: var(--tirea-color-text-soft);
+}
+
+/* ==========================================================================
+   9. DRAWER MOBILE
+   ========================================================================== */
+.tirea-mobile-menu {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0);
+  visibility: hidden;
+  overflow: hidden;
+  z-index: var(--tirea-z-overlay-menu);
+  transition: background var(--tirea-duration-slow) ease,
+              visibility var(--tirea-duration-slow) ease;
+}
+.tirea-mobile-menu.active {
+  visibility: visible;
+  background: rgba(0, 0, 0, 0.5);
+}
+.tirea-mobile-menu-inner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 85%;
+  max-width: 420px;
+  height: 100%;
+  padding: 90px 30px 50px;
+  background: var(--tirea-color-white);
+  box-shadow: -16px 0 48px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.45s var(--tirea-ease);
+}
+.tirea-mobile-menu.active .tirea-mobile-menu-inner {
+  transform: translateX(0);
+}
+
+.tirea-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  color: var(--tirea-color-text);
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  transform: rotate(-90deg);
+  transition: opacity var(--tirea-duration-base) ease 0.3s,
+              transform var(--tirea-duration-slow) ease 0.3s,
+              color var(--tirea-duration-fast);
+}
+.tirea-close:hover { color: var(--tirea-color-primary); }
+.tirea-mobile-menu.active .tirea-close {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+.tirea-close svg { width: 28px; height: 28px; }
+
+.tirea-mobile-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  counter-reset: menu-counter;
+}
+.tirea-mobile-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  padding: 18px 30px;
+  background: transparent;
+  border: none;
+  font-family: var(--tirea-font);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--tirea-color-text);
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(15px);
+  counter-increment: menu-counter;
+  transition: opacity var(--tirea-duration-slow) ease,
+              transform var(--tirea-duration-slow) ease,
+              color 0.25s ease;
+}
+.tirea-mobile-link::before {
+  content: counter(menu-counter, decimal-leading-zero);
+  min-width: 22px;
+  text-align: right;
+  font-family: var(--tirea-font);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #bbb;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+.tirea-mobile-link:hover { color: var(--tirea-color-primary); }
+.tirea-mobile-link:hover::before { color: var(--tirea-color-primary); }
+
+.tirea-mobile-link.active {
+  color: var(--tirea-color-primary);
+  font-weight: 600;
+}
+.tirea-mobile-link.active::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  min-width: 6px;
+  border-radius: 50%;
+  background: var(--tirea-color-primary);
+}
+
+.tirea-mobile-menu.active .tirea-mobile-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Délais d'animation cascade */
+.tirea-mobile-menu.active [data-anim="1"] { transition-delay: 0.05s; }
+.tirea-mobile-menu.active [data-anim="2"] { transition-delay: 0.10s; }
+.tirea-mobile-menu.active [data-anim="3"] { transition-delay: 0.15s; }
+.tirea-mobile-menu.active [data-anim="4"] { transition-delay: 0.20s; }
+.tirea-mobile-menu.active [data-anim="5"] { transition-delay: 0.25s; }
+.tirea-mobile-menu.active [data-anim="6"] { transition-delay: 0.30s; }
+.tirea-mobile-menu.active [data-anim="7"] { transition-delay: 0.35s; }
+.tirea-mobile-menu.active [data-anim="8"] { transition-delay: 0.40s; }
+.tirea-mobile-menu.active [data-anim="9"] { transition-delay: 0.45s; }
+
+/* Accordéon Légal */
+.tirea-accordion-toggle {
+  position: relative;
+  justify-content: center;
+}
+.tirea-accordion-arrow {
+  display: inline-flex;
+  margin-left: 6px;
+  color: var(--tirea-color-text-muted);
+  transition: transform var(--tirea-duration-base) ease, color 0.25s ease;
+}
+.tirea-accordion-arrow svg { width: 14px; height: 14px; }
+
+.tirea-accordion-toggle.active .tirea-accordion-arrow {
+  transform: rotate(180deg);
+  color: var(--tirea-color-primary);
+}
+.tirea-accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.tirea-mobile-menu.active .tirea-accordion-content {
+  transition: max-height 0.35s ease;
+}
+.tirea-accordion-content.active {
+  max-height: 400px;
+}
+
+.tirea-mobile-sublink {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  font-family: var(--tirea-font);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--tirea-color-text-muted);
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: color var(--tirea-duration-fast);
+}
+.tirea-mobile-sublink:hover { color: var(--tirea-color-primary); }
+.tirea-mobile-sublink.active {
+  color: var(--tirea-color-primary);
+  font-weight: 600;
+}
+
+/* Lock du scroll page quand menu/recherche ouverts */
+body.tirea-menu-open,
+body.tirea-search-open {
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   10. HEADER STICKY (compact, apparaît au scroll)
+   ========================================================================== */
+.tirea-sticky-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 20px;
+  padding: 8px 40px;
+  background: rgba(255, 255, 255, 0.98);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--tirea-shadow-sm);
+  font-family: var(--tirea-font);
+  transform: translateY(-100%);
+  transition: transform 0.35s var(--tirea-ease);
+  visibility: hidden;
+  z-index: var(--tirea-z-sticky);
+}
+.tirea-sticky-header.active {
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.tirea-sticky-logo   { justify-self: start; }
+.tirea-sticky-logo a { display: inline-block; text-decoration: none; }
+.tirea-sticky-logo-img { width: 60px; height: auto; display: block; }
+
+.tirea-sticky-center {
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tirea-sticky-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px;
+  background: var(--tirea-color-bg-soft);
+  border: 1px solid var(--tirea-color-border);
+  border-radius: 50px;
+}
+.tirea-sticky-nav-pill a {
+  padding: 7px 16px;
+  font-size: 12px;
+  color: var(--tirea-color-text-soft);
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: color var(--tirea-duration-base) ease,
+              background var(--tirea-duration-base) ease,
+              box-shadow var(--tirea-duration-base) ease;
+}
+.tirea-sticky-nav-pill a.active {
+  background: var(--tirea-color-white);
+  color: var(--tirea-color-text);
+  font-weight: 600;
+  box-shadow: var(--tirea-shadow-pill);
+}
+.tirea-sticky-nav-pill a:hover:not(.active) { color: var(--tirea-color-text); }
+
+.tirea-sticky-icons {
+  justify-self: end;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+.tirea-sticky-icon-link {
+  color: #333;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  transition: opacity var(--tirea-duration-fast);
+}
+.tirea-sticky-icon-link:hover { opacity: 0.6; }
+.tirea-sticky-icon-link svg { width: 19px; height: 19px; }
+
+/* Burger desktop sticky */
+.tirea-sticky-burger-desktop-wrapper { position: relative; }
+.tirea-sticky-burger-desktop,
+.tirea-sticky-burger-mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.tirea-sticky-burger-mobile { display: none; }
+.tirea-sticky-burger-desktop span,
+.tirea-sticky-burger-mobile span {
+  display: block;
+  width: 19px;
+  height: 2px;
+  background: var(--tirea-color-text);
+  border-radius: 2px;
+  transition: transform var(--tirea-duration-base) ease,
+              opacity var(--tirea-duration-fast) ease;
+}
+.tirea-sticky-burger-desktop.active span:nth-child(1),
+.tirea-sticky-burger-mobile.active  span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.tirea-sticky-burger-desktop.active span:nth-child(2),
+.tirea-sticky-burger-mobile.active  span:nth-child(2) { opacity: 0; }
+.tirea-sticky-burger-desktop.active span:nth-child(3),
+.tirea-sticky-burger-mobile.active  span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* Dropdown sticky */
+.tirea-sticky-dropdown {
+  position: absolute;
+  top: calc(100% + 14px);
+  right: 0;
+  min-width: 280px;
+  padding: 16px;
+  background: var(--tirea-color-white);
+  border-radius: 16px;
+  box-shadow: var(--tirea-shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity var(--tirea-duration-base) ease,
+              visibility var(--tirea-duration-base) ease,
+              transform var(--tirea-duration-base) ease;
+  z-index: 100;
+}
+.tirea-sticky-dropdown.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.tirea-sticky-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -7px;
+  right: 12px;
+  width: 14px;
+  height: 14px;
+  background: var(--tirea-color-white);
+  transform: rotate(45deg);
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  border-left: 1px solid rgba(0, 0, 0, 0.04);
+}
+.tirea-sticky-dropdown a {
+  display: block;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #333;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 500;
+  transition: background var(--tirea-duration-fast),
+              color var(--tirea-duration-fast);
+}
+.tirea-sticky-dropdown a:hover {
+  background: var(--tirea-color-bg-soft);
+  color: var(--tirea-color-primary);
+}
+.tirea-sticky-dropdown a.active {
+  color: var(--tirea-color-primary);
+  background: var(--tirea-color-primary-bg);
+}
+
+/* ==========================================================================
+   11. BOUTON REMONTER EN HAUT
+   ========================================================================== */
+.tirea-back-to-top {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--tirea-color-text);
+  color: var(--tirea-color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: var(--tirea-shadow-md);
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+.tirea-back-to-top:hover {
+  background: var(--tirea-color-primary);
+  transform: translateY(-2px);
+}
+.tirea-back-to-top svg { width: 18px; height: 18px; }
+
+.tirea-back-to-top-desktop {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: var(--tirea-z-back-to-top);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.8);
+  transition: opacity var(--tirea-duration-base) ease,
+              transform var(--tirea-duration-base) ease,
+              visibility var(--tirea-duration-base) ease,
+              background 0.25s ease;
+}
+.tirea-back-to-top-desktop.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.tirea-back-to-top-mobile {
+  display: none;
+  width: 38px;
+  height: 38px;
+}
+.tirea-back-to-top-mobile svg { width: 16px; height: 16px; }
+
+/* ==========================================================================
+   12. RESPONSIVE — Tablette & mobile
+   ========================================================================== */
+@media (max-width: 1024px) {
+  /* Cache pilule + burger desktop + icône compte */
+  .tirea-nav-pill,
+  .tirea-burger-desktop-wrapper,
+  .tirea-icon-account,
+  .tirea-sticky-nav-pill,
+  .tirea-sticky-burger-desktop-wrapper,
+  .tirea-sticky-icon-account {
+    display: none;
+  }
+  .tirea-header-nav { display: none; }
+
+  /* Affiche burgers mobiles */
+  .tirea-burger-mobile,
+  .tirea-sticky-burger-mobile { display: flex; }
+
+  /* Réorganise : 2 colonnes (logo / icônes) */
+  .tirea-header { grid-template-columns: 1fr 1fr; padding: 5px 20px 0px; }
+
+  .tirea-header-icons { gap: 16px; }
+  .tirea-logo { width: 60px; }
+
+  /* Recherche overlay : padding réduit */
+  .tirea-search-form { padding: 40px 30px; }
+  .tirea-search-field input[type="search"] { font-size: 18px; }
+
+  /* Sticky */
+  .tirea-sticky-header { padding: 6px 20px; }
+  .tirea-sticky-logo-img { width: 45px; }
+  .tirea-sticky-icon-link svg { width: 18px; height: 18px; }
+  .tirea-sticky-icons { gap: 14px; }
+
+  /* Bouton remonter : visible au centre du sticky, caché en desktop flottant */
+  .tirea-back-to-top-mobile  { display: flex; }
+  .tirea-back-to-top-desktop { display: none; }
+}
+
+@media (max-width: 640px) {
+  .tirea-header-icons { gap: 18px; }
+  .tirea-header { padding: 5px 16px 0px; }
+  .tirea-icon-link svg { width: 20px; height: 20px; }
+  .tirea-mobile-menu-inner { padding: 80px 0 50px; }
+  .tirea-close { top: 18px; right: 18px; }
+  .tirea-search-form { padding: 30px 20px; }
+  .tirea-search-field input[type="search"] { font-size: 16px; }
+  .tirea-search-submit { padding: 8px 14px; font-size: 12px; }
+  .tirea-search-hint { font-size: 11px; }
+
+  .tirea-sticky-header { padding: 6px 16px; }
+  .tirea-sticky-icons { gap: 14px; }
+  .tirea-sticky-icon-link svg { width: 17px; height: 17px; }
+  .tirea-back-to-top-mobile { width: 36px; height: 36px; }
+  .tirea-back-to-top-mobile svg { width: 15px; height: 15px; }
+}
+
+/* ==========================================================================
+   13. ACCESSIBILITÉ — Respect des préférences utilisateur
+   ========================================================================== */
+
+/* Désactive les animations si l'utilisateur l'a demandé dans son OS */
+@media (prefers-reduced-motion: reduce) {
+  .tirea-promo-bar,
+  .tirea-header,
+  .tirea-sticky-header,
+  .tirea-mobile-menu,
+  .tirea-mobile-menu-inner,
+  .tirea-mobile-link,
+  .tirea-search-overlay,
+  .tirea-dropdown,
+  .tirea-sticky-dropdown,
+  .tirea-back-to-top,
+  .tirea-close,
+  .tirea-search-close,
+  .tirea-burger-desktop span,
+  .tirea-burger-mobile span,
+  .tirea-sticky-burger-desktop span,
+  .tirea-sticky-burger-mobile span,
+  .tirea-accordion-arrow {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   14. IMPRESSION — Cache le UI au print, garde le logo seul
+   ========================================================================== */
+@media print {
+  .tirea-promo-bar,
+  .tirea-header-nav,
+  .tirea-header-icons,
+  .tirea-sticky-header,
+  .tirea-mobile-menu,
+  .tirea-search-overlay,
+  .tirea-back-to-top {
+    display: none !important;
+  }
+  .tirea-header {
+    box-shadow: none;
+    grid-template-columns: 1fr;
+    padding: 10px 20px;
+  }
+}
+
+/* ==========================================================================
+   15. RESET DU CONTENEUR ELEMENTOR QUI HÉBERGE LE HEADER
+   On cible le widget HTML qui contient .tirea-promo-bar pour remonter
+   au parent .e-con et neutraliser son padding.
+   ========================================================================== */
+
+/* Le container Elementor qui contient notre header (a un widget contenant .tirea-promo-bar) */
+.e-con-full:has(.tirea-promo-bar) {
+  padding: 0;
+  --padding-block-start: 0;
+  --padding-block-end: 0;
+  --padding-inline-start: 0;
+  --padding-inline-end: 0;
+  gap: 0;
+}
+
+/* Le widget HTML qui rend le shortcode */
+.elementor-widget-html:has(.tirea-promo-bar) {
+  margin: 0;
+  padding: 0;
+}
+
+.elementor-widget-html:has(.tirea-promo-bar) .elementor-widget-container {
+  padding: 0;
+  margin: 0;
+}
+
+/* ============================================
+   Cible invisible du skip link
+   Permet au focus de sauter ici sans saut visuel
+   ============================================ */
+.tirea-skip-target {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}

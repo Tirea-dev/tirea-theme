@@ -1,0 +1,171 @@
+/* ============================================
+   TIREA — Section Ajusteur
+   ============================================ */
+
+.tirea-ajusteur-section {
+  padding: 100px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: #111;
+  text-align: center;
+  background: white;
+  overflow: hidden;
+}
+
+.tirea-section-overline {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: #1e6fc4;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.tirea-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  line-height: 1.1;
+  color: #000;
+  margin-bottom: 24px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.tirea-section-subtitle {
+  font-size: 17px;
+  color: #555;
+  max-width: 640px;
+  margin: 0 auto 60px;
+  line-height: 1.7;
+}
+
+.tirea-section-subtitle strong {
+  color: #000;
+  font-weight: 600;
+}
+
+.tirea-section-quote {
+  margin-top: 60px;
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: #1e6fc4;
+  font-style: italic;
+  font-weight: 400;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+}
+
+.tirea-section-quote strong {
+  color: #000;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.tirea-ajusteur-visual {
+  position: relative;
+  max-width: 1000px;
+  margin: 40px auto 0;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tirea-ajusteur-half {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 185px;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tirea-ajusteur-left {
+  left: 0;
+  transform: translateY(-50%) translateX(-50%);
+}
+
+.tirea-ajusteur-right {
+  right: 0;
+  transform: translateY(-50%) translateX(50%);
+}
+
+.tirea-ajusteur-visual.in-view .tirea-ajusteur-left {
+  transform: translateY(-50%) translateX(-20%);
+}
+
+.tirea-ajusteur-visual.in-view .tirea-ajusteur-right {
+  transform: translateY(-50%) translateX(20%);
+}
+
+.tirea-ajusteur-half img {
+  height: 100%;
+  width: auto;
+  display: block;
+}
+
+.tirea-ajusteur-cta {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.elementor a.tirea-ajusteur-btn,
+.tirea-ajusteur-btn {
+  text-decoration: none !important;
+}
+
+.tirea-ajusteur-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #000;
+  color: white;
+  border-radius: 50px;
+  padding: 18px 36px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Inter', -apple-system, sans-serif;
+  letter-spacing: 0.5px;
+  transition: background 0.2s ease;
+}
+
+.tirea-ajusteur-btn:hover,
+.tirea-ajusteur-btn:focus {
+  background: #1e6fc4;
+  color: white;
+}
+
+.tirea-ajusteur-btn:focus-visible {
+  outline: 2px solid #1e6fc4;
+  outline-offset: 3px;
+}
+
+@media (max-width: 1024px) {
+  .tirea-ajusteur-section { padding: 70px 40px; }
+  .tirea-section-title { font-size: 42px; }
+  .tirea-section-subtitle { font-size: 16px; }
+  .tirea-ajusteur-visual { height: 160px; }
+  .tirea-ajusteur-half { height: 145px; }
+}
+
+@media (max-width: 640px) {
+  .tirea-ajusteur-section { padding: 60px 20px; }
+  .tirea-section-overline { font-size: 11px; letter-spacing: 2px; margin-bottom: 16px; }
+  .tirea-section-title { font-size: 30px; margin-bottom: 18px; }
+  .tirea-section-subtitle { font-size: 14px; margin-bottom: 40px; line-height: 1.6; }
+  .tirea-section-quote { font-size: 17px; margin-top: 40px; }
+  .tirea-ajusteur-visual { height: 90px; margin-top: 20px; }
+  .tirea-ajusteur-half { height: 70px; }
+  .tirea-ajusteur-visual.in-view .tirea-ajusteur-left { transform: translateY(-50%) translateX(-15%); }
+  .tirea-ajusteur-visual.in-view .tirea-ajusteur-right { transform: translateY(-50%) translateX(15%); }
+  .tirea-ajusteur-cta { margin-top: 36px; }
+  .tirea-ajusteur-btn { padding: 14px 28px; font-size: 13px; }
+}
+
+@media (max-width: 380px) {
+  .tirea-section-title { font-size: 26px; }
+  .tirea-section-subtitle { font-size: 13px; }
+}

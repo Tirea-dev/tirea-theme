@@ -1,0 +1,138 @@
+/* ============================================
+   TIREA STORYTELLING — Styles
+   Animation "Un look ___" avec mots qui défilent en fondu
+   ============================================ */
+
+.tirea-storytelling {
+  padding: 40px 60px;
+  background: white;
+  text-align: center;
+  overflow: hidden;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+
+.tirea-story-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tirea-story-prefix {
+  font-family: 'Playfair Display', serif;
+  font-size: 64px;
+  font-weight: 600;
+  color: #000;
+  margin: 0 0 30px;
+  letter-spacing: -1px;
+}
+
+.tirea-story-words {
+  height: 120px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tirea-story-word {
+  position: absolute;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 80px;
+  font-weight: 600;
+  color: #1e6fc4;
+  letter-spacing: -2px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  margin: 0;
+}
+
+.tirea-story-word.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tirea-story-final {
+  font-size: 96px;
+  font-weight: 700;
+  letter-spacing: -3px;
+  line-height: 1.1;
+}
+
+/* ============================================
+   RESPECT prefers-reduced-motion
+   Affiche directement le mot final (pas d'animation cyclique)
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .tirea-story-word {
+    transition: none;
+    opacity: 0;
+    transform: none;
+  }
+  .tirea-story-word.tirea-story-final {
+    opacity: 1;
+    position: relative;
+  }
+}
+
+/* ============================================
+   RESPONSIVE LAPTOP (≤1280px)
+   ============================================ */
+@media (max-width: 1280px) {
+  .tirea-story-prefix { font-size: 56px; }
+  .tirea-story-word   { font-size: 70px; }
+  .tirea-story-final  { font-size: 80px; }
+}
+
+/* ============================================
+   RESPONSIVE TABLETTE (≤1024px)
+   ============================================ */
+@media (max-width: 1024px) {
+  .tirea-storytelling { padding: 60px 40px; }
+  .tirea-story-prefix {
+    font-size: 48px;
+    margin-bottom: 24px;
+  }
+  .tirea-story-words { height: 110px; }
+  .tirea-story-word {
+    font-size: 58px;
+    letter-spacing: -1.5px;
+  }
+  .tirea-story-final {
+    font-size: 64px;
+    letter-spacing: -2px;
+  }
+}
+
+/* ============================================
+   RESPONSIVE MOBILE (≤640px)
+   ============================================ */
+@media (max-width: 640px) {
+  .tirea-storytelling { padding: 50px 24px; }
+  .tirea-story-prefix {
+    font-size: 36px;
+    margin-bottom: 4px;
+    letter-spacing: -0.5px;
+  }
+  .tirea-story-words { height: 100px; }
+  .tirea-story-word {
+    font-size: 40px;
+    letter-spacing: -1px;
+    width: 100%;
+    line-height: 1.1;
+  }
+  .tirea-story-final {
+    font-size: 38px;
+    letter-spacing: -1px;
+    line-height: 1.15;
+  }
+}
+
+/* ============================================
+   RESPONSIVE TRÈS PETIT MOBILE (≤380px)
+   ============================================ */
+@media (max-width: 380px) {
+  .tirea-story-prefix { font-size: 32px; }
+  .tirea-story-word   { font-size: 34px; }
+  .tirea-story-final  { font-size: 32px; }
+}

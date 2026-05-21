@@ -1,0 +1,415 @@
+/* ============================================
+   TIREA FOOTER — Styles
+   Footer global : 4 colonnes + barre inférieure
+   ============================================ */
+
+.tirea-footer {
+  background: #f8f8f8;
+  padding: 80px 0 30px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+/* Force Inter sur tous les éléments du footer (override Playfair global) */
+.tirea-footer,
+.tirea-footer p,
+.tirea-footer a,
+.tirea-footer h2,
+.tirea-footer .tirea-footer-title,
+.tirea-footer button,
+.tirea-footer input,
+.tirea-footer label {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Reset listes du footer (override Elementor/thème qui forcent des puces) */
+.tirea-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tirea-footer li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tirea-footer li::before,
+.tirea-footer li::marker {
+  content: none;
+  display: none;
+}
+
+.tirea-footer-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+.tirea-footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+  gap: 60px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.tirea-footer-col {
+  font-size: 14px;
+}
+
+/* Utilitaire : visuellement caché mais accessible aux lecteurs d'écran */
+/* Sélecteur ultra-spécifique pour vaincre les overrides Elementor */
+.tirea-footer .tirea-sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  padding: 0 !important;
+  margin: -1px !important;
+}
+
+/* === COLONNE MARQUE === */
+.tirea-footer-logo-link {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.tirea-footer .tirea-footer-logo-link .tirea-footer-logo,
+img.tirea-footer-logo {
+  height: 85px;
+  width: auto;
+  max-width: 200px;
+  max-height: 85px;
+  object-fit: contain;
+  display: block;
+}
+
+.tirea-footer-tagline {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+
+/* === RÉSEAUX SOCIAUX === */
+.tirea-footer .tirea-socials {
+  display: flex;
+  gap: 14px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tirea-footer .tirea-socials li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+.tirea-footer .tirea-socials li::before,
+.tirea-footer .tirea-socials li::marker {
+  content: none;
+  display: none;
+}
+
+.tirea-footer .tirea-socials a {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.tirea-footer .tirea-socials a:hover,
+.tirea-footer .tirea-socials a:focus-visible {
+  background: #1e6fc4;
+  border-color: #1e6fc4;
+  color: white;
+  outline: none;
+}
+
+.tirea-footer .tirea-socials svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* === TITRES COLONNES === */
+.tirea-footer-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #000;
+  margin: 0 0 20px;
+  text-transform: uppercase;
+}
+
+/* === LISTES DE LIENS === */
+.tirea-footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tirea-footer-links li {
+  margin-bottom: 12px;
+  list-style: none;
+}
+
+.tirea-footer-links a {
+  color: #666;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.tirea-footer-links a:hover,
+.tirea-footer-links a:focus-visible {
+  color: #1e6fc4;
+  outline: none;
+}
+
+/* === NEWSLETTER === */
+.tirea-newsletter-text {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+  margin: 0 0 16px;
+}
+
+.tirea-newsletter-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.tirea-newsletter-form input[type="email"] {
+  flex: 1 1 auto;
+  min-width: 0; /* évite que l'input dépasse la grille flex */
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  background: white;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.tirea-newsletter-form input[type="email"]:focus {
+  border-color: #1e6fc4;
+}
+
+.tirea-newsletter-form button {
+  background: #000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tirea-newsletter-form button:hover,
+.tirea-newsletter-form button:focus-visible {
+  background: #1e6fc4;
+  outline: none;
+}
+
+/* Zone de feedback du form */
+.tirea-newsletter-feedback {
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0 0 12px;
+  min-height: 1em;
+}
+.tirea-newsletter-feedback.is-success { color: #16a34a; }
+.tirea-newsletter-feedback.is-error   { color: #dc2626; }
+
+.tirea-newsletter-legal {
+  font-size: 11px;
+  color: #999;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* === BARRE INFÉRIEURE === */
+.tirea-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 24px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.tirea-footer-bottom-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-size: 13px;
+  color: #999;
+  flex-wrap: wrap;
+}
+
+.tirea-footer-bottom-left a {
+  color: #999;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.tirea-footer-bottom-left a:hover,
+.tirea-footer-bottom-left a:focus-visible {
+  color: #1e6fc4;
+  outline: none;
+}
+
+/* === LOGOS PAIEMENT === */
+.tirea-footer .tirea-payments {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 6px;
+  align-items: center;
+  justify-content: flex-end;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tirea-footer .tirea-payments li {
+  list-style: none;
+  margin: 0;
+}
+
+.tirea-footer .tirea-payments .tirea-pay-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  width: 44px;
+  padding: 3px 5px;
+  background: white;
+  border: 1px solid #e8e8e8;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.tirea-footer .tirea-payments .tirea-pay-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* ============================================
+   RESPECT prefers-reduced-motion
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .tirea-footer * {
+    transition: none;
+  }
+}
+
+/* ============================================
+   RESPONSIVE TABLETTE (≤1024px)
+   ============================================ */
+@media (max-width: 1024px) {
+  .tirea-footer { padding: 60px 0 30px; }
+  .tirea-footer-inner { padding: 0 40px; }
+  .tirea-footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .tirea-footer .tirea-footer-logo-link .tirea-footer-logo,
+img.tirea-footer-logo {
+  height: 60px;
+  max-height: 60px;
+  max-width: 150px;
+}
+}
+
+/* ============================================
+   RESPONSIVE MOBILE (≤640px)
+   ============================================ */
+@media (max-width: 640px) {
+  .tirea-footer { padding: 50px 0 24px; }
+  .tirea-footer-inner { padding: 0 24px; }
+
+  .tirea-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    text-align: center;
+  }
+
+  .tirea-footer-logo-link {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tirea-footer .tirea-socials {
+    justify-content: center;
+  }
+
+  .tirea-newsletter-form {
+    flex-direction: column;
+    gap: 10px;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tirea-newsletter-form button {
+    padding: 14px 20px;
+  }
+
+  .tirea-footer-bottom {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .tirea-footer-bottom-left {
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .tirea-footer .tirea-payments {
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .tirea-footer .tirea-payments .tirea-pay-logo {
+    height: 24px;
+    width: 38px;
+    padding: 2px 4px;
+  }
+}

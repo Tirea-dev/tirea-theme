@@ -1,0 +1,400 @@
+<?php
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+// BEGIN ENQUEUE PARENT ACTION
+// AUTO GENERATED - Do not modify or remove comment markers above or below:
+
+if ( !function_exists( 'chld_thm_cfg_locale_css' ) ):
+    function chld_thm_cfg_locale_css( $uri ){
+        if ( empty( $uri ) && is_rtl() && file_exists( get_template_directory() . '/rtl.css' ) )
+            $uri = get_template_directory_uri() . '/rtl.css';
+        return $uri;
+    }
+endif;
+add_filter( 'locale_stylesheet_uri', 'chld_thm_cfg_locale_css' );
+         
+if ( !function_exists( 'child_theme_configurator_css' ) ):
+    function child_theme_configurator_css() {
+        wp_enqueue_style( 'chld_thm_cfg_child', trailingslashit( get_stylesheet_directory_uri() ) . 'style.css', array( 'hello-elementor','hello-elementor-theme-style','hello-elementor-header-footer' ) );
+    }
+endif;
+add_action( 'wp_enqueue_scripts', 'child_theme_configurator_css', 10 );
+
+/**
+ * NOTE GLOBALE TIREA — modifiable ici, se répercute partout
+ */
+if (!defined('TIREA_GLOBAL_RATING')) {
+    define('TIREA_GLOBAL_RATING', 4.5);
+    define('TIREA_GLOBAL_SHOW_COUNT', false);
+    define('TIREA_GLOBAL_COUNT', 0);
+}
+
+// END ENQUEUE PARENT ACTION
+// ============================================
+// TIREA — Sélecteur de packs WooCommerce
+// ============================================
+
+function tirea_enqueue_product_assets() {
+    if (is_product() || is_front_page()) {
+        wp_enqueue_style(
+            'tirea-product-css',
+            get_stylesheet_directory_uri() . '/assets/css/tirea-product.css',
+            [],
+            '1.0.0'
+        );
+    }
+
+    wp_enqueue_script(
+        'tirea-product-js',
+        get_stylesheet_directory_uri() . '/assets/js/tirea-product.js',
+        ['jquery'],
+        '1.0.0',
+        true
+    );
+
+    wp_localize_script('tirea-product-js', 'tireaData', [
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'checkout_url' => wc_get_checkout_url(),
+        'cart_url' => wc_get_cart_url(),
+    ]);
+}
+add_action('wp_enqueue_scripts', 'tirea_enqueue_product_assets');
+
+function tirea_product_selector_shortcode($atts) {
+    $atts = shortcode_atts(['id' => 0], $atts);
+    $product_id = intval($atts['id']);
+    if (!$product_id) return '';
+
+    $product = wc_get_product($product_id);
+    if (!$product || !$product->is_type('variable')) return '';
+
+    ob_start();
+    $tirea_product = $product;
+    include get_stylesheet_directory() . '/tirea-product-selector.php';
+    return ob_get_clean();
+}
+add_shortcode('tirea_product_selector', 'tirea_product_selector_shortcode');
+
+function tirea_ajax_add_to_cart() {
+    $variation_id = isset($_POST['variation_id']) ? intval($_POST['variation_id']) : 0;
+    $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
+    $quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
+
+    if (!$variation_id || !$product_id) {
+        wp_send_json_error(['message' => 'Données manquantes']);
+    }
+
+    $variation = wc_get_product($variation_id);
+    if (!$variation) {
+        wp_send_json_error(['message' => 'Variation introuvable']);
+    }
+
+    $variation_attributes = $variation->get_variation_attributes();
+
+    $added = WC()->cart->add_to_cart(
+        $product_id,
+        $quantity,
+        $variation_id,
+        $variation_attributes
+    );
+
+    if ($added) {
+        wp_send_json_success([
+            'redirect' => wc_get_checkout_url(),
+            'cart_count' => WC()->cart->get_cart_contents_count(),
+        ]);
+    } else {
+        wp_send_json_error(['message' => 'Erreur lors de l\'ajout au panier']);
+    }
+}
+add_action('wp_ajax_tirea_add_to_cart', 'tirea_ajax_add_to_cart');
+add_action('wp_ajax_nopriv_tirea_add_to_cart', 'tirea_ajax_add_to_cart');
+
+function tirea_mini_selector_shortcode($atts) {
+    $atts = shortcode_atts(['id' => 0], $atts);
+    $product_id = intval($atts['id']);
+    if (!$product_id) return '';
+
+    $product = wc_get_product($product_id);
+    if (!$product || !$product->is_type('variable')) return '';
+
+    ob_start();
+    $tirea_product = $product;
+    include get_stylesheet_directory() . '/tirea-mini-selector.php';
+    return ob_get_clean();
+}
+add_shortcode('tirea_mini_selector', 'tirea_mini_selector_shortcode');
+
+if (!function_exists('tirea_reviews_shortcode')) {
+    function tirea_reviews_shortcode($atts) {
+        ob_start();
+        include get_stylesheet_directory() . '/tirea-reviews.php';
+        return ob_get_clean();
+    }
+    add_shortcode('tirea_reviews', 'tirea_reviews_shortcode');
+}
+
+// ============================================
+// TIREA — Header
+// ============================================
+
+function tirea_enqueue_header_assets() {
+    wp_enqueue_style(
+        'tirea-header-css',
+        get_stylesheet_directory_uri() . '/assets/css/tirea-header.css',
+        [],
+        '1.0.0'
+    );
+
+    wp_enqueue_script(
+        'tirea-header-js',
+        get_stylesheet_directory_uri() . '/assets/js/tirea-header.js',
+        [],
+        '1.0.0',
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'tirea_enqueue_header_assets');
+
+function tirea_defer_header_js($tag, $handle) {
+    if ('tirea-header-js' === $handle) {
+        return str_replace(' src=', ' defer src=', $tag);
+    }
+    return $tag;
+}
+add_filter('script_loader_tag', 'tirea_defer_header_js', 10, 2);
+
+function tirea_header_shortcode() {
+    ob_start();
+    include get_stylesheet_directory() . '/tirea-header.php';
+    return ob_get_clean();
+}
+add_shortcode('tirea_header', 'tirea_header_shortcode');
+
+// ============================================
+// TIREA — Hero (page d'accueil)
+// ============================================
+
+function tirea_enqueue_hero_assets() {
+    if (!is_front_page()) return;
+
+    wp_enqueue_style(
+        'tirea-hero-css',
+        get_stylesheet_directory_uri() . '/assets/css/tirea-hero.css',
+        [],
+        '1.0.0'
+    );
+}
+add_action('wp_enqueue_scripts', 'tirea_enqueue_hero_assets');
+
+function tirea_hero_shortcode() {
+    ob_start();
+    include get_stylesheet_directory() . '/tirea-hero.php';
+    return ob_get_clean();
+}
+add_shortcode('tirea_hero', 'tirea_hero_shortcode');
+
+// ============================================
+// TIREA — Réassurance pilule
+// ============================================
+
+function tirea_enqueue_reassurance_pill_assets() {
+    wp_enqueue_style(
+        'tirea-reassurance-pill-css',
+        get_stylesheet_directory_uri() . '/assets/css/tirea-reassurance-pill.css',
+        [],
+        '1.0.0'
+    );
+}
+add_action('wp_enqueue_scripts', 'tirea_enqueue_reassurance_pill_assets');
+
+function tirea_reassurance_pill_shortcode() {
+    ob_start();
+    include get_stylesheet_directory() . '/tirea-reassurance-pill.php';
+    return ob_get_clean();
+}
+add_shortcode('tirea_reassurance_pill', 'tirea_reassurance_pill_shortcode');
+
+// ============================================
+// TIREA — Réassurance card
+// ============================================
+
+function tirea_enqueue_reassurance_card_assets() {
+    wp_enqueue_style(
+        'tirea-reassurance-card-css',
+        get_stylesheet_directory_uri() . '/assets/css/tirea-reassurance-card.css',
+        [],
+        '1.0.0'
+    );
+}
+add_action('wp_enqueue_scripts', 'tirea_enqueue_reassurance_card_assets');
+
+function tirea_reassurance_card_shortcode() {
+    ob_start();
+    include get_stylesheet_directory() . '/tirea-reassurance-card.php';
+    return ob_get_clean();
+}
+add_shortcode('tirea_reassurance_card', 'tirea_reassurance_card_shortcode');
+
+// ============================================
+// TIREA — Ajusteur
+// ============================================
+
+function tirea_enqueue_ajusteur_assets() {
+    wp_enqueue_style(
+        'tirea-ajusteur-css',
+        get_stylesheet_directory_uri() . '/assets/css/tirea-ajusteur.css',
+        [],
+        '1.0.0'
+    );
+
+    wp_enqueue_script(
+        'tirea-ajusteur-js',
+        get_stylesheet_directory_uri() . '/assets/js/tirea-ajusteur.js',
+        [],
+        '1.0.0',
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'tirea_enqueue_ajusteur_assets');
+
+function tirea_defer_ajusteur_js($tag, $handle) {
+    if ('tirea-ajusteur-js' === $handle) {
+        return str_replace(' src=', ' defer src=', $tag);
+    }
+    return $tag;
+}
+add_filter('script_loader_tag', 'tirea_defer_ajusteur_js', 10, 2);
+
+function tirea_ajusteur_shortcode($atts) {
+    $atts = shortcode_atts(['show_cta' => '1'], $atts);
+    $show_cta = ($atts['show_cta'] === '1');
+
+    ob_start();
+    include get_stylesheet_directory() . '/tirea-ajusteur.php';
+    return ob_get_clean();
+}
+add_shortcode('tirea_ajusteur', 'tirea_ajusteur_shortcode');
+
+// ============================================
+// TIREA — Footer (global, toutes pages)
+// ============================================
+
+function tirea_enqueue_footer_assets() {
+    wp_enqueue_style(
+        'tirea-footer-css',
+        get_stylesheet_directory_uri() . '/assets/css/tirea-footer.css',
+        [],
+        '1.0.0'
+    );
+
+    wp_enqueue_script(
+        'tirea-footer-js',
+        get_stylesheet_directory_uri() . '/assets/js/tirea-footer.js',
+        [],
+        '1.0.0',
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'tirea_enqueue_footer_assets');
+
+function tirea_defer_footer_js($tag, $handle) {
+    if ('tirea-footer-js' === $handle) {
+        return str_replace(' src=', ' defer src=', $tag);
+    }
+    return $tag;
+}
+add_filter('script_loader_tag', 'tirea_defer_footer_js', 10, 2);
+
+function tirea_footer_shortcode() {
+    ob_start();
+    include get_stylesheet_directory() . '/tirea-footer.php';
+    return ob_get_clean();
+}
+add_shortcode('tirea_footer', 'tirea_footer_shortcode');
+
+// ============================================
+// TIREA — Result (bloc "résultat instantané" réutilisable)
+// ============================================
+
+function tirea_enqueue_result_assets() {
+    if (!is_front_page() && !is_product()) return;
+
+    wp_enqueue_style(
+        'tirea-result-css',
+        get_stylesheet_directory_uri() . '/assets/css/tirea-result.css',
+        [],
+        '1.0.0'
+    );
+
+    wp_enqueue_script(
+        'tirea-result-js',
+        get_stylesheet_directory_uri() . '/assets/js/tirea-result.js',
+        [],
+        '1.0.0',
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'tirea_enqueue_result_assets');
+
+function tirea_defer_result_js($tag, $handle) {
+    if ('tirea-result-js' === $handle) {
+        return str_replace(' src=', ' defer src=', $tag);
+    }
+    return $tag;
+}
+add_filter('script_loader_tag', 'tirea_defer_result_js', 10, 2);
+
+function tirea_result_shortcode() {
+    ob_start();
+    include get_stylesheet_directory() . '/tirea-result.php';
+    return ob_get_clean();
+}
+add_shortcode('tirea_result', 'tirea_result_shortcode');
+
+// ============================================
+// TIREA — Storytelling (animation "Un look ___")
+// ============================================
+
+/**
+ * Enqueue CSS + JS du storytelling
+ */
+function tirea_enqueue_storytelling_assets() {
+    wp_enqueue_style(
+        'tirea-storytelling-css',
+        get_stylesheet_directory_uri() . '/assets/css/tirea-storytelling.css',
+        [],
+        '1.0.0'
+    );
+
+    wp_enqueue_script(
+        'tirea-storytelling-js',
+        get_stylesheet_directory_uri() . '/assets/js/tirea-storytelling.js',
+        [],
+        '1.0.0',
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'tirea_enqueue_storytelling_assets');
+
+/**
+ * Ajoute defer au JS du storytelling (chargement non-bloquant)
+ */
+function tirea_defer_storytelling_js($tag, $handle) {
+    if ('tirea-storytelling-js' === $handle) {
+        return str_replace(' src=', ' defer src=', $tag);
+    }
+    return $tag;
+}
+add_filter('script_loader_tag', 'tirea_defer_storytelling_js', 10, 2);
+
+/**
+ * Shortcode [tirea_storytelling]
+ */
+function tirea_storytelling_shortcode() {
+    ob_start();
+    include get_stylesheet_directory() . '/tirea-storytelling.php';
+    return ob_get_clean();
+}
+add_shortcode('tirea_storytelling', 'tirea_storytelling_shortcode');
