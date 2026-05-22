@@ -40,13 +40,13 @@ $tirea_guide_headers = [
 // 'gif' n'est utilisé qu'en variante full.
 $tirea_guide_steps = [
     'full' => [
-        ['label' => 'Étape I',   'title' => 'Ancrage à la chemise',      'img' => 'https://tirea.fr/wp-content/uploads/2026/05/etape1_enfilez.jpg',  'gif' => 'https://tirea.fr/wp-content/uploads/2026/05/IMG_3069.gif', 'action' => 'Insérez',   'text' => "l'accroche dans <strong>le dernier bouton</strong>."],
-        ['label' => 'Étape II',  'title' => "Verrouillage de l'ensemble", 'img' => 'https://tirea.fr/wp-content/uploads/2026/05/etape2_refermez.jpg', 'gif' => 'https://tirea.fr/wp-content/uploads/2026/05/IMG_3070.gif', 'action' => 'Insérez',   'text' => "la boucle dans <strong>l'accroche en acier</strong>."],
-        ['label' => 'Étape III', 'title' => 'Ajustement de la tension',   'img' => 'https://tirea.fr/wp-content/uploads/2026/05/etape3_ajustez.jpg',  'gif' => 'https://tirea.fr/wp-content/uploads/2026/05/IMG_3071.gif', 'action' => 'Resserrez', 'text' => "l'ajusteur de taille pour <strong>une efficacité maximale</strong>."],
+        ['label' => 'Étape I',   'title' => 'Ancrez',      'img' => 'https://tirea.fr/wp-content/uploads/2026/05/etape1_enfilez.jpg',  'gif' => 'https://tirea.fr/wp-content/uploads/2026/05/IMG_3069.gif', 'action' => 'Insérez',   'text' => "l'accroche dans <strong>le dernier bouton</strong> de la chemise."],
+        ['label' => 'Étape II',  'title' => "Verrouillez", 'img' => 'https://tirea.fr/wp-content/uploads/2026/05/etape2_refermez.jpg', 'gif' => 'https://tirea.fr/wp-content/uploads/2026/05/IMG_3070.gif', 'action' => 'Insérez',   'text' => "la boucle dans <strong>l'accroche en acier</strong>."],
+        ['label' => 'Étape III', 'title' => 'Ajustez',   'img' => 'https://tirea.fr/wp-content/uploads/2026/05/etape3_ajustez.jpg',  'gif' => 'https://tirea.fr/wp-content/uploads/2026/05/IMG_3071.gif', 'action' => 'Adaptez', 'text' => "à votre taille pour <strong>une efficacité maximale</strong>."],
     ],
     'light' => [
-        ['label' => 'Étape I',   'title' => 'Enfilez',  'img' => 'https://tirea.fr/wp-content/uploads/2026/05/etape1_enfilez.jpg',  'gif' => '', 'action' => '', 'text' => ''],
-        ['label' => 'Étape II',  'title' => 'Refermez', 'img' => 'https://tirea.fr/wp-content/uploads/2026/05/etape2_refermez.jpg', 'gif' => '', 'action' => '', 'text' => ''],
+        ['label' => 'Étape I',   'title' => 'Ancrez',  'img' => 'https://tirea.fr/wp-content/uploads/2026/05/etape1_enfilez.jpg',  'gif' => '', 'action' => '', 'text' => ''],
+        ['label' => 'Étape II',  'title' => 'Verrouillez', 'img' => 'https://tirea.fr/wp-content/uploads/2026/05/etape2_refermez.jpg', 'gif' => '', 'action' => '', 'text' => ''],
         ['label' => 'Étape III', 'title' => 'Ajustez',  'img' => 'https://tirea.fr/wp-content/uploads/2026/05/etape3_ajustez.jpg',  'gif' => '', 'action' => '', 'text' => ''],
     ],
 ];
