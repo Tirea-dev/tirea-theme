@@ -284,48 +284,8 @@ $steps = [
 <?php // ===== SECTION 4 — RÉSULTAT IMMÉDIAT (factorisé via shortcode) ===== ?>
 <?php echo do_shortcode('[tirea_result]'); ?>
 
-<!-- ============================================
-     SECTION 5 — GUIDE D'UTILISATION
-     ============================================ -->
-<section class="tirea-guide-section">
-  <div class="tirea-section-overline">Le guide d'utilisation</div>
-  <h2 class="tirea-section-title">Simple comme bonjour</h2>
-  <p class="tirea-section-subtitle">
-    Une <strong>simplicité imbattable</strong>. En quelques secondes, votre silhouette est parfaitement ajustée.
-  </p>
-
-  <div class="tirea-steps">
-    <?php foreach ($steps as $step): ?>
-      <div class="tirea-step">
-        <div class="tirea-step-illustration">
-          <img src="<?php echo esc_url($step['img']); ?>" alt="Étape <?php echo esc_attr($step['num']); ?>" loading="lazy">
-        </div>
-        <div class="tirea-step-gif">
-          <img src="<?php echo esc_url($step['gif']); ?>" alt="Animation étape <?php echo esc_attr($step['num']); ?>" loading="lazy">
-        </div>
-        <div class="tirea-step-number">Étape <?php echo esc_html($step['num']); ?></div>
-        <div class="tirea-step-title"><?php echo esc_html($step['title']); ?></div>
-        <div class="tirea-step-text"><span class="tirea-accent"><?php echo esc_html($step['action']); ?></span> <?php echo wp_kses_post($step['text']); ?></div>
-      </div>
-    <?php endforeach; ?>
-  </div>
-</section>
-
-<!-- ============================================
-     SECTION 6 — RÉSULTAT (illustration "C'est prêt")
-     ============================================ -->
-<section class="tirea-final-section">
-  <div class="tirea-section-overline">Résultat</div>
-  <h2 class="tirea-section-title">C'est prêt.</h2>
-  <div class="tirea-final-image">
-    <img src="https://tirea.fr/wp-content/uploads/2026/05/resultat.jpg" alt="Résultat final" loading="lazy">
-  </div>
-  <p class="tirea-final-text">
-    Une chemise <strong>impeccable au quotidien</strong>.<br>
-    Ne laissez plus jamais la place au hasard.
-  </p>
-  <div class="tirea-final-tagline">L'essayer, c'est l'adopter.</div>
-</section>
+<?php // ===== SECTIONS 5 & 6 — GUIDE + RÉSULTAT "C'EST PRÊT" (factorisé via shortcode) ===== ?>
+<?php echo do_shortcode('[tirea_guide variant="full"]'); ?>
 
 <!-- ============================================
      SECTION 7 — PHOTO LIFESTYLE FINALE + CTA

@@ -398,3 +398,30 @@ function tirea_storytelling_shortcode() {
     return ob_get_clean();
 }
 add_shortcode('tirea_storytelling', 'tirea_storytelling_shortcode');
+
+// ============================================
+// TIREA — Guide d'utilisation (factorisé, variantes light/full)
+// ============================================
+
+function tirea_enqueue_guide_assets() {
+    if (!is_product() && !is_front_page()) return;
+
+    $css_path = get_stylesheet_directory() . '/assets/css/tirea-guide.css';
+    wp_enqueue_style(
+        'tirea-guide-css',
+        get_stylesheet_directory_uri() . '/assets/css/tirea-guide.css',
+        [],
+        file_exists($css_path) ? filemtime($css_path) : null
+    );
+}
+add_action('wp_enqueue_scripts', 'tirea_enqueue_guide_assets');
+
+function tirea_guide_shortcode($atts) {
+    $atts = shortcode_atts(['variant' => 'full'], $atts);
+    $tirea_guide_variant = ($atts['variant'] === 'light') ? 'light' : 'full';
+
+    ob_start();
+    include get_stylesheet_directory() . '/tirea-guide.php';
+    return ob_get_clean();
+}
+add_shortcode('tirea_guide', 'tirea_guide_shortcode');
