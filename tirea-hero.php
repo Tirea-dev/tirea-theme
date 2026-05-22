@@ -49,18 +49,32 @@ $tirea_hero_card_label = 'RÉSULTAT INSTANTANÉ';
 $tirea_hero_card_text  = 'Maintien parfait, même en mouvement.';
 ?>
 
-<?php // Préload image LCP — injecté ici plutôt qu'enqueue PHP, plus simple à maintenir ?>
-<link rel="preload" as="image" href="<?php echo esc_url($tirea_hero_image_desktop); ?>" fetchpriority="high">
+<?php // Préload LCP — une balise par breakpoint, le navigateur ne télécharge que celle qui matche ?>
+<link rel="preload" as="image"
+      href="<?php echo esc_url($tirea_hero_image_desktop); ?>"
+      media="(min-width: 641px)"
+      fetchpriority="high">
+<link rel="preload" as="image"
+      href="<?php echo esc_url($tirea_hero_image_mobile); ?>"
+      media="(max-width: 640px)"
+      fetchpriority="high">
+
+<?php // Injection des URLs CONFIG vers le CSS via variables CSS — une seule source de vérité ?>
+<style>
+  .tirea-hero {
+    --tirea-hero-bg: url('<?php echo esc_url($tirea_hero_image_desktop); ?>');
+    --tirea-hero-bg-mobile: url('<?php echo esc_url($tirea_hero_image_mobile); ?>');
+  }
+</style>
 
 <section class="tirea-hero" aria-labelledby="tirea-hero-title">
 
   <?php // Image hero en <img> sémantique cachée (lue par lecteurs d'écran + SEO) ?>
-  <?php // Le visuel est rendu via background-image CSS pour le contrôle du dégradé ?>
+  <?php // Pas de fetchpriority : le preload ci-dessus est le seul signal de priorité LCP ?>
   <img src="<?php echo esc_url($tirea_hero_image_desktop); ?>"
        alt="<?php echo esc_attr($tirea_hero_image_alt); ?>"
        class="tirea-hero-img-sr"
-       width="1920" height="1080"
-       fetchpriority="high">
+       width="1920" height="1080">
 
   <div class="tirea-hero-content">
     <div class="tirea-hero-text">

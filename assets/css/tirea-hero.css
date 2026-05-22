@@ -25,7 +25,7 @@
   height: 70vh;
   height: 70dvh;
   min-height: 700px;
-  background-image: url('https://tirea.fr/wp-content/uploads/2026/05/ajusteur-tirea-homme-femme.webp');
+  background-image: var(--tirea-hero-bg);
   background-size: cover;
   background-position: center;
   overflow: hidden;
@@ -292,7 +292,7 @@ img.tirea-avatar {
 
   /* === IMAGE DE FOND SPÉCIALE MOBILE === */
   section.tirea-hero {
-    background-image: url('https://tirea.fr/wp-content/uploads/2026/05/ajusteur-tirea-unisexe.webp');
+    background-image: var(--tirea-hero-bg-mobile);
     background-position: center;
     background-size: cover;
     min-height: auto;

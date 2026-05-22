@@ -176,14 +176,19 @@ add_shortcode('tirea_header', 'tirea_header_shortcode');
 // TIREA — Hero (page d'accueil)
 // ============================================
 
+// ============================================
+// TIREA — Hero (page d'accueil)
+// ============================================
+
 function tirea_enqueue_hero_assets() {
     if (!is_front_page()) return;
 
+    $css_path = get_stylesheet_directory() . '/assets/css/tirea-hero.css';
     wp_enqueue_style(
         'tirea-hero-css',
         get_stylesheet_directory_uri() . '/assets/css/tirea-hero.css',
         [],
-        '1.0.0'
+        file_exists($css_path) ? filemtime($css_path) : null
     );
 }
 add_action('wp_enqueue_scripts', 'tirea_enqueue_hero_assets');
