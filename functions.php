@@ -425,3 +425,93 @@ function tirea_guide_shortcode($atts) {
     return ob_get_clean();
 }
 add_shortcode('tirea_guide', 'tirea_guide_shortcode');
+
+// ============================================
+// TIREA — FAQ
+// ============================================
+
+function tirea_enqueue_faq_assets() {
+    if (!is_front_page()) return;
+
+    $css_path = get_stylesheet_directory() . '/assets/css/tirea-faq.css';
+    $js_path  = get_stylesheet_directory() . '/assets/js/tirea-faq.js';
+
+    wp_enqueue_style(
+        'tirea-faq-css',
+        get_stylesheet_directory_uri() . '/assets/css/tirea-faq.css',
+        [],
+        file_exists($css_path) ? filemtime($css_path) : null
+    );
+
+    wp_enqueue_script(
+        'tirea-faq-js',
+        get_stylesheet_directory_uri() . '/assets/js/tirea-faq.js',
+        [],
+        file_exists($js_path) ? filemtime($js_path) : null,
+        true
+    );
+
+    wp_localize_script('tirea-faq-js', 'tireaFaqData', [
+        'ajax_url' => admin_url('admin-ajax.php'),
+    ]);
+}
+add_action('wp_enqueue_scripts', 'tirea_enqueue_faq_assets');
+
+function tirea_defer_faq_js($tag, $handle) {
+    if ('tirea-faq-js' === $handle) {
+        return str_replace(' src=', ' defer src=', $tag);
+    }
+    return $tag;
+}
+add_filter('script_loader_tag', 'tirea_defer_faq_js', 10, 2);
+
+function tirea_faq_shortcode() {
+    ob_start();
+    include get_stylesheet_directory() . '/tirea-faq.php';
+    return ob_get_clean();
+}
+add_shortcode('tirea_faq', 'tirea_faq_shortcode');
+
+/**
+ * Handler AJAX — envoi du formulaire de contact FAQ via wp_mail()
+ */
+function tirea_faq_contact_handler() {
+    // Vérif nonce
+    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'tirea_faq_contact')) {
+        wp_send_json_error(['message' => 'Session expirée, rechargez la page.']);
+    }
+
+    // Honeypot : si rempli, on simule un succès silencieux (bot)
+    if (!empty($_POST['website'])) {
+        wp_send_json_success(['message' => 'Message envoyé ! Nous vous répondons sous 24h.']);
+    }
+
+    $name    = isset($_POST['name'])    ? sanitize_text_field(wp_unslash($_POST['name']))    : '';
+    $email   = isset($_POST['email'])   ? sanitize_email(wp_unslash($_POST['email']))        : '';
+    $message = isset($_POST['message']) ? sanitize_textarea_field(wp_unslash($_POST['message'])) : '';
+
+    if (!$name || !is_email($email) || !$message) {
+        wp_send_json_error(['message' => 'Merci de remplir tous les champs correctement.']);
+    }
+
+    $to      = 'contact@tirea.fr';
+    $subject = 'Question FAQ — ' . $name;
+    $body    = "Nouveau message depuis la FAQ Tirea :\n\n"
+             . "Nom : $name\n"
+             . "Email : $email\n\n"
+             . "Message :\n$message\n";
+    $headers = [
+        'Content-Type: text/plain; charset=UTF-8',
+        'Reply-To: ' . $name . ' <' . $email . '>',
+    ];
+
+    $sent = wp_mail($to, $subject, $body, $headers);
+
+    if ($sent) {
+        wp_send_json_success(['message' => 'Message envoyé ! Nous vous répondons sous 24h.']);
+    } else {
+        wp_send_json_error(['message' => "L'envoi a échoué. Réessayez ou écrivez-nous à contact@tirea.fr."]);
+    }
+}
+add_action('wp_ajax_tirea_faq_contact', 'tirea_faq_contact_handler');
+add_action('wp_ajax_nopriv_tirea_faq_contact', 'tirea_faq_contact_handler');

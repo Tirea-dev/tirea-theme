@@ -1,0 +1,529 @@
+/* ============================================
+   TIREA — FAQ
+   ============================================ */
+
+.tirea-faq {
+    --tirea-faq-blue: #2563EB;
+    --tirea-faq-blue-soft: #EAF1FE;
+    --tirea-faq-ink: #0A0A0A;
+    --tirea-faq-txt: #3a3a3a;
+    --tirea-faq-mute: #7a7a7a;
+    --tirea-faq-line: #ECECEC;
+    --tirea-faq-bg: #fff;
+
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    color: var(--tirea-faq-ink);
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.tirea-faq *,
+.tirea-faq *::before,
+.tirea-faq *::after {
+    box-sizing: border-box;
+}
+
+/* ===== Neutralise les héritages Elementor parasites ===== */
+.tirea-faq a {
+    text-decoration: none !important;
+}
+
+.tirea-faq a:hover,
+.tirea-faq a:focus {
+    text-decoration: none !important;
+}
+
+.tirea-faq button {
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.tirea-faq button:focus,
+.tirea-faq button:active {
+    outline: none;
+    box-shadow: none;
+}
+
+.tirea-faq button:focus-visible,
+.tirea-faq input:focus-visible,
+.tirea-faq textarea:focus-visible,
+.tirea-faq summary:focus-visible {
+    outline: 2px solid var(--tirea-faq-blue);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.tirea-faq-hero {
+    text-align: center;
+    padding: 8px 0 40px;
+}
+
+.tirea-faq-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--tirea-faq-blue-soft);
+    color: var(--tirea-faq-blue);
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 35px;
+}
+
+.tirea-faq-badge::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--tirea-faq-blue);
+}
+
+.tirea-faq-h2 {
+    margin: 0;
+    font-family: "Playfair Display", serif;
+    font-weight: 300;
+    font-size: 60px;
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    color: var(--tirea-faq-ink);
+}
+
+.tirea-faq-h2 em {
+    font-style: italic;
+    color: var(--tirea-faq-blue);
+    font-family: "Playfair Display", serif;
+}
+
+.tirea-faq-dot {
+    color: var(--tirea-faq-blue);
+}
+
+.tirea-faq-intro {
+    margin: 30px auto 0;
+    max-width: 560px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--tirea-faq-mute);
+}
+
+/* ============================================
+   BARRE DE RECHERCHE
+   ============================================ */
+.tirea-faq-search {
+    margin: 0 0 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 8px 6px 18px;
+    background: #fff;
+    border: 1px solid var(--tirea-faq-line);
+    border-radius: 999px;
+    max-width: 520px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.tirea-faq-search-icon {
+    flex-shrink: 0;
+    color: var(--tirea-faq-mute);
+}
+
+.tirea-faq-search-input {
+    flex: 1;
+    border: 0;
+    outline: none;
+    background: transparent;
+    padding: 10px 0;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--tirea-faq-ink);
+}
+
+/* ===== Bouton "Tout déplier" — override Elementor ===== */
+.tirea-faq-expand-btn {
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--tirea-faq-line);
+    background: #fff;
+    background-color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--tirea-faq-ink);
+    transition: border-color 0.2s ease;
+}
+
+.tirea-faq-expand-btn:hover,
+.tirea-faq-expand-btn:focus,
+.tirea-faq-expand-btn:active,
+.tirea-faq-expand-btn:focus-visible {
+    background: #fff !important;
+    background-color: #fff !important;
+    color: var(--tirea-faq-ink) !important;
+    border-color: var(--tirea-faq-ink) !important;
+}
+
+/* ============================================
+   ACCORDÉON
+   ============================================ */
+.tirea-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tirea-faq-item {
+    border: 1px solid var(--tirea-faq-line);
+    border-radius: 14px;
+    background: #fff;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    overflow: hidden;
+}
+
+.tirea-faq-item[open] {
+    border-color: var(--tirea-faq-ink);
+    box-shadow: 0 8px 28px rgba(10, 10, 10, 0.08);
+}
+
+.tirea-faq-summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px 26px;
+    cursor: pointer;
+}
+
+.tirea-faq-summary::-webkit-details-marker {
+    display: none;
+}
+
+.tirea-faq-summary-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+    min-width: 0;
+}
+
+.tirea-faq-num {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 13px;
+    color: var(--tirea-faq-mute);
+    font-weight: 500;
+    min-width: 28px;
+    flex-shrink: 0;
+}
+
+.tirea-faq-q {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--tirea-faq-ink);
+    flex: 1;
+}
+
+.tirea-faq-icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    color: var(--tirea-faq-ink);
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.25s ease;
+}
+
+.tirea-faq-item[open] .tirea-faq-icon {
+    transform: rotate(45deg);
+    color: var(--tirea-faq-blue);
+}
+
+.tirea-faq-answer {
+    padding: 0 26px 22px 70px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--tirea-faq-txt);
+}
+
+.tirea-faq-answer p {
+    margin: 0 0 12px;
+}
+
+.tirea-faq-answer p:last-child {
+    margin-bottom: 0;
+}
+
+.tirea-faq-answer ul {
+    margin: 8px 0 12px;
+    padding-left: 20px;
+}
+
+.tirea-faq-answer li {
+    margin: 4px 0;
+}
+
+.tirea-faq-answer em {
+    color: var(--tirea-faq-blue);
+    font-style: italic;
+    font-family: "Playfair Display", serif;
+}
+
+.tirea-faq-answer b {
+    color: var(--tirea-faq-ink);
+    font-weight: 600;
+}
+
+.tirea-faq-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+}
+
+.tirea-faq-tag {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--tirea-faq-blue-soft);
+    color: var(--tirea-faq-blue);
+}
+
+/* ============================================
+   ÉTAT VIDE
+   ============================================ */
+.tirea-faq-empty {
+    padding: 48px 24px;
+    text-align: center;
+    color: var(--tirea-faq-mute);
+    font-size: 15px;
+}
+
+/* ============================================
+   FORMULAIRE DE CONTACT
+   ============================================ */
+.tirea-faq-contact {
+    margin-top: 56px;
+    padding: 44px 40px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, #F7F7F8 0%, #fff 100%);
+    border: 1px solid var(--tirea-faq-line);
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 44px;
+    align-items: start;
+}
+
+.tirea-faq-contact-title {
+    margin: 0 0 12px;
+    font-family: "Playfair Display", serif;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.tirea-faq-contact-title em {
+    color: var(--tirea-faq-blue);
+    font-style: italic;
+    font-family: "Playfair Display", serif;
+}
+
+.tirea-faq-contact-lead {
+    margin: 0;
+    color: var(--tirea-faq-mute);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 380px;
+}
+
+.tirea-faq-contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tirea-faq-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.tirea-faq-contact-form input[type="text"],
+.tirea-faq-contact-form input[type="email"],
+.tirea-faq-contact-form textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--tirea-faq-line);
+    border-radius: 14px;
+    font-size: 14px;
+    font-family: inherit;
+    background: #fff;
+    color: var(--tirea-faq-ink);
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.tirea-faq-contact-form input:focus,
+.tirea-faq-contact-form textarea:focus {
+    border-color: var(--tirea-faq-ink);
+}
+
+.tirea-faq-contact-form input.error,
+.tirea-faq-contact-form textarea.error {
+    border-color: #DC2626;
+}
+
+.tirea-faq-contact-form textarea {
+    min-height: 110px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+/* ===== Bouton "Envoyer ma question" — override Elementor ===== */
+.tirea-faq-submit {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 26px;
+    background: var(--tirea-faq-ink);
+    background-color: var(--tirea-faq-ink);
+    color: #fff;
+    border: 0;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.tirea-faq-submit:hover,
+.tirea-faq-submit:focus,
+.tirea-faq-submit:active,
+.tirea-faq-submit:focus-visible {
+    background: #1f1f1f !important;
+    background-color: #1f1f1f !important;
+    color: #fff !important;
+}
+
+.tirea-faq-submit:hover {
+    transform: translateY(-1px);
+}
+
+.tirea-faq-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.tirea-faq-form-status {
+    margin: 6px 0 0;
+    font-size: 13px;
+    min-height: 18px;
+}
+
+.tirea-faq-form-status.success {
+    color: #16A34A;
+}
+
+.tirea-faq-form-status.error {
+    color: #DC2626;
+}
+
+.tirea-faq-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 980px) {
+    .tirea-faq {
+        padding: 40px 20px 56px;
+    }
+
+    .tirea-faq-h2 {
+        font-size: 44px;
+    }
+
+    .tirea-faq-contact {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 32px 24px;
+    }
+
+    .tirea-faq-contact-title {
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 640px) {
+    .tirea-faq {
+        padding: 32px 16px 48px;
+    }
+
+    .tirea-faq-hero {
+        padding: 0 0 28px;
+    }
+
+    .tirea-faq-h2 {
+        font-size: 34px;
+        line-height: 1.05;
+    }
+
+    .tirea-faq-intro {
+        font-size: 14px;
+    }
+
+    .tirea-faq-summary {
+        padding: 18px 18px;
+        gap: 14px;
+    }
+
+    .tirea-faq-summary-left {
+        gap: 12px;
+    }
+
+    .tirea-faq-q {
+        font-size: 16px;
+    }
+
+    .tirea-faq-num {
+        font-size: 12px;
+        min-width: 24px;
+    }
+
+    .tirea-faq-answer {
+        padding: 0 18px 18px 18px;
+        font-size: 14px;
+    }
+
+    .tirea-faq-contact {
+        padding: 28px 20px;
+        border-radius: 16px;
+    }
+
+    .tirea-faq-contact-title {
+        font-size: 22px;
+    }
+
+    .tirea-faq-form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .tirea-faq-contact-form input,
+    .tirea-faq-contact-form textarea {
+        font-size: 16px;
+    }
+}
