@@ -20,7 +20,7 @@
 }
 
 .tirea-result-slider:focus-visible {
-    outline: 3px solid #1e6fc4;
+    outline: 3px solid var(--tirea-color-primary);
     outline-offset: 4px;
 }
 
@@ -79,7 +79,7 @@
     height: 44px;
     border-radius: 50%;
     background: #fff;
-    color: #1e6fc4;
+    color: var(--tirea-color-primary);
     display: flex;
     align-items: center;
     justify-content: center;

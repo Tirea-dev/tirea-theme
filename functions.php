@@ -379,18 +379,21 @@ add_shortcode('tirea_footer', 'tirea_footer_shortcode');
 function tirea_enqueue_result_assets() {
     if (!is_front_page() && !is_product()) return;
 
+    $css_path = get_stylesheet_directory() . '/assets/css/tirea-result.css';
+    $js_path  = get_stylesheet_directory() . '/assets/js/tirea-result.js';
+
     wp_enqueue_style(
         'tirea-result-css',
         get_stylesheet_directory_uri() . '/assets/css/tirea-result.css',
         ['tirea-tokens-css'],
-        '1.0.0'
+        file_exists($css_path) ? filemtime($css_path) : null
     );
 
     wp_enqueue_script(
         'tirea-result-js',
         get_stylesheet_directory_uri() . '/assets/js/tirea-result.js',
         [],
-        '1.0.0',
+        file_exists($js_path) ? filemtime($js_path) : null,
         true
     );
 }
