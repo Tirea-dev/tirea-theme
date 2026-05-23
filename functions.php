@@ -274,11 +274,14 @@ add_shortcode('tirea_reassurance_pill', 'tirea_reassurance_pill_shortcode');
 // ============================================
 
 function tirea_enqueue_reassurance_card_assets() {
+    if (!is_front_page()) return;
+
+    $css_path = get_stylesheet_directory() . '/assets/css/tirea-reassurance-card.css';
     wp_enqueue_style(
         'tirea-reassurance-card-css',
         get_stylesheet_directory_uri() . '/assets/css/tirea-reassurance-card.css',
         ['tirea-tokens-css'],
-        '1.0.0'
+        file_exists($css_path) ? filemtime($css_path) : null
     );
 }
 add_action('wp_enqueue_scripts', 'tirea_enqueue_reassurance_card_assets');

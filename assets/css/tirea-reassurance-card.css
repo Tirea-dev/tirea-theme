@@ -6,14 +6,14 @@
 .tirea-reassurance-bottom {
   padding: 30px 30px;
   background: white;
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: var(--tirea-font);
 }
 
 /* Force Inter sur tous les éléments du bloc — évite l'héritage Playfair d'Elementor/thème */
 .tirea-reassurance-bottom,
 .tirea-reassurance-bottom .tirea-card-title,
 .tirea-reassurance-bottom .tirea-card-text {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--tirea-font);
 }
 
 .tirea-reassurance-grid {
@@ -52,14 +52,14 @@
 .tirea-card-icon {
   width: 56px;
   height: 56px;
-  color: #1e6fc4;
+  color: var(--tirea-color-primary);
   margin: 0 auto 24px;
   display: block;
 }
 
 .tirea-card-title {
   font-size: 16px;
-  color: #000;
+  color: var(--tirea-color-text);
   font-weight: 700;
   margin: 0 0 14px;
   letter-spacing: 1.5px;

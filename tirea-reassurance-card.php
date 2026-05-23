@@ -10,6 +10,23 @@
 if (!defined('ABSPATH')) exit;
 
 // ============================================
+// LISTE BLANCHE D'ÉCHAPPEMENT POUR LES SVG
+// Utilisée par wp_kses() pour sortir les SVG inline en toute sécurité.
+// Couvre les balises/attributs réellement présents dans $tirea_cards.
+// ============================================
+
+$tirea_svg_allowed = [
+    'path' => [
+        'd' => true,
+    ],
+    'circle' => [
+        'cx' => true,
+        'cy' => true,
+        'r'  => true,
+    ],
+];
+
+// ============================================
 // CONFIGURATION DES CARDS
 // Chaque card = titre (h3), texte de description, SVG.
 // Le titre supporte un <br> en utilisant le caractère "|" comme séparateur.
@@ -46,7 +63,7 @@ $tirea_cards = [
       <?php $title_parts = explode('|', $card['title']); ?>
       <li class="tirea-reassurance-card">
         <svg class="tirea-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <?php echo $card['svg']; ?>
+          <?php echo wp_kses($card['svg'], $tirea_svg_allowed); ?>
         </svg>
         <h3 class="tirea-card-title">
           <?php foreach ($title_parts as $i => $part): ?>
