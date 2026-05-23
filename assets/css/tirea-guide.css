@@ -9,7 +9,7 @@
   padding: 100px 60px;
   max-width: 1400px;
   margin: 0 auto;
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: var(--tirea-font);
   color: #111;
   text-align: center;
   background: white;
@@ -79,7 +79,7 @@
 
 /* Hover bleu repris de la version accueil */
 .tirea-guide-step:hover .tirea-guide-step-illustration {
-  border-color: #1e6fc4;
+  border-color: var(--tirea-color-primary);
   transform: translateY(-4px);
   box-shadow: 0 12px 32px rgba(30, 111, 196, 0.12);
 }
@@ -108,11 +108,11 @@
    TEXTES D'ÉTAPE
    ============================================ */
 .tirea-guide-step-label {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--tirea-font);
   font-size: 12px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #999;
+  color: var(--tirea-color-text-faint);
   font-weight: 600;
   margin-bottom: 8px;
 }
@@ -120,7 +120,7 @@
 .tirea-guide-step-title {
   font-family: 'Playfair Display', serif;
   font-size: 28px;
-  color: #000;
+  color: var(--tirea-color-text);
   font-weight: 600;
   letter-spacing: -0.5px;
   margin: 0 0 14px;
@@ -128,14 +128,14 @@
 
 .tirea-guide-step-text {
   font-size: 15px;
-  color: #555;
+  color: var(--tirea-color-text-soft);
   line-height: 1.6;
   max-width: 260px;
   margin: 0 auto;
 }
 
 .tirea-guide-step-text strong {
-  color: #000;
+  color: var(--tirea-color-text);
   font-weight: 600;
 }
 
@@ -164,7 +164,7 @@
   bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
-  color: #1e6fc4;
+  color: var(--tirea-color-primary);
   font-size: 24px;
   font-weight: 300;
 }
@@ -173,7 +173,7 @@
   font-size: 12px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #1e6fc4;
+  color: var(--tirea-color-primary);
   font-weight: 600;
   margin-bottom: 12px;
 }
@@ -181,7 +181,7 @@
 .tirea-guide-result-title {
   font-family: 'Playfair Display', serif;
   font-size: 44px;
-  color: #000;
+  color: var(--tirea-color-text);
   font-weight: 700;
   letter-spacing: -1px;
   margin: 0 0 30px;
@@ -194,7 +194,7 @@
   height: 420px;
   margin: 0 auto 30px;
   background: white;
-  border: 3px solid #1e6fc4;
+  border: 3px solid var(--tirea-color-primary);
   border-radius: 50%;
   overflow: hidden;
   display: flex;
@@ -234,20 +234,20 @@
 
 .tirea-guide-result-subtitle {
   font-size: 17px;
-  color: #555;
+  color: var(--tirea-color-text-soft);
   line-height: 1.6;
   margin-top: 4px;
 }
 
 .tirea-guide-result-subtitle strong {
-  color: #000;
+  color: var(--tirea-color-text);
   font-weight: 600;
 }
 
 .tirea-guide-result-tagline {
   font-family: 'Playfair Display', serif;
   font-size: 28px;
-  color: #000;
+  color: var(--tirea-color-text);
   font-weight: 600;
   margin-top: 30px;
 }
