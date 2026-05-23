@@ -5,6 +5,9 @@
  * Rendu via shortcode [tirea_hero] depuis Elementor.
  * Section d'accroche de la page d'accueil avec image de fond,
  * titre, sous-titre, double CTA, preuve sociale et badge flottant.
+ * 
+ * ⚠️ URLs des images du hero : centralisées dans functions.php > tirea_hero_images()
+ * Le preload LCP est injecté dans le <head> via functions.php > tirea_hero_preload().
  */
 
 if (!defined('ABSPATH')) exit;
@@ -12,6 +15,7 @@ if (!defined('ABSPATH')) exit;
 // ============================================
 // CONFIGURATION DU HERO
 // Modifie ici pour changer le contenu sans toucher au markup
+// (Les URLs des IMAGES sont dans functions.php > tirea_hero_images())
 // ============================================
 
 $tirea_hero_badge_text = "LA MARQUE FRANÇAISE QUI REDÉFINIT L'ÉLÉGANCE";
@@ -31,9 +35,7 @@ $tirea_hero_cta_secondary = [
     'url'   => '#mode-emploi',
 ];
 
-$tirea_hero_image_desktop = 'https://tirea.fr/wp-content/uploads/2026/05/ajusteur-tirea-homme-femme.webp';
-$tirea_hero_image_mobile  = 'https://tirea.fr/wp-content/uploads/2026/05/ajusteur-tirea-unisexe.webp';
-$tirea_hero_image_alt     = "L'Ajusteur TIREA porté sur une chemise homme et femme";
+$tirea_hero_image_alt = "L'Ajusteur TIREA porté sur une chemise homme et femme";
 
 // Preuve sociale
 $tirea_hero_proof_count = 1000;
@@ -47,31 +49,24 @@ $tirea_hero_proof_avatars = [
 // Badge flottant
 $tirea_hero_card_label = 'RÉSULTAT INSTANTANÉ';
 $tirea_hero_card_text  = 'Maintien parfait, même en mouvement.';
+
+// Récupération des URLs d'images depuis la source unique
+$tirea_hero_imgs = tirea_hero_images();
 ?>
 
-<?php // Préload LCP — une balise par breakpoint, le navigateur ne télécharge que celle qui matche ?>
-<link rel="preload" as="image"
-      href="<?php echo esc_url($tirea_hero_image_desktop); ?>"
-      media="(min-width: 641px)"
-      fetchpriority="high">
-<link rel="preload" as="image"
-      href="<?php echo esc_url($tirea_hero_image_mobile); ?>"
-      media="(max-width: 640px)"
-      fetchpriority="high">
-
-<?php // Injection des URLs CONFIG vers le CSS via variables CSS — une seule source de vérité ?>
+<?php // Injection des URLs vers le CSS via variables CSS — lecture depuis la source unique ?>
 <style>
   .tirea-hero {
-    --tirea-hero-bg: url('<?php echo esc_url($tirea_hero_image_desktop); ?>');
-    --tirea-hero-bg-mobile: url('<?php echo esc_url($tirea_hero_image_mobile); ?>');
+    --tirea-hero-bg: url('<?php echo esc_url($tirea_hero_imgs['desktop']); ?>');
+    --tirea-hero-bg-mobile: url('<?php echo esc_url($tirea_hero_imgs['mobile']); ?>');
   }
 </style>
 
 <section class="tirea-hero" aria-labelledby="tirea-hero-title">
 
   <?php // Image hero en <img> sémantique cachée (lue par lecteurs d'écran + SEO) ?>
-  <?php // Pas de fetchpriority : le preload ci-dessus est le seul signal de priorité LCP ?>
-  <img src="<?php echo esc_url($tirea_hero_image_desktop); ?>"
+  <?php // Pas de fetchpriority : le preload dans <head> est le seul signal de priorité LCP ?>
+  <img src="<?php echo esc_url($tirea_hero_imgs['desktop']); ?>"
        alt="<?php echo esc_attr($tirea_hero_image_alt); ?>"
        class="tirea-hero-img-sr"
        width="1920" height="1080">

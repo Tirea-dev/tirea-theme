@@ -176,9 +176,39 @@ add_shortcode('tirea_header', 'tirea_header_shortcode');
 // TIREA — Hero (page d'accueil)
 // ============================================
 
-// ============================================
-// TIREA — Hero (page d'accueil)
-// ============================================
+/**
+ * Source UNIQUE des URLs d'images du hero.
+ * Modifie ICI pour changer les images : aucune autre URL à toucher ailleurs.
+ * Utilisé par : tirea_hero_preload() (preload <head>) + tirea-hero.php (vars CSS + <img> sémantique).
+ */
+function tirea_hero_images() {
+    return [
+        'desktop' => 'https://tirea.fr/wp-content/uploads/2026/05/ajusteur-tirea-homme-femme.webp',
+        'mobile'  => 'https://tirea.fr/wp-content/uploads/2026/05/ajusteur-tirea-unisexe.webp',
+    ];
+}
+
+/**
+ * Preload LCP du hero — injecté dans le <head> via wp_head.
+ * Deux balises avec media query : le navigateur ne télécharge que celle qui matche.
+ * Conditionné à is_front_page() pour ne pas polluer les autres pages.
+ */
+function tirea_hero_preload() {
+    if (!is_front_page()) return;
+
+    $imgs = tirea_hero_images();
+    ?>
+    <link rel="preload" as="image"
+          href="<?php echo esc_url($imgs['desktop']); ?>"
+          media="(min-width: 641px)"
+          fetchpriority="high">
+    <link rel="preload" as="image"
+          href="<?php echo esc_url($imgs['mobile']); ?>"
+          media="(max-width: 640px)"
+          fetchpriority="high">
+    <?php
+}
+add_action('wp_head', 'tirea_hero_preload', 1);
 
 function tirea_enqueue_hero_assets() {
     if (!is_front_page()) return;
