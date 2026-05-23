@@ -6,7 +6,7 @@
   padding: 100px 60px;
   max-width: 1400px;
   margin: 0 auto;
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: var(--tirea-font);
   color: #111;
   text-align: center;
   background: white;
@@ -14,10 +14,10 @@
 }
 
 .tirea-section-overline {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--tirea-font);
   font-size: 12px;
   letter-spacing: 3px;
-  color: #1e6fc4;
+  color: var(--tirea-color-primary);
   font-weight: 600;
   margin-bottom: 20px;
   text-transform: uppercase;
@@ -27,7 +27,7 @@
   font-family: 'Playfair Display', serif;
   font-size: 52px;
   line-height: 1.1;
-  color: #000;
+  color: var(--tirea-color-text);
   margin-bottom: 24px;
   font-weight: 600;
   letter-spacing: 0;
@@ -42,7 +42,7 @@
 }
 
 .tirea-section-subtitle strong {
-  color: #000;
+  color: var(--tirea-color-text);
   font-weight: 600;
 }
 
@@ -50,7 +50,7 @@
   margin-top: 60px;
   font-family: 'Playfair Display', serif;
   font-size: 22px;
-  color: #1e6fc4;
+  color: var(--tirea-color-primary);
   font-style: italic;
   font-weight: 400;
   max-width: 700px;
@@ -60,7 +60,7 @@
 }
 
 .tirea-section-quote strong {
-  color: #000;
+  color: var(--tirea-color-text);
   font-style: normal;
   font-weight: 600;
 }
@@ -127,19 +127,19 @@
   padding: 18px 36px;
   font-size: 14px;
   font-weight: 500;
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: var(--tirea-font);
   letter-spacing: 0.5px;
   transition: background 0.2s ease;
 }
 
 .tirea-ajusteur-btn:hover,
 .tirea-ajusteur-btn:focus {
-  background: #1e6fc4;
+  background: var(--tirea-color-primary);
   color: white;
 }
 
 .tirea-ajusteur-btn:focus-visible {
-  outline: 2px solid #1e6fc4;
+  outline: 2px solid var(--tirea-color-primary);
   outline-offset: 3px;
 }
 
@@ -168,4 +168,13 @@
 @media (max-width: 380px) {
   .tirea-section-title { font-size: 26px; }
   .tirea-section-subtitle { font-size: 13px; }
+}
+
+/* Accessibilité — neutralise l'animation de translation pour les utilisateurs
+   ayant demandé moins de mouvement. Le JS ajoute déjà `in-view` immédiatement
+   dans ce cas ; on supprime ici la transition pour éviter le mouvement final. */
+@media (prefers-reduced-motion: reduce) {
+  .tirea-ajusteur-half {
+    transition: none;
+  }
 }

@@ -295,18 +295,23 @@ add_shortcode('tirea_reassurance_card', 'tirea_reassurance_card_shortcode');
 // ============================================
 
 function tirea_enqueue_ajusteur_assets() {
+    if (!is_front_page() && !is_product()) return;
+
+    $css_path = get_stylesheet_directory() . '/assets/css/tirea-ajusteur.css';
+    $js_path  = get_stylesheet_directory() . '/assets/js/tirea-ajusteur.js';
+
     wp_enqueue_style(
         'tirea-ajusteur-css',
         get_stylesheet_directory_uri() . '/assets/css/tirea-ajusteur.css',
         ['tirea-tokens-css'],
-        '1.0.0'
+        file_exists($css_path) ? filemtime($css_path) : null
     );
 
     wp_enqueue_script(
         'tirea-ajusteur-js',
         get_stylesheet_directory_uri() . '/assets/js/tirea-ajusteur.js',
         [],
-        '1.0.0',
+        file_exists($js_path) ? filemtime($js_path) : null,
         true
     );
 }
