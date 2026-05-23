@@ -343,18 +343,21 @@ add_shortcode('tirea_ajusteur', 'tirea_ajusteur_shortcode');
 // ============================================
 
 function tirea_enqueue_footer_assets() {
+    $css_path = get_stylesheet_directory() . '/assets/css/tirea-footer.css';
+    $js_path  = get_stylesheet_directory() . '/assets/js/tirea-footer.js';
+
     wp_enqueue_style(
         'tirea-footer-css',
         get_stylesheet_directory_uri() . '/assets/css/tirea-footer.css',
         ['tirea-tokens-css'],
-        '1.0.0'
+        file_exists($css_path) ? filemtime($css_path) : null
     );
 
     wp_enqueue_script(
         'tirea-footer-js',
         get_stylesheet_directory_uri() . '/assets/js/tirea-footer.js',
         [],
-        '1.0.0',
+        file_exists($js_path) ? filemtime($js_path) : null,
         true
     );
 }

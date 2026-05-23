@@ -96,6 +96,14 @@ $tirea_payments = [
 
 // Découpage tagline sur "|" pour rendu <br>
 $tirea_tagline_parts = explode('|', $tirea_footer_tagline);
+
+// Liste blanche d'éléments/attributs autorisés pour les SVG sociaux
+// (même pattern que tirea-reassurance-pill.php / tirea-reassurance-card.php)
+$tirea_svg_allowed = [
+    'path' => [
+        'd' => true,
+    ],
+];
 ?>
 
 <footer class="tirea-footer" role="contentinfo">
@@ -130,7 +138,7 @@ $tirea_tagline_parts = explode('|', $tirea_footer_tagline);
                  rel="noopener noreferrer"
                  aria-label="<?php echo esc_attr($social['label']); ?> (nouvel onglet)">
                 <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <?php echo $social['svg']; ?>
+                  <?php echo wp_kses($social['svg'], $tirea_svg_allowed); ?>
                 </svg>
               </a>
             </li>
@@ -141,7 +149,7 @@ $tirea_tagline_parts = explode('|', $tirea_footer_tagline);
       <?php // ===== COLONNES 2 & 3 : LIENS ===== ?>
       <?php foreach ($tirea_footer_columns as $col): ?>
         <nav class="tirea-footer-col" aria-label="<?php echo esc_attr($col['title']); ?>">
-          <h2 class="tirea-footer-title"><?php echo esc_html($col['title']); ?></h2>
+          <h3 class="tirea-footer-title"><?php echo esc_html($col['title']); ?></h3>
           <ul class="tirea-footer-links">
             <?php foreach ($col['links'] as $link): ?>
               <li>
@@ -154,7 +162,7 @@ $tirea_tagline_parts = explode('|', $tirea_footer_tagline);
 
       <?php // ===== COLONNE 4 : NEWSLETTER ===== ?>
       <div class="tirea-footer-col">
-        <h2 class="tirea-footer-title">Restez informé</h2>
+        <h3 class="tirea-footer-title">Restez informé</h3>
         <p class="tirea-newsletter-text"><?php echo esc_html($tirea_newsletter_text); ?></p>
 
         <?php // Form Brevo prêt à brancher — pour l'instant, mode "inactif" avec message ?>
