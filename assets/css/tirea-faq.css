@@ -3,15 +3,15 @@
    ============================================ */
 
 .tirea-faq {
-    --tirea-faq-blue: #2563EB;
+    --tirea-faq-blue: var(--tirea-color-primary);
     --tirea-faq-blue-soft: #EAF1FE;
-    --tirea-faq-ink: #0A0A0A;
+    --tirea-faq-ink: var(--tirea-color-text);
     --tirea-faq-txt: #3a3a3a;
     --tirea-faq-mute: #7a7a7a;
-    --tirea-faq-line: #ECECEC;
+    --tirea-faq-line: var(--tirea-color-border);
     --tirea-faq-bg: #fff;
 
-    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    font-family: var(--tirea-font);
     color: var(--tirea-faq-ink);
     max-width: 1100px;
     margin: 0 auto;
@@ -525,5 +525,23 @@
     .tirea-faq-contact-form input,
     .tirea-faq-contact-form textarea {
         font-size: 16px;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITÉ — prefers-reduced-motion
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    .tirea-faq *,
+    .tirea-faq *::before,
+    .tirea-faq *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
+
+    .tirea-faq-submit:hover {
+        transform: none;
     }
 }
