@@ -1,7 +1,8 @@
 /**
  * TIREA Header — interactions
  * Gère : dropdown desktop, drawer mobile, overlay recherche, 
- * sticky au scroll, bouton remonter, état actif des liens.
+ * sticky au scroll, bouton remonter, état actif des liens,
+ * focus-trap des modales (drawer mobile + overlay recherche).
  */
 (function() {
   'use strict';
@@ -25,7 +26,104 @@
   var searchInput = document.getElementById('tireaSearchInput');
 
   // ============================================
-  // 2. Helpers
+  // 2. Focus-trap factorisé (drawer mobile + overlay recherche)
+  // ============================================
+  // Mémorise l'élément déclencheur pour chaque modale (clé = id de la modale)
+  var lastFocusedByModal = {};
+  // Référence du handler keydown actif (pour pouvoir le détacher à la fermeture)
+  var activeTrapHandler = null;
+  var activeTrapContainer = null;
+
+  var FOCUSABLE_SELECTOR = 'a[href], button:not([disabled]), input:not([disabled]), ' +
+                          'select:not([disabled]), textarea:not([disabled]), ' +
+                          '[tabindex]:not([tabindex="-1"])';
+
+  // Récupère les éléments focusables réellement visibles à l'instant t
+  // (filtre les éléments cachés type accordéon fermé via offsetParent)
+  function getFocusable(container) {
+    var nodes = container.querySelectorAll(FOCUSABLE_SELECTOR);
+    var result = [];
+    for (var i = 0; i < nodes.length; i++) {
+      if (nodes[i].offsetParent !== null) result.push(nodes[i]);
+    }
+    return result;
+  }
+
+  // Active le piège : mémorise le déclencheur, focus dans la modale, branche le Tab wrap
+  function activateTrap(container, initialFocusEl) {
+    if (!container) return;
+
+    // Mémorise l'élément qui avait le focus avant l'ouverture
+    lastFocusedByModal[container.id] = document.activeElement;
+
+    // Détache un éventuel trap précédent (cas où on switche menu mobile → recherche)
+    deactivateTrap();
+
+    // Focus initial : soit l'élément explicite (champ recherche), soit le 1er focusable
+    var target = initialFocusEl;
+    if (!target) {
+      var focusables = getFocusable(container);
+      target = focusables[0] || container;
+    }
+    // Si le container reçoit le focus, on le rend programmatiquement focusable
+    if (target === container && !container.hasAttribute('tabindex')) {
+      container.setAttribute('tabindex', '-1');
+    }
+    // setTimeout aligné sur l'anim CSS de la modale
+    setTimeout(function() { if (target) target.focus(); }, 50);
+
+    // Handler Tab : wrap premier ↔ dernier
+    activeTrapContainer = container;
+    activeTrapHandler = function(e) {
+      if (e.key !== 'Tab') return;
+      var focusables = getFocusable(container);
+      if (focusables.length === 0) {
+        e.preventDefault();
+        return;
+      }
+      var first = focusables[0];
+      var last = focusables[focusables.length - 1];
+      var active = document.activeElement;
+
+      // Si le focus est hors de la modale (cas limite), on le ramène
+      if (!container.contains(active)) {
+        e.preventDefault();
+        first.focus();
+        return;
+      }
+
+      if (e.shiftKey && active === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener('keydown', activeTrapHandler);
+  }
+
+  // Désactive le piège : détache le handler, rend le focus au déclencheur
+  function deactivateTrap(containerId) {
+    if (activeTrapHandler) {
+      document.removeEventListener('keydown', activeTrapHandler);
+      activeTrapHandler = null;
+    }
+    activeTrapContainer = null;
+
+    // Restaure le focus sur le déclencheur mémorisé
+    if (containerId && lastFocusedByModal[containerId]) {
+      var trigger = lastFocusedByModal[containerId];
+      lastFocusedByModal[containerId] = null;
+      // requestAnimationFrame pour éviter conflit avec d'autres focus
+      requestAnimationFrame(function() {
+        if (trigger && typeof trigger.focus === 'function') trigger.focus();
+      });
+    }
+  }
+
+  // ============================================
+  // 3. Helpers
   // ============================================
   function toggleDropdown(button, dropdown) {
     if (!button || !dropdown) return;
@@ -53,6 +151,8 @@
     mobileMenu.setAttribute('aria-hidden', 'false');
     burger.setAttribute('aria-expanded', 'true');
     body.classList.add('tirea-menu-open');
+    // Active le focus-trap
+    activateTrap(mobileMenu);
   }
 
   function closeMobileMenu() {
@@ -64,6 +164,8 @@
     mobileMenu.classList.remove('active');
     mobileMenu.setAttribute('aria-hidden', 'true');
     body.classList.remove('tirea-menu-open');
+    // Désactive le focus-trap et rend le focus au déclencheur
+    deactivateTrap('tireaMobileMenu');
   }
 
   function openSearch() {
@@ -71,9 +173,8 @@
     searchOverlay.classList.add('active');
     searchOverlay.setAttribute('aria-hidden', 'false');
     body.classList.add('tirea-search-open');
-    setTimeout(function() {
-      if (searchInput) searchInput.focus();
-    }, 400);
+    // Focus initial direct sur le champ de recherche
+    activateTrap(searchOverlay, searchInput);
   }
 
   function closeSearch() {
@@ -82,10 +183,11 @@
     searchOverlay.setAttribute('aria-hidden', 'true');
     body.classList.remove('tirea-search-open');
     if (searchInput) searchInput.value = '';
+    deactivateTrap('tireaSearchOverlay');
   }
 
   // ============================================
-  // 3. Dropdowns "Informations" (desktop normal + sticky)
+  // 4. Dropdowns "Informations" (desktop normal + sticky)
   // ============================================
   toggleDropdown(
     document.getElementById('tireaBurgerDesktop'),
@@ -97,7 +199,7 @@
   );
 
   // ============================================
-  // 4. Drawer mobile (depuis burger normal OU sticky)
+  // 5. Drawer mobile (depuis burger normal OU sticky)
   // ============================================
   var burgerMobile = document.getElementById('tireaBurgerMobile');
   var stickyBurgerMobile = document.getElementById('tireaStickyBurgerMobile');
@@ -130,7 +232,7 @@
   });
 
   // ============================================
-  // 5. Accordéon "Légal" dans menu mobile
+  // 6. Accordéon "Légal" dans menu mobile
   // ============================================
   var accordionToggle = document.getElementById('tireaAccordionToggle');
   var accordionContent = document.getElementById('tireaAccordionContent');
@@ -144,7 +246,7 @@
   }
 
   // ============================================
-  // 6. Recherche : ouverture/fermeture
+  // 7. Recherche : ouverture/fermeture
   // ============================================
   var searchToggle = document.getElementById('tireaSearchToggle');
   var stickySearchToggle = document.getElementById('tireaStickySearchToggle');
@@ -163,7 +265,7 @@
   }
 
   // ============================================
-  // 7. Touche Échap → ferme ce qui est ouvert
+  // 8. Touche Échap → ferme ce qui est ouvert
   // ============================================
   document.addEventListener('keydown', function(e) {
     if (e.key !== 'Escape') return;
@@ -191,7 +293,7 @@
   });
 
   // ============================================
-  // 8. Sticky header + bouton remonter au scroll
+  // 9. Sticky header + bouton remonter au scroll
   // ============================================
   var stickyHeader = document.getElementById('tireaStickyHeader');
   var backToTopDesktop = document.getElementById('tireaBackToTopDesktop');
@@ -230,7 +332,7 @@
   updateOnScroll();
 
   // ============================================
-  // 9. Bouton "remonter en haut"
+  // 10. Bouton "remonter en haut"
   // ============================================
   function scrollToTop() {
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -240,7 +342,7 @@
   if (backToTopMobile) backToTopMobile.addEventListener('click', scrollToTop);
 
   // ============================================
-  // 10. Marquage du lien actif (depuis data-slug)
+  // 11. Marquage du lien actif (depuis data-slug)
   // ============================================
   function getCurrentSlug() {
     return window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();

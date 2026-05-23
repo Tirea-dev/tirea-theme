@@ -65,7 +65,6 @@ $tirea_render_header_block = function($mode, $deps) {
     $prefix = ($mode === 'sticky') ? 'tirea-sticky-' : 'tirea-';
     $id_pfx = ($mode === 'sticky') ? 'tireaSticky'   : 'tirea';
     $wrapper_class = ($mode === 'sticky') ? 'tirea-sticky-header' : 'tirea-header';
-    $wrapper_id    = ($mode === 'sticky') ? 'tireaStickyHeader'   : '';
     $wrapper_attrs = ($mode === 'sticky') ? ' id="tireaStickyHeader" aria-hidden="true"' : '';
     // Le logo header normal réclamait fetchpriority="high" comme LCP.
     // Sur la home, le vrai LCP est l'image du hero, donc on retire le signal de priorité

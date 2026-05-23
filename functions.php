@@ -40,7 +40,7 @@ function tirea_enqueue_product_assets() {
         wp_enqueue_style(
             'tirea-product-css',
             get_stylesheet_directory_uri() . '/assets/css/tirea-product.css',
-            [],
+            ['tirea-tokens-css'],
             '1.0.0'
         );
     }
@@ -136,6 +136,21 @@ if (!function_exists('tirea_reviews_shortcode')) {
 }
 
 // ============================================
+// TIREA — Design tokens (global, chargé en premier)
+// ============================================
+
+function tirea_enqueue_tokens() {
+    $css_path = get_stylesheet_directory() . '/assets/css/tirea-tokens.css';
+    wp_enqueue_style(
+        'tirea-tokens-css',
+        get_stylesheet_directory_uri() . '/assets/css/tirea-tokens.css',
+        [],
+        file_exists($css_path) ? filemtime($css_path) : null
+    );
+}
+add_action('wp_enqueue_scripts', 'tirea_enqueue_tokens', 5); // priorité 5 = avant les sections (défaut 10)
+
+// ============================================
 // TIREA — Header
 // ============================================
 
@@ -143,7 +158,7 @@ function tirea_enqueue_header_assets() {
     wp_enqueue_style(
         'tirea-header-css',
         get_stylesheet_directory_uri() . '/assets/css/tirea-header.css',
-        [],
+        ['tirea-tokens-css'],
         '1.0.0'
     );
 
@@ -217,7 +232,7 @@ function tirea_enqueue_hero_assets() {
     wp_enqueue_style(
         'tirea-hero-css',
         get_stylesheet_directory_uri() . '/assets/css/tirea-hero.css',
-        [],
+        ['tirea-tokens-css'],
         file_exists($css_path) ? filemtime($css_path) : null
     );
 }
@@ -238,7 +253,7 @@ function tirea_enqueue_reassurance_pill_assets() {
     wp_enqueue_style(
         'tirea-reassurance-pill-css',
         get_stylesheet_directory_uri() . '/assets/css/tirea-reassurance-pill.css',
-        [],
+        ['tirea-tokens-css'],
         '1.0.0'
     );
 }
@@ -259,7 +274,7 @@ function tirea_enqueue_reassurance_card_assets() {
     wp_enqueue_style(
         'tirea-reassurance-card-css',
         get_stylesheet_directory_uri() . '/assets/css/tirea-reassurance-card.css',
-        [],
+        ['tirea-tokens-css'],
         '1.0.0'
     );
 }
@@ -280,7 +295,7 @@ function tirea_enqueue_ajusteur_assets() {
     wp_enqueue_style(
         'tirea-ajusteur-css',
         get_stylesheet_directory_uri() . '/assets/css/tirea-ajusteur.css',
-        [],
+        ['tirea-tokens-css'],
         '1.0.0'
     );
 
@@ -320,7 +335,7 @@ function tirea_enqueue_footer_assets() {
     wp_enqueue_style(
         'tirea-footer-css',
         get_stylesheet_directory_uri() . '/assets/css/tirea-footer.css',
-        [],
+        ['tirea-tokens-css'],
         '1.0.0'
     );
 
@@ -359,7 +374,7 @@ function tirea_enqueue_result_assets() {
     wp_enqueue_style(
         'tirea-result-css',
         get_stylesheet_directory_uri() . '/assets/css/tirea-result.css',
-        [],
+        ['tirea-tokens-css'],
         '1.0.0'
     );
 
@@ -399,7 +414,7 @@ function tirea_enqueue_storytelling_assets() {
     wp_enqueue_style(
         'tirea-storytelling-css',
         get_stylesheet_directory_uri() . '/assets/css/tirea-storytelling.css',
-        [],
+        ['tirea-tokens-css'],
         '1.0.0'
     );
 
@@ -445,7 +460,7 @@ function tirea_enqueue_guide_assets() {
     wp_enqueue_style(
         'tirea-guide-css',
         get_stylesheet_directory_uri() . '/assets/css/tirea-guide.css',
-        [],
+        ['tirea-tokens-css'],
         file_exists($css_path) ? filemtime($css_path) : null
     );
 }
@@ -474,7 +489,7 @@ function tirea_enqueue_faq_assets() {
     wp_enqueue_style(
         'tirea-faq-css',
         get_stylesheet_directory_uri() . '/assets/css/tirea-faq.css',
-        [],
+        ['tirea-tokens-css'],
         file_exists($css_path) ? filemtime($css_path) : null
     );
 
