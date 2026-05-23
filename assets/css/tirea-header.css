@@ -440,7 +440,8 @@ button.tirea-search-close:active {
   transform: translateX(0);
 }
 
-.tirea-close {
+.tirea-close,
+button.tirea-close {
   position: absolute;
   top: 24px;
   right: 24px;
@@ -452,11 +453,22 @@ button.tirea-search-close:active {
   z-index: 10;
   opacity: 0;
   transform: rotate(-90deg);
+  -webkit-appearance: none;
+  appearance: none;
   transition: opacity var(--tirea-duration-base) ease 0.3s,
               transform var(--tirea-duration-slow) ease 0.3s,
-              color var(--tirea-duration-fast);
+              color var(--tirea-duration-fast),
+              background var(--tirea-duration-fast);
 }
-.tirea-close:hover { color: var(--tirea-color-primary); }
+.tirea-close:hover,
+.tirea-close:focus,
+.tirea-close:active,
+button.tirea-close:hover,
+button.tirea-close:focus,
+button.tirea-close:active {
+  background: transparent;
+  color: var(--tirea-color-primary);
+}
 .tirea-mobile-menu.active .tirea-close {
   opacity: 1;
   transform: rotate(0deg);
@@ -470,7 +482,8 @@ button.tirea-search-close:active {
   gap: 0;
   counter-reset: menu-counter;
 }
-.tirea-mobile-link {
+.tirea-mobile-link,
+button.tirea-mobile-link {
   position: relative;
   display: flex;
   align-items: center;
@@ -490,9 +503,17 @@ button.tirea-search-close:active {
   opacity: 0;
   transform: translateY(15px);
   counter-increment: menu-counter;
+  -webkit-appearance: none;
+  appearance: none;
   transition: opacity var(--tirea-duration-slow) ease,
               transform var(--tirea-duration-slow) ease,
-              color 0.25s ease;
+              color 0.25s ease,
+              background var(--tirea-duration-fast) ease;
+}
+button.tirea-mobile-link:hover,
+button.tirea-mobile-link:focus,
+button.tirea-mobile-link:active {
+  background: transparent;
 }
 .tirea-mobile-link::before {
   content: counter(menu-counter, decimal-leading-zero);
@@ -694,11 +715,12 @@ button.tirea-sticky-icon-link:active {
 
 /* Burger desktop sticky */
 .tirea-sticky-burger-desktop-wrapper { position: relative; }
+
+/* Box partagée (sans display) — appliquée aux deux burgers */
 .tirea-sticky-burger-desktop,
 .tirea-sticky-burger-mobile,
 button.tirea-sticky-burger-desktop,
 button.tirea-sticky-burger-mobile {
-  display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 4px;
@@ -711,6 +733,10 @@ button.tirea-sticky-burger-mobile {
   -webkit-appearance: none;
   appearance: none;
 }
+/* Visibilité par défaut : desktop affiché, mobile caché */
+.tirea-sticky-burger-desktop { display: flex; }
+.tirea-sticky-burger-mobile  { display: none; }
+
 .tirea-sticky-burger-desktop:hover,
 .tirea-sticky-burger-desktop:focus,
 .tirea-sticky-burger-desktop:active,
@@ -719,7 +745,6 @@ button.tirea-sticky-burger-mobile {
 .tirea-sticky-burger-mobile:active {
   background: transparent;
 }
-.tirea-sticky-burger-mobile { display: none; }
 .tirea-sticky-burger-desktop span,
 .tirea-sticky-burger-mobile span {
   display: block;
