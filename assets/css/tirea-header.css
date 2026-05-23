@@ -666,7 +666,8 @@ body.tirea-search-open {
   gap: 18px;
   align-items: center;
 }
-.tirea-sticky-icon-link {
+.tirea-sticky-icon-link,
+button.tirea-sticky-icon-link {
   color: #333;
   text-decoration: none;
   display: flex;
@@ -675,15 +676,28 @@ body.tirea-search-open {
   cursor: pointer;
   background: transparent;
   border: none;
+  -webkit-appearance: none;
+  appearance: none;
   transition: opacity var(--tirea-duration-fast);
 }
-.tirea-sticky-icon-link:hover { opacity: 0.6; }
+.tirea-sticky-icon-link:hover,
+.tirea-sticky-icon-link:focus,
+.tirea-sticky-icon-link:active,
+button.tirea-sticky-icon-link:hover,
+button.tirea-sticky-icon-link:focus,
+button.tirea-sticky-icon-link:active {
+  background: transparent;
+  color: #333;
+  opacity: 0.6;
+}
 .tirea-sticky-icon-link svg { width: 19px; height: 19px; }
 
 /* Burger desktop sticky */
 .tirea-sticky-burger-desktop-wrapper { position: relative; }
 .tirea-sticky-burger-desktop,
-.tirea-sticky-burger-mobile {
+.tirea-sticky-burger-mobile,
+button.tirea-sticky-burger-desktop,
+button.tirea-sticky-burger-mobile {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -694,6 +708,16 @@ body.tirea-search-open {
   background: transparent;
   border: none;
   cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.tirea-sticky-burger-desktop:hover,
+.tirea-sticky-burger-desktop:focus,
+.tirea-sticky-burger-desktop:active,
+.tirea-sticky-burger-mobile:hover,
+.tirea-sticky-burger-mobile:focus,
+.tirea-sticky-burger-mobile:active {
+  background: transparent;
 }
 .tirea-sticky-burger-mobile { display: none; }
 .tirea-sticky-burger-desktop span,
