@@ -26,7 +26,7 @@
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   margin-right: calc(-50vw + 50%);
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: var(--tirea-font);
 }
 
 /* Fondus latéraux gauche / droite */
@@ -82,7 +82,7 @@
 .tirea-reassurance-icon {
   width: 28px;
   height: 28px;
-  color: #1e6fc4;
+  color: var(--tirea-color-primary);
   flex-shrink: 0;
 }
 
@@ -94,7 +94,7 @@
 }
 
 .tirea-reassurance-text strong {
-  color: #000;
+  color: var(--tirea-color-text);
   font-weight: 600;
 }
 

@@ -12,6 +12,89 @@
 if (!defined('ABSPATH')) exit;
 
 // ============================================
+// LISTE BLANCHE D'ÉCHAPPEMENT POUR LES SVG
+// Utilisée par wp_kses() pour sortir les SVG inline en toute sécurité.
+// Couvre les balises/attributs réellement présents dans $tirea_reassurance_items.
+// ============================================
+
+$tirea_svg_allowed = [
+    'svg' => [
+        'class'         => true,
+        'viewbox'       => true,
+        'fill'          => true,
+        'stroke'        => true,
+        'stroke-width'  => true,
+        'stroke-linecap'=> true,
+        'stroke-linejoin'=> true,
+        'aria-hidden'   => true,
+    ],
+    'path' => [
+        'd'             => true,
+        'fill'          => true,
+        'stroke'        => true,
+        'stroke-width'  => true,
+        'stroke-linecap'=> true,
+        'stroke-linejoin'=> true,
+        'transform'     => true,
+    ],
+    'circle' => [
+        'cx'            => true,
+        'cy'            => true,
+        'r'             => true,
+        'fill'          => true,
+        'stroke'        => true,
+        'stroke-width'  => true,
+        'transform'     => true,
+    ],
+    'rect' => [
+        'x'             => true,
+        'y'             => true,
+        'width'         => true,
+        'height'        => true,
+        'rx'            => true,
+        'ry'            => true,
+        'fill'          => true,
+        'stroke'        => true,
+        'stroke-width'  => true,
+        'transform'     => true,
+    ],
+    'line' => [
+        'x1'            => true,
+        'y1'            => true,
+        'x2'            => true,
+        'y2'            => true,
+        'stroke'        => true,
+        'stroke-width'  => true,
+        'stroke-linecap'=> true,
+        'transform'     => true,
+    ],
+    'polyline' => [
+        'points'        => true,
+        'fill'          => true,
+        'stroke'        => true,
+        'stroke-width'  => true,
+        'stroke-linecap'=> true,
+        'stroke-linejoin'=> true,
+        'transform'     => true,
+    ],
+    'polygon' => [
+        'points'        => true,
+        'fill'          => true,
+        'stroke'        => true,
+        'stroke-width'  => true,
+        'stroke-linecap'=> true,
+        'stroke-linejoin'=> true,
+        'transform'     => true,
+    ],
+    'g' => [
+        'fill'          => true,
+        'stroke'        => true,
+        'stroke-width'  => true,
+        'transform'     => true,
+    ],
+];
+
+// ============================================
 // CONFIGURATION DES ITEMS
 // Modifie ici l'ordre, le texte ou les SVG pour changer le contenu
 // ============================================
@@ -47,11 +130,11 @@ $tirea_reassurance_items = [
  * Génère le markup d'une pilule
  * @param array $item ['label' => string, 'svg' => string]
  */
-$tirea_render_pill = function($item) {
+$tirea_render_pill = function($item) use ($tirea_svg_allowed) {
     ?>
     <div class="tirea-reassurance-item">
       <svg class="tirea-reassurance-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <?php echo $item['svg']; ?>
+        <?php echo wp_kses($item['svg'], $tirea_svg_allowed); ?>
       </svg>
       <span class="tirea-reassurance-text"><strong><?php echo esc_html($item['label']); ?></strong></span>
     </div>
