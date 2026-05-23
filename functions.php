@@ -419,21 +419,26 @@ add_shortcode('tirea_result', 'tirea_result_shortcode');
 // ============================================
 
 /**
- * Enqueue CSS + JS du storytelling
+ * Enqueue CSS + JS du storytelling — uniquement sur la home
  */
 function tirea_enqueue_storytelling_assets() {
+    if (!is_front_page()) return;
+
+    $css_path = get_stylesheet_directory() . '/assets/css/tirea-storytelling.css';
+    $js_path  = get_stylesheet_directory() . '/assets/js/tirea-storytelling.js';
+
     wp_enqueue_style(
         'tirea-storytelling-css',
         get_stylesheet_directory_uri() . '/assets/css/tirea-storytelling.css',
         ['tirea-tokens-css'],
-        '1.0.0'
+        file_exists($css_path) ? filemtime($css_path) : null
     );
 
     wp_enqueue_script(
         'tirea-storytelling-js',
         get_stylesheet_directory_uri() . '/assets/js/tirea-storytelling.js',
         [],
-        '1.0.0',
+        file_exists($js_path) ? filemtime($js_path) : null,
         true
     );
 }

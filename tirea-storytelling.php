@@ -3,8 +3,8 @@
  * Template Storytelling Tirea
  * 
  * Rendu via shortcode [tirea_storytelling].
- * Animation "Un look ___" → impeccable → sublimé → assuré → tiré à quatre épingles.
- * Les mots cyclent en fondu via JS au scroll dans la section.
+ * Animation "Un look ___" → impeccable → sublimé → entretenu → tiré à quatre épingles.
+ * Les mots défilent en fondu une fois et se figent sur le dernier (non cyclique).
  */
 
 if (!defined('ABSPATH')) exit;
@@ -19,7 +19,7 @@ $tirea_story_prefix = "Un look";
 $tirea_story_words = [
     'impeccable.',
     'sublimé.',
-    'assuré.',
+    'entretenu.',
     'tiré à quatre épingles.',
 ];
 ?>

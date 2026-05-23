@@ -8,7 +8,7 @@
   background: white;
   text-align: center;
   overflow: hidden;
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: var(--tirea-font);
 }
 
 .tirea-story-container {
@@ -20,7 +20,7 @@
   font-family: 'Playfair Display', serif;
   font-size: 64px;
   font-weight: 600;
-  color: #000;
+  color: var(--tirea-color-text);
   margin: 0 0 30px;
   letter-spacing: -1px;
 }
@@ -39,7 +39,7 @@
   font-style: italic;
   font-size: 80px;
   font-weight: 600;
-  color: #1e6fc4;
+  color: var(--tirea-color-primary);
   letter-spacing: -2px;
   opacity: 0;
   transform: translateY(20px);
