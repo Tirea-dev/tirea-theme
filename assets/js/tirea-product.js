@@ -170,6 +170,7 @@
                         product_id: productId,
                         variation_id: variationId,
                         quantity: 1,
+                        nonce: tireaData.nonce,
                     },
                     success: function(response) {
                         if (response.success) {

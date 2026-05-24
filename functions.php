@@ -63,9 +63,7 @@ function tirea_enqueue_product_assets() {
         'nonce' => wp_create_nonce('tirea_add_to_cart'),
     ]);
 }
-add_action('wp_enqueue_scripts', 'tirea_enqueue_product_assets');
 
-add_filter('script_loader_tag', 'tirea_defer_product_js', 10, 2);
 add_action('wp_enqueue_scripts', 'tirea_enqueue_product_assets');
 
 function tirea_defer_product_js($tag, $handle) {
