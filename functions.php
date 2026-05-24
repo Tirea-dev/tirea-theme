@@ -155,18 +155,21 @@ add_action('wp_enqueue_scripts', 'tirea_enqueue_tokens', 5); // priorité 5 = av
 // ============================================
 
 function tirea_enqueue_header_assets() {
+    $css_path = get_stylesheet_directory() . '/assets/css/tirea-header.css';
+    $js_path  = get_stylesheet_directory() . '/assets/js/tirea-header.js';
+
     wp_enqueue_style(
         'tirea-header-css',
         get_stylesheet_directory_uri() . '/assets/css/tirea-header.css',
         ['tirea-tokens-css'],
-        '1.0.0'
+        file_exists($css_path) ? filemtime($css_path) : null
     );
 
     wp_enqueue_script(
         'tirea-header-js',
         get_stylesheet_directory_uri() . '/assets/js/tirea-header.js',
         [],
-        '1.0.0',
+        file_exists($js_path) ? filemtime($js_path) : null,
         true
     );
 }
