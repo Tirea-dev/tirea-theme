@@ -720,7 +720,7 @@ function tirea_restrict_woopayments_assets() {
 add_action('wp_enqueue_scripts', 'tirea_restrict_woopayments_assets', 99);
 
 /* ==========================================================================
-   TIREA — Pages légales (CGV, mentions, confidentialité, livraison, retours…)
+   TIREA — Pages légales (CGV, mentions, confidentialité, livraison, retours, contact, histoire)
    Shortcode : [tirea_legal_page slug="cgv"]
    ========================================================================== */
 
@@ -750,6 +750,12 @@ function tirea_enqueue_legal_assets() {
         file_exists($js_path) ? filemtime($js_path) : null,
         true
     );
+
+    // Passe les infos AJAX au JS (URL admin-ajax + nonce)
+    wp_localize_script('tirea-legal-js', 'tireaLegalAjax', [
+        'url'   => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('tirea_legal_form'),
+    ]);
 }
 add_action('wp_enqueue_scripts', 'tirea_enqueue_legal_assets');
 
@@ -770,3 +776,192 @@ function tirea_legal_page_shortcode($atts) {
     return ob_get_clean();
 }
 add_shortcode('tirea_legal_page', 'tirea_legal_page_shortcode');
+
+/* ----------- Handlers AJAX des formulaires ----------- */
+
+// Helper : rate limiting basique (max 3 envois / 10 min par IP)
+function tirea_form_rate_limit($key) {
+    $ip = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field($_SERVER['REMOTE_ADDR']) : 'unknown';
+    $transient = 'tirea_rl_' . $key . '_' . md5($ip);
+    $count = (int) get_transient($transient);
+    if ($count >= 3) return false;
+    set_transient($transient, $count + 1, 10 * MINUTE_IN_SECONDS);
+    return true;
+}
+
+// Helper : vérifie honeypot + nonce
+function tirea_form_security_check() {
+    // Nonce
+    if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'], 'tirea_legal_form')) {
+        wp_send_json_error(['message' => 'Session expirée, rechargez la page.']);
+    }
+    // Honeypot — si rempli, on simule un succès silencieux pour ne pas alerter le bot
+    if (!empty($_POST['website'])) {
+        wp_send_json_success();
+    }
+}
+
+// ===== Handler RETOUR (rétractation) =====
+function tirea_handle_form_retour() {
+    tirea_form_security_check();
+
+    if (!tirea_form_rate_limit('retour')) {
+        wp_send_json_error(['message' => 'Trop de tentatives. Réessayez dans 10 minutes.']);
+    }
+
+    // Sanitize
+    $commande      = isset($_POST['commande'])       ? sanitize_text_field(wp_unslash($_POST['commande']))       : '';
+    $date_commande = isset($_POST['date_commande'])  ? sanitize_text_field(wp_unslash($_POST['date_commande']))  : '';
+    $date_reception= isset($_POST['date_reception']) ? sanitize_text_field(wp_unslash($_POST['date_reception'])) : '';
+    $nom           = isset($_POST['nom'])            ? sanitize_text_field(wp_unslash($_POST['nom']))            : '';
+    $email         = isset($_POST['email'])          ? sanitize_email(wp_unslash($_POST['email']))               : '';
+    $adresse       = isset($_POST['adresse'])        ? sanitize_text_field(wp_unslash($_POST['adresse']))        : '';
+    $article       = isset($_POST['article'])        ? sanitize_text_field(wp_unslash($_POST['article']))        : '';
+    $motif         = isset($_POST['motif'])          ? sanitize_textarea_field(wp_unslash($_POST['motif']))      : '';
+
+    // Validation
+    if (empty($commande) || empty($date_commande) || empty($date_reception) ||
+        empty($nom) || empty($email) || empty($adresse) || empty($article)) {
+        wp_send_json_error(['message' => 'Champs obligatoires manquants.']);
+    }
+    if (!is_email($email)) {
+        wp_send_json_error(['message' => 'Adresse email invalide.']);
+    }
+
+    // ----- Mail à TIREA (sav@tirea.fr) -----
+    $to_admin = 'sav@tirea.fr';
+    $subject_admin = '[TIREA] Demande de rétractation — Commande ' . $commande;
+    $body_admin = "Nouvelle demande de rétractation reçue via tirea.fr\n\n"
+                . "--- INFORMATIONS CLIENT ---\n"
+                . "Nom : {$nom}\n"
+                . "Email : {$email}\n"
+                . "Adresse : {$adresse}\n\n"
+                . "--- COMMANDE ---\n"
+                . "Numéro : {$commande}\n"
+                . "Commandé le : {$date_commande}\n"
+                . "Reçu le : {$date_reception}\n"
+                . "Article(s) : {$article}\n\n"
+                . "--- MOTIF ---\n"
+                . ($motif !== '' ? $motif : '(non précisé)') . "\n\n"
+                . "--- ENVOI ---\n"
+                . "Date d'envoi : " . current_time('d/m/Y H:i') . "\n"
+                . "IP : " . (isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field($_SERVER['REMOTE_ADDR']) : '—') . "\n";
+
+    $headers_admin = [
+        'From: TIREA <noreply@tirea.fr>',
+        'Reply-To: ' . $nom . ' <' . $email . '>',
+        'Content-Type: text/plain; charset=UTF-8',
+    ];
+
+    $sent_admin = wp_mail($to_admin, $subject_admin, $body_admin, $headers_admin);
+
+    // ----- Mail copie au client (preuve de notification) -----
+    $subject_client = 'Confirmation de votre demande de rétractation — TIREA';
+    $body_client = "Bonjour {$nom},\n\n"
+                 . "Nous avons bien reçu votre demande de rétractation pour la commande {$commande}.\n"
+                 . "Conformément à l'article L.221-18 du Code de la consommation, votre notification est désormais enregistrée.\n\n"
+                 . "Notre équipe vous recontactera sous 24 heures avec l'adresse postale à laquelle expédier le ou les articles.\n\n"
+                 . "--- RÉCAPITULATIF DE VOTRE DEMANDE ---\n"
+                 . "Numéro de commande : {$commande}\n"
+                 . "Commandé le : {$date_commande}\n"
+                 . "Reçu le : {$date_reception}\n"
+                 . "Article(s) : {$article}\n"
+                 . "Motif : " . ($motif !== '' ? $motif : '(non précisé)') . "\n\n"
+                 . "Pour toute question, écrivez-nous à sav@tirea.fr.\n\n"
+                 . "À bientôt,\n"
+                 . "L'équipe TIREA\n"
+                 . "https://tirea.fr\n";
+
+    $headers_client = [
+        'From: TIREA <sav@tirea.fr>',
+        'Content-Type: text/plain; charset=UTF-8',
+    ];
+
+    wp_mail($email, $subject_client, $body_client, $headers_client);
+
+    if ($sent_admin) {
+        wp_send_json_success(['message' => 'Demande envoyée.']);
+    } else {
+        wp_send_json_error(['message' => 'L\'envoi a échoué. Réessayez ou contactez-nous directement.']);
+    }
+}
+add_action('wp_ajax_tirea_form_retour', 'tirea_handle_form_retour');
+add_action('wp_ajax_nopriv_tirea_form_retour', 'tirea_handle_form_retour');
+
+// ===== Handler CONTACT =====
+function tirea_handle_form_contact() {
+    tirea_form_security_check();
+
+    if (!tirea_form_rate_limit('contact')) {
+        wp_send_json_error(['message' => 'Trop de tentatives. Réessayez dans 10 minutes.']);
+    }
+
+    // Sanitize
+    $prenom   = isset($_POST['prenom'])   ? sanitize_text_field(wp_unslash($_POST['prenom']))      : '';
+    $nom      = isset($_POST['nom'])      ? sanitize_text_field(wp_unslash($_POST['nom']))         : '';
+    $email    = isset($_POST['email'])    ? sanitize_email(wp_unslash($_POST['email']))            : '';
+    $commande = isset($_POST['commande']) ? sanitize_text_field(wp_unslash($_POST['commande']))    : '';
+    $sujet    = isset($_POST['sujet'])    ? sanitize_text_field(wp_unslash($_POST['sujet']))       : 'Autre';
+    $message  = isset($_POST['message'])  ? sanitize_textarea_field(wp_unslash($_POST['message'])) : '';
+
+    // Validation
+    if (empty($prenom) || empty($nom) || empty($email) || empty($message)) {
+        wp_send_json_error(['message' => 'Champs obligatoires manquants.']);
+    }
+    if (!is_email($email)) {
+        wp_send_json_error(['message' => 'Adresse email invalide.']);
+    }
+
+    // ----- Mail à TIREA -----
+    $to_admin = 'contact@tirea.fr';
+    $subject_admin = '[TIREA] Contact — ' . $sujet . ($commande !== '' ? ' (Cmd ' . $commande . ')' : '');
+    $body_admin = "Nouveau message reçu via le formulaire de contact tirea.fr\n\n"
+                . "--- EXPÉDITEUR ---\n"
+                . "Prénom : {$prenom}\n"
+                . "Nom : {$nom}\n"
+                . "Email : {$email}\n"
+                . ($commande !== '' ? "N° commande : {$commande}\n" : '')
+                . "\n--- SUJET ---\n"
+                . $sujet . "\n\n"
+                . "--- MESSAGE ---\n"
+                . $message . "\n\n"
+                . "--- ENVOI ---\n"
+                . "Date : " . current_time('d/m/Y H:i') . "\n"
+                . "IP : " . (isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field($_SERVER['REMOTE_ADDR']) : '—') . "\n";
+
+    $headers_admin = [
+        'From: TIREA <noreply@tirea.fr>',
+        'Reply-To: ' . $prenom . ' ' . $nom . ' <' . $email . '>',
+        'Content-Type: text/plain; charset=UTF-8',
+    ];
+
+    $sent_admin = wp_mail($to_admin, $subject_admin, $body_admin, $headers_admin);
+
+    // ----- Mail accusé de réception au client -----
+    $subject_client = 'Nous avons bien reçu votre message — TIREA';
+    $body_client = "Bonjour {$prenom},\n\n"
+                 . "Nous vous confirmons la bonne réception de votre message.\n"
+                 . "Notre équipe française vous répond personnellement, par e-mail, sous 24 heures.\n\n"
+                 . "--- RÉCAPITULATIF DE VOTRE MESSAGE ---\n"
+                 . "Sujet : {$sujet}\n"
+                 . ($commande !== '' ? "N° commande : {$commande}\n" : '')
+                 . "\nMessage :\n{$message}\n\n"
+                 . "À très vite,\n"
+                 . "L'équipe TIREA\n"
+                 . "https://tirea.fr\n";
+
+    $headers_client = [
+        'From: TIREA <contact@tirea.fr>',
+        'Content-Type: text/plain; charset=UTF-8',
+    ];
+
+    wp_mail($email, $subject_client, $body_client, $headers_client);
+
+    if ($sent_admin) {
+        wp_send_json_success(['message' => 'Message envoyé.']);
+    } else {
+        wp_send_json_error(['message' => 'L\'envoi a échoué. Réessayez ou contactez-nous directement.']);
+    }
+}
+add_action('wp_ajax_tirea_form_contact', 'tirea_handle_form_contact');
+add_action('wp_ajax_nopriv_tirea_form_contact', 'tirea_handle_form_contact');

@@ -525,3 +525,861 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   FORMULAIRES (retours + contact)
+   ========================================================================== */
+
+/* Screen reader only */
+.tirea-sr-only{
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Honeypot anti-spam */
+.tirea-legal-honeypot{
+  position: absolute;
+  left: -9999px;
+  width: 1px; height: 1px;
+  overflow: hidden;
+}
+
+/* Form card (commune retours + contact) */
+.tirea-legal-form-card{
+  border: 1px solid var(--tlg-line);
+  border-radius: 16px;
+  padding: 28px 30px;
+  background: var(--tlg-soft-2);
+  margin: 16px 0 0;
+}
+.tirea-legal-form{ width: 100%; }
+.tirea-legal-form-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.tirea-legal-form-group{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.tirea-legal-form-full{ grid-column: 1 / -1; }
+.tirea-legal-form-group label{
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--tlg-mute);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.tirea-legal-form-group input,
+.tirea-legal-form-group textarea{
+  border: 1px solid var(--tlg-line);
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--tlg-ink);
+  background: #fff;
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease;
+  resize: none;
+}
+.tirea-legal-form-group textarea{ min-height: 120px; resize: vertical; }
+.tirea-legal-form-group input:focus,
+.tirea-legal-form-group textarea:focus{
+  border-color: var(--tlg-blue);
+  box-shadow: 0 0 0 3px var(--tlg-blue-soft);
+}
+.tirea-legal-form-group input:focus-visible,
+.tirea-legal-form-group textarea:focus-visible{
+  outline: none;
+}
+.tirea-legal-form-group input[aria-invalid="true"],
+.tirea-legal-form-group textarea[aria-invalid="true"]{
+  border-color: #c0392b;
+  background: #fdf6f6;
+}
+.tirea-legal-form-group input::placeholder,
+.tirea-legal-form-group textarea::placeholder{ color: var(--tlg-mute); }
+.tirea-legal-form-note{
+  margin: 16px 0 0;
+  font-size: 13px;
+  color: var(--tlg-mute);
+  font-style: italic;
+}
+.tirea-legal-form-submit{
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.tirea-legal-btn.is-loading{
+  opacity: .65;
+  pointer-events: none;
+}
+.tirea-legal-form-feedback{
+  margin-top: 14px;
+  font-size: 13px;
+  color: #c0392b;
+  min-height: 18px;
+}
+.tirea-legal-form-feedback:empty{ margin-top: 0; }
+
+/* ==========================================================================
+   MODAL (succès / erreur)
+   ========================================================================== */
+.tirea-legal-modal{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(20,20,20,.55);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+.tirea-legal-modal.is-open{ display: flex; opacity: 1; }
+.tirea-legal-modal-box{
+  background: #fff;
+  border-radius: 20px;
+  max-width: 460px;
+  width: 100%;
+  padding: 44px 36px 32px;
+  text-align: center;
+  box-shadow: 0 24px 80px rgba(0,0,0,.18);
+  transform: translateY(12px) scale(.98);
+  transition: transform .3s cubic-bezier(.2,.8,.2,1);
+  position: relative;
+}
+.tirea-legal-modal.is-open .tirea-legal-modal-box{ transform: translateY(0) scale(1); }
+.tirea-legal-modal-close{
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 36px; height: 36px;
+  border-radius: 999px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--tlg-mute);
+  font-size: 22px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  transition: all .15s ease;
+}
+.tirea-legal-modal-close:hover{ background: var(--tlg-soft); color: var(--tlg-ink); }
+.tirea-legal-modal-close:focus-visible{ outline: 2px solid var(--tlg-blue); outline-offset: 2px; }
+.tirea-legal-modal-icon{
+  width: 64px; height: 64px;
+  border-radius: 999px;
+  background: var(--tlg-blue-soft);
+  display: grid;
+  place-items: center;
+  margin: 0 auto 22px;
+  color: var(--tlg-blue);
+}
+.tirea-legal-modal-tag{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--tlg-blue-soft);
+  color: var(--tlg-blue);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.tirea-legal-modal-tag::before{
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 999px;
+  background: var(--tlg-blue);
+}
+.tirea-legal-modal h2{
+  font-family: 'Playfair Display', serif;
+  font-size: 34px;
+  line-height: 1.1;
+  margin: 0 0 8px;
+  font-weight: 700;
+  color: var(--tlg-ink);
+  letter-spacing: -.01em;
+}
+.tirea-legal-modal h2 em{ font-style: italic; color: var(--tlg-blue); }
+.tirea-legal-modal p{
+  font-size: 15px;
+  color: var(--tlg-body);
+  line-height: 1.55;
+  margin: 14px 0 0;
+}
+.tirea-legal-modal-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 26px;
+  padding: 14px 32px;
+  border-radius: 999px;
+  background: var(--tlg-ink);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  transition: transform .15s ease, background .15s ease;
+}
+.tirea-legal-modal-btn:hover{ background: #1c1c20; transform: translateY(-1px); }
+.tirea-legal-modal-btn:focus-visible{ outline: 2px solid var(--tlg-blue); outline-offset: 3px; }
+
+/* Variante erreur */
+.tirea-legal-modal.is-error .tirea-legal-modal-icon{ background: #fdecec; color: #c0392b; }
+.tirea-legal-modal.is-error .tirea-legal-modal-tag{ background: #fdecec; color: #c0392b; }
+.tirea-legal-modal.is-error .tirea-legal-modal-tag::before{ background: #c0392b; }
+.tirea-legal-modal.is-error .tirea-legal-modal h2 em{ color: #c0392b; }
+
+/* ==========================================================================
+   PAGE CONTACT — layout spécifique
+   ========================================================================== */
+.tirea-contact-page{
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Intents (3 cards top) */
+.tirea-contact-intents{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  padding: 0 96px;
+  margin-top: 24px;
+}
+.tirea-contact-intent{
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.04);
+  border-radius: 18px;
+  padding: 26px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 190px;
+  text-decoration: none;
+  color: var(--tlg-ink);
+  box-shadow: 0 1px 2px rgba(15,15,15,.04), 0 8px 24px rgba(15,15,15,.05);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.tirea-contact-intent:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(15,15,15,.05), 0 14px 32px rgba(15,15,15,.08);
+}
+.tirea-contact-intent:focus-visible{
+  outline: 2px solid var(--tlg-blue);
+  outline-offset: 3px;
+}
+.tirea-contact-intent-num{
+  font-family: var(--tlg-mono);
+  font-size: 11px;
+  color: var(--tlg-mute);
+  letter-spacing: .14em;
+}
+.tirea-contact-intent-h{
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  line-height: 1.1;
+  color: var(--tlg-ink);
+  font-weight: 700;
+}
+.tirea-contact-intent-sub{
+  font-size: 13px;
+  color: var(--tlg-mute);
+  line-height: 1.5;
+  margin-top: -6px;
+}
+.tirea-contact-intent-link{
+  margin-top: auto;
+  font-size: 13px;
+  color: var(--tlg-blue);
+  font-weight: 500;
+  border-bottom: 1px solid var(--tlg-blue);
+  padding-bottom: 2px;
+  align-self: flex-start;
+}
+
+/* Form wrap (gris clair) */
+.tirea-contact-form-wrap{
+  padding: 64px 96px 0;
+}
+.tirea-contact-form-card.tirea-legal-form-card{
+  background: var(--tlg-soft);
+  border: 1px solid var(--tlg-line);
+  padding: 48px 56px;
+}
+.tirea-contact-form-title{
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  line-height: 1.05;
+  font-weight: 700;
+  color: var(--tlg-ink);
+  margin: 18px 0 0;
+  letter-spacing: -.01em;
+}
+.tirea-contact-form-title em{ font-style: italic; color: var(--tlg-blue); }
+.tirea-contact-form-lead{
+  font-size: 14px;
+  color: var(--tlg-mute);
+  margin: 10px 0 0;
+  line-height: 1.5;
+  max-width: 560px;
+}
+
+/* Chips (sujets) */
+.tirea-contact-subjects-wrap{ margin-top: 28px; }
+.tirea-contact-label{
+  font-family: var(--tlg-mono);
+  font-size: 11px;
+  color: var(--tlg-mute);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.tirea-contact-subjects{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.tirea-contact-chip{
+  padding: 8px 14px;
+  border: 1px solid var(--tlg-line);
+  border-radius: 999px;
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--tlg-ink-2);
+  cursor: pointer;
+  background: #fff;
+  transition: all .15s ease;
+}
+.tirea-contact-chip:hover{ border-color: var(--tlg-ink); }
+.tirea-contact-chip:focus-visible{ outline: 2px solid var(--tlg-blue); outline-offset: 2px; }
+.tirea-contact-chip.is-active{
+  background: var(--tlg-ink);
+  color: #fff;
+  border-color: var(--tlg-ink);
+}
+
+/* Form foot */
+.tirea-contact-form-foot{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.tirea-contact-fine{
+  font-size: 12px;
+  color: var(--tlg-mute);
+  letter-spacing: .04em;
+}
+
+/* Info cards (3 colonnes bas) */
+.tirea-contact-info{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  padding: 24px 96px 80px;
+}
+.tirea-contact-info-card{
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.04);
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 1px 2px rgba(15,15,15,.04), 0 8px 24px rgba(15,15,15,.05);
+}
+.tirea-contact-info-section{
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--tlg-line);
+}
+.tirea-contact-sublabel{
+  font-family: var(--tlg-mono);
+  font-size: 10px;
+  color: var(--tlg-mute);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.tirea-contact-big{
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  margin-top: 6px;
+  display: block;
+  text-decoration: none;
+  color: var(--tlg-ink);
+}
+.tirea-contact-mail{
+  color: var(--tlg-blue);
+  font-style: italic;
+  word-break: break-all;
+}
+.tirea-contact-mail:focus-visible{ outline: 2px solid var(--tlg-blue); outline-offset: 2px; }
+.tirea-contact-tiny{
+  font-size: 12px;
+  color: var(--tlg-mute);
+  margin-top: 4px;
+}
+.tirea-contact-hours{
+  font-size: 14px;
+  line-height: 1.9;
+  margin-top: 12px;
+  color: var(--tlg-ink-2);
+}
+.tirea-contact-hours div{
+  display: flex;
+  justify-content: space-between;
+}
+.tirea-contact-hours strong{
+  color: var(--tlg-ink);
+  font-weight: 500;
+}
+.tirea-contact-status{
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--tlg-line);
+  font-size: 12px;
+  color: var(--tlg-mute);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tirea-contact-status::before{
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 999px;
+  background: #16a34a;
+}
+.tirea-contact-social-intro{
+  font-size: 13px;
+  color: var(--tlg-mute);
+  margin: 10px 0 0;
+  line-height: 1.5;
+}
+.tirea-contact-social{
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+.tirea-contact-social a{
+  width: 44px; height: 44px;
+  border-radius: 999px;
+  border: 1px solid var(--tlg-line-2);
+  display: grid;
+  place-items: center;
+  color: var(--tlg-ink-2);
+  text-decoration: none;
+  transition: all .15s ease;
+}
+.tirea-contact-social a:hover{ border-color: var(--tlg-ink); color: var(--tlg-ink); }
+.tirea-contact-social a:focus-visible{ outline: 2px solid var(--tlg-blue); outline-offset: 2px; }
+
+/* ===== Responsive page contact ===== */
+@media (max-width: 980px){
+  .tirea-contact-intents{ padding: 0 40px; grid-template-columns: 1fr 1fr; }
+  .tirea-contact-form-wrap{ padding: 48px 40px 0; }
+  .tirea-contact-form-card.tirea-legal-form-card{ padding: 36px 32px; }
+  .tirea-contact-info{ padding: 18px 40px 60px; grid-template-columns: 1fr; }
+}
+@media (max-width: 767px){
+  .tirea-legal-form-grid{ grid-template-columns: 1fr; }
+  .tirea-legal-form-full{ grid-column: 1; }
+  .tirea-legal-form-submit{ justify-content: center; }
+  .tirea-contact-intents{ padding: 0 20px; grid-template-columns: 1fr; }
+  .tirea-contact-form-wrap{ padding: 32px 20px 0; }
+  .tirea-contact-form-card.tirea-legal-form-card{ padding: 28px 22px; }
+  .tirea-contact-form-title{ font-size: 30px; }
+  .tirea-contact-info{ padding: 14px 20px 60px; }
+  .tirea-contact-form-foot{ flex-direction: column; align-items: stretch; }
+  .tirea-contact-form-foot .tirea-legal-btn{ justify-content: center; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .tirea-legal-modal,
+  .tirea-legal-modal-box,
+  .tirea-legal-modal-btn,
+  .tirea-contact-intent,
+  .tirea-contact-chip{
+    transition: none !important;
+  }
+}
+
+/* ==========================================================================
+   PAGE NOTRE HISTOIRE — layout éditorial (hero + chapitres + CTA fort)
+   ========================================================================== */
+.tirea-histoire-page{
+  width: 100%;
+  --tlg-hero-bg: #f0f0f0;
+}
+
+/* ===== Hero éditorial ===== */
+.tirea-histoire-hero{
+  position: relative;
+  padding: 230px 64px 100px;
+  overflow: hidden;
+  background: var(--tlg-hero-bg);
+}
+.tirea-histoire-hero::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(24,96,211,.12) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 20% 80%, rgba(24,96,211,.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+.tirea-histoire-eyebrow{
+  font-family: var(--tlg-mono);
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--tlg-blue);
+  margin: 0 0 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  z-index: 1;
+}
+.tirea-histoire-eyebrow::before{
+  content: "";
+  width: 40px;
+  height: 1px;
+  background: var(--tlg-blue);
+  opacity: .55;
+  flex-shrink: 0;
+}
+.tirea-histoire-hero h1{
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 7vw, 108px);
+  font-weight: 700;
+  line-height: .98;
+  letter-spacing: -.015em;
+  color: var(--tlg-ink);
+  margin: 0 0 40px;
+  text-wrap: balance;
+  max-width: 820px;
+  position: relative;
+  z-index: 1;
+}
+.tirea-histoire-hero h1 em{
+  font-style: italic;
+  color: var(--tlg-blue);
+  font-weight: 600;
+}
+.tirea-histoire-desc{
+  font-size: clamp(15px, 1.2vw, 17px);
+  color: var(--tlg-body);
+  max-width: 540px;
+  line-height: 1.75;
+  font-weight: 400;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+}
+.tirea-histoire-scroll{
+  position: absolute;
+  bottom: 80px;
+  right: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--tlg-mono);
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(24,96,211,.55);
+  z-index: 1;
+}
+.tirea-histoire-scroll::after{
+  content: "";
+  width: 1px;
+  height: 56px;
+  background: linear-gradient(to bottom, rgba(24,96,211,.5), transparent);
+  animation: tirea-histoire-scrollline 2s ease-in-out infinite;
+}
+@keyframes tirea-histoire-scrollline{
+  0%, 100% { opacity: .5; transform: scaleY(1); }
+  50%      { opacity: .9; transform: scaleY(.7); }
+}
+
+/* ===== Main container chapitres ===== */
+.tirea-histoire-main{
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+/* ===== Chapitre ===== */
+.tirea-histoire-chapter{
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 80px;
+  padding: 100px 0;
+  border-bottom: 1px solid var(--tlg-line-2);
+  align-items: start;
+}
+.tirea-histoire-chapter:last-of-type{ border-bottom: none; }
+
+.tirea-histoire-chapter-aside{ position: sticky; top: 48px; }
+.tirea-histoire-chapter-num{
+  font-family: var(--tlg-mono);
+  font-size: 11px;
+  color: var(--tlg-blue);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 16px;
+}
+.tirea-histoire-chapter-title{
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 600;
+  color: var(--tlg-ink);
+  line-height: 1.2;
+  letter-spacing: -.005em;
+  margin: 0;
+}
+.tirea-histoire-chapter-title em{
+  font-style: italic;
+  font-weight: 500;
+  color: var(--tlg-blue);
+}
+
+.tirea-histoire-chapter-body p{
+  font-size: clamp(16px, 1.15vw, 17.5px);
+  color: var(--tlg-body);
+  margin: 0 0 22px;
+  font-weight: 400;
+  line-height: 1.75;
+  text-wrap: pretty;
+}
+.tirea-histoire-chapter-body p:last-child{ margin-bottom: 0; }
+.tirea-histoire-chapter-body strong{ color: var(--tlg-ink-2); font-weight: 600; }
+.tirea-histoire-closing{ margin-top: 28px !important; }
+
+/* ===== Pullquote ===== */
+.tirea-histoire-pullquote{
+  border-left: 3px solid var(--tlg-blue);
+  padding: 4px 0 4px 26px;
+  margin: 32px 0;
+}
+.tirea-histoire-pullquote p{
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--tlg-ink);
+  line-height: 1.45;
+  letter-spacing: -.005em;
+  margin: 0;
+}
+
+/* ===== Values grid (4 cards) ===== */
+.tirea-histoire-values{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 32px 0 0;
+}
+.tirea-histoire-value{
+  background: var(--tlg-soft);
+  border-radius: 14px;
+  padding: 24px 26px;
+}
+.tirea-histoire-value-label{
+  font-family: var(--tlg-mono);
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--tlg-blue);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 10px;
+}
+.tirea-histoire-value-title{
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--tlg-ink);
+  display: block;
+  margin-bottom: 6px;
+  letter-spacing: -.005em;
+}
+.tirea-histoire-value p{
+  font-size: 14.5px;
+  color: var(--tlg-body);
+  margin: 0;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* ===== CTA final ===== */
+.tirea-histoire-cta{
+  background: var(--tlg-hero-bg);
+  padding: 100px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.tirea-histoire-cta::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(24,96,211,.10) 0%, transparent 70%);
+  pointer-events: none;
+}
+.tirea-histoire-cta-eyebrow{
+  font-family: var(--tlg-mono);
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--tlg-blue);
+  margin: 0 0 24px;
+  position: relative;
+  z-index: 1;
+}
+.tirea-histoire-cta h2{
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(42px, 5vw, 72px);
+  font-weight: 700;
+  color: var(--tlg-ink);
+  line-height: 1.05;
+  letter-spacing: -.01em;
+  margin: 0 0 20px;
+  position: relative;
+  z-index: 1;
+}
+.tirea-histoire-cta h2 em{
+  font-style: italic;
+  color: var(--tlg-blue);
+  font-weight: 600;
+}
+.tirea-histoire-cta p{
+  font-size: 17px;
+  color: var(--tlg-body);
+  font-weight: 400;
+  max-width: 480px;
+  margin: 0 auto 44px;
+  position: relative;
+  z-index: 1;
+}
+.tirea-histoire-cta-btns{
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Boutons CTA histoire */
+.tirea-histoire-btn-primary,
+.tirea-histoire-btn-outline{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 30px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
+  transition: background .2s ease, transform .15s ease, border-color .2s ease, color .2s ease;
+}
+.tirea-histoire-btn-primary{
+  background: var(--tlg-ink);
+  color: #fff;
+  border: none;
+}
+.tirea-histoire-btn-primary:hover{
+  background: #1c1c20;
+  color: #fff;
+  transform: translateY(-2px);
+}
+.tirea-histoire-btn-primary:focus-visible{
+  outline: 2px solid var(--tlg-blue);
+  outline-offset: 3px;
+}
+.tirea-histoire-btn-outline{
+  background: #fff;
+  color: var(--tlg-ink-2);
+  border: 1px solid var(--tlg-line);
+}
+.tirea-histoire-btn-outline:hover{
+  border-color: var(--tlg-ink);
+  color: var(--tlg-ink);
+  transform: translateY(-2px);
+}
+.tirea-histoire-btn-outline:focus-visible{
+  outline: 2px solid var(--tlg-blue);
+  outline-offset: 3px;
+}
+
+/* ===== Fade-up animation ===== */
+.tirea-histoire-chapter{
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.tirea-histoire-chapter.is-visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Responsive histoire ===== */
+@media (max-width: 980px){
+  .tirea-histoire-hero{ padding: 170px 32px 80px; }
+  .tirea-histoire-scroll{ display: none; }
+  .tirea-histoire-main{ padding: 0 32px; }
+  .tirea-histoire-chapter{
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 72px 0;
+  }
+  .tirea-histoire-chapter-aside{ position: static; }
+  .tirea-histoire-values{ grid-template-columns: 1fr; }
+  .tirea-histoire-cta{ padding: 80px 32px; }
+}
+
+@media (max-width: 640px){
+  .tirea-histoire-hero{ padding: 170px 24px 64px; }
+  .tirea-histoire-main{ padding: 0 24px; }
+  .tirea-histoire-chapter{ padding: 56px 0; }
+  .tirea-histoire-cta{ padding: 64px 24px; }
+  .tirea-histoire-cta-btns{ flex-direction: column; width: 100%; }
+  .tirea-histoire-btn-primary,
+  .tirea-histoire-btn-outline{ width: 100%; justify-content: center; }
+}
+
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce){
+  .tirea-histoire-chapter{
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .tirea-histoire-scroll::after{ animation: none; }
+  .tirea-histoire-btn-primary,
+  .tirea-histoire-btn-outline{ transition: none; }
+}

@@ -174,15 +174,23 @@ return [
     ],
 
     // ==================== NOTRE HISTOIRE ====================
-    // Placeholder — à remplir quand on adaptera la page histoire au style commun
     'notre-histoire' => [
-        'pill'    => 'À propos',
-        'h1'      => 'Notre',
-        'h1_em'   => 'Histoire.',
-        'lede'    => '[Contenu à adapter — page à reprendre en dernier]',
+        'eyebrow' => 'Notre Histoire',
+        'h1'      => 'L\'élégance,',
+        'h1_em'   => 'sans compromis.',
+        'lede'    => 'De la frustration d\'une chemise qui s\'échappe, à la volonté de créer la référence française des accessoires professionnels premium.',
         'meta'    => [],
         'sections' => [],
-        'cta'    => $cta_contact,
+        'cta'     => [
+            'eyebrow'  => 'Tirea, votre allure, notre obsession',
+            'h2'       => 'Prêt à ne plus',
+            'h2_em'    => 'y penser ?',
+            'text'     => 'Découvrez l\'Ajusteur TIREA et rejoignez ceux qui ont fait de l\'élégance une habitude naturelle.',
+            'btn1'     => 'Découvrir l\'Ajusteur',
+            'btn1_url' => home_url('/produit/lajusteur-tirea/'),
+            'btn2'     => 'Nous écrire',
+            'btn2_url' => home_url('/contact/'),
+        ],
         'module' => null,
+        'type'   => 'histoire',
     ],
-];
