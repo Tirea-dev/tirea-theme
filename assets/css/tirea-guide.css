@@ -338,3 +338,7 @@
   .tirea-guide-result-title { font-size: 32px; }
   .tirea-guide-result-tagline { font-size: 20px; }
 }
+
+.tirea-guide-section {
+  scroll-margin-top: 40px;
+}

@@ -371,6 +371,28 @@ button.tirea-search-close:active { background: transparent; color: var(--tirea-c
   transform: scale(1);
 }
 
+/* Liens cachés par défaut, révélés en cascade à l'ouverture */
+.tirea-mobile-menu .tirea-mobile-link {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.tirea-mobile-menu.active .tirea-mobile-link {
+  animation: tireaMenuFadeUp 0.3s ease forwards;
+}
+.tirea-mobile-menu.active [data-anim="1"] { animation-delay: 0.10s; }
+.tirea-mobile-menu.active [data-anim="2"] { animation-delay: 0.15s; }
+.tirea-mobile-menu.active [data-anim="3"] { animation-delay: 0.20s; }
+.tirea-mobile-menu.active [data-anim="4"] { animation-delay: 0.25s; }
+.tirea-mobile-menu.active [data-anim="5"] { animation-delay: 0.30s; }
+.tirea-mobile-menu.active [data-anim="6"] { animation-delay: 0.35s; }
+.tirea-mobile-menu.active [data-anim="7"] { animation-delay: 0.40s; }
+.tirea-mobile-menu.active [data-anim="8"] { animation-delay: 0.45s; }
+.tirea-mobile-menu.active [data-anim="9"] { animation-delay: 0.50s; }
+
+@keyframes tireaMenuFadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* Bouton fermer (croix) */
 .tirea-close,
 button.tirea-close {

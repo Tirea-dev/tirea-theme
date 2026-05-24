@@ -26,7 +26,7 @@ $tirea_menu_main = [
 ];
 
 $tirea_menu_legal = [
-    ['url' => '/a-propos',         'slug' => 'a-propos',         'label' => 'Notre histoire'],
+    ['url' => '/notre-histoire',         'slug' => 'notre-histoire',         'label' => 'Notre histoire'],
     ['url' => '/cgv',              'slug' => 'cgv',              'label' => 'Conditions Générales de Vente'],
     ['url' => '/livraison',        'slug' => 'livraison',        'label' => 'Livraison'],
     ['url' => '/retours',          'slug' => 'retours',          'label' => 'Politique de retour'],

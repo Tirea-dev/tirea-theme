@@ -76,7 +76,7 @@ $tirea_g_result = $tirea_guide_result[$tirea_guide_variant];
 $tirea_g_is_full = ($tirea_guide_variant === 'full');
 ?>
 
-<section class="tirea-guide-section tirea-guide--<?php echo esc_attr($tirea_guide_variant); ?>" aria-labelledby="tirea-guide-title">
+<section id="mode-emploi" class="tirea-guide-section tirea-guide--<?php echo esc_attr($tirea_guide_variant); ?>" aria-labelledby="tirea-guide-title">
 
   <?php // ===== En-tête ===== ?>
   <p class="tirea-section-overline"><?php echo esc_html($tirea_g_head['overline']); ?></p>
