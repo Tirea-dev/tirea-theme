@@ -194,3 +194,5 @@ return [
         'module' => null,
         'type'   => 'histoire',
     ],
+
+];
