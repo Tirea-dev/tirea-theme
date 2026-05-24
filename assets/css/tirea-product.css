@@ -6,7 +6,7 @@
   padding: 100px 60px;
   max-width: 1400px;
   margin: 0 auto;
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: var(--tirea-font);
   color: #111;
 }
 
@@ -50,9 +50,9 @@
   transition: all 0.2s;
 }
 
-.tirea-thumbnail.active { border-color: #1e6fc4; }
+.tirea-thumbnail.active { border-color: var(--tirea-color-primary); }
 .tirea-thumbnail:hover { border-color: #ccc; }
-.tirea-thumbnail.active:hover { border-color: #1e6fc4; }
+.tirea-thumbnail.active:hover { border-color: var(--tirea-color-primary); }
 
 .tirea-thumbnail img {
   width: 100%;
@@ -66,7 +66,7 @@
   font-family: 'Playfair Display', serif;
   font-size: 56px;
   line-height: 1.05;
-  color: #000;
+  color: var(--tirea-color-text);
   margin-bottom: 20px;
   font-weight: 700;
   letter-spacing: 0;
@@ -74,7 +74,7 @@
 
 .tirea-product-description {
   font-size: 16px;
-  color: #555;
+  color: var(--tirea-color-text-soft);
   line-height: 1.6;
   margin-bottom: 36px;
 }
@@ -84,7 +84,7 @@
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 2px;
-  color: #000;
+  color: var(--tirea-color-text);
   margin-bottom: 16px;
   text-transform: uppercase;
 }
@@ -112,7 +112,7 @@
 .tirea-pack:hover { border-color: #ccc; }
 
 .tirea-pack.selected {
-  border-color: #1e6fc4;
+  border-color: var(--tirea-color-primary);
   background: #f5f9ff;
 }
 
@@ -126,7 +126,7 @@
   transition: all 0.2s;
 }
 
-.tirea-pack.selected .tirea-pack-radio { border-color: #1e6fc4; }
+.tirea-pack.selected .tirea-pack-radio { border-color: var(--tirea-color-primary); }
 
 .tirea-pack.selected .tirea-pack-radio::after {
   content: '';
@@ -137,7 +137,7 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #1e6fc4;
+  background: var(--tirea-color-primary);
 }
 
 .tirea-pack-content {
@@ -153,11 +153,11 @@
 .tirea-pack-name {
   font-size: 18px;
   font-weight: 700;
-  color: #000;
+  color: var(--tirea-color-text);
   margin-bottom: 2px;
 }
 
-.tirea-pack.selected .tirea-pack-name { color: #1e6fc4; }
+.tirea-pack.selected .tirea-pack-name { color: var(--tirea-color-primary); }
 
 .tirea-pack-detail {
   font-size: 13px;
@@ -169,7 +169,7 @@
 .tirea-pack-price {
   font-size: 18px;
   font-weight: 700;
-  color: #000;
+  color: var(--tirea-color-text);
 }
 
 .tirea-pack-old-price {
@@ -182,7 +182,7 @@
   position: absolute;
   top: -10px;
   right: 16px;
-  background: #1e6fc4;
+  background: var(--tirea-color-primary);
   color: white;
   font-size: 10px;
   font-weight: 700;
@@ -191,7 +191,7 @@
   border-radius: 20px;
 }
 
-.tirea-pack-badge.discount { background: #000; }
+.tirea-pack-badge.discount { background: var(--tirea-color-text); }
 
 /* === TOTAL + CTA === */
 .tirea-total-card {
@@ -210,7 +210,7 @@
 
 .tirea-total-label {
   font-size: 15px;
-  color: #555;
+  color: var(--tirea-color-text-soft);
 }
 
 .tirea-total-amount { text-align: right; }
@@ -218,7 +218,7 @@
 .tirea-total-price {
   font-size: 28px;
   font-weight: 800;
-  color: #000;
+  color: var(--tirea-color-text);
   line-height: 1;
 }
 
@@ -235,7 +235,7 @@
 
 .tirea-cta-btn {
   width: 100%;
-  background: #000;
+  background: var(--tirea-color-text);
   color: white;
   border: none;
   border-radius: 14px;
@@ -252,7 +252,7 @@
   transition: all 0.2s;
 }
 
-.tirea-cta-btn:hover { background: #1e6fc4; }
+.tirea-cta-btn:hover { background: var(--tirea-color-primary); }
 .tirea-cta-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 .tirea-cta-btn svg { width: 22px; height: 22px; }
 
@@ -287,7 +287,7 @@
   height: 20px !important;
   min-width: 20px;
   max-width: 20px;
-  color: #1e6fc4;
+  color: var(--tirea-color-primary);
   flex-shrink: 0;
   display: inline-block;
 }
@@ -301,7 +301,7 @@
 }
 
 .tirea-full-link a {
-  color: #1e6fc4;
+  color: var(--tirea-color-primary);
   text-decoration: none;
   font-weight: 500;
   border-bottom: 1px solid currentColor;
@@ -329,7 +329,7 @@
   border: 1px solid #d4f4dd;
   border-radius: 12px;
   font-size: 14px;
-  color: #555;
+  color: var(--tirea-color-text-soft);
 }
 
 .tirea-stock-indicator strong {
@@ -404,7 +404,7 @@
   border: 1px solid #eee;
   border-radius: 12px;
   font-size: 14px;
-  color: #555;
+  color: var(--tirea-color-text-soft);
 }
 
 .tirea-reception-icon {
@@ -417,11 +417,11 @@
 .tirea-reception-icon svg {
   width: 16px;
   height: 16px;
-  color: #1e6fc4;
+  color: var(--tirea-color-primary);
 }
 
 .tirea-reception-text strong {
-  color: #000;
+  color: var(--tirea-color-text);
   font-weight: 700;
 }
 
@@ -501,10 +501,10 @@
 
 .tirea-pay-more {
   background: #f0f0f0;
-  color: #888;
+  color: var(--tirea-color-text-muted);
   font-size: 16px;
   font-weight: 600;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--tirea-font);
 }
 
 /* ============================================
@@ -597,16 +597,16 @@
   padding: 100px 60px;
   max-width: 1400px;
   margin: 0 auto;
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: var(--tirea-font);
   color: #111;
   text-align: center;
 }
 
 .tirea-section-overline {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--tirea-font);
   font-size: 12px;
   letter-spacing: 3px;
-  color: #1e6fc4;
+  color: var(--tirea-color-primary);
   font-weight: 600;
   margin-bottom: 20px;
   text-transform: uppercase;
@@ -616,26 +616,26 @@
   font-family: 'Playfair Display', serif;
   font-size: 52px;
   line-height: 1.1;
-  color: #000;
+  color: var(--tirea-color-text);
   margin-bottom: 24px;
   font-weight: 600;
   letter-spacing: 0;
 }
 
 .tirea-section-title .tirea-accent {
-  color: #1e6fc4;
+  color: var(--tirea-color-primary);
 }
 
 .tirea-section-subtitle {
   font-size: 17px;
-  color: #555;
+  color: var(--tirea-color-text-soft);
   max-width: 640px;
   margin: 0 auto 60px;
   line-height: 1.7;
 }
 
 .tirea-section-subtitle strong {
-  color: #000;
+  color: var(--tirea-color-text);
   font-weight: 600;
 }
 
@@ -643,7 +643,7 @@
   margin-top: 60px;
   font-family: 'Playfair Display', serif;
   font-size: 22px;
-  color: #1e6fc4;
+  color: var(--tirea-color-primary);
   font-style: italic;
   font-weight: 400;
   max-width: 700px;
@@ -653,17 +653,17 @@
 }
 
 .tirea-section-quote strong {
-  color: #000;
+  color: var(--tirea-color-text);
   font-style: normal;
   font-weight: 600;
 }
 
 .tirea-section-quote em {
-  color: #555;
+  color: var(--tirea-color-text-soft);
 }
 
 .tirea-accent {
-  color: #1e6fc4;
+  color: var(--tirea-color-primary);
   font-weight: 600;
 }
 
@@ -714,7 +714,7 @@
 .tirea-component-name {
   font-size: 15px;
   font-weight: 600;
-  color: #000;
+  color: var(--tirea-color-text);
   margin-bottom: 2px;
 }
 
@@ -742,7 +742,7 @@
 
 .tirea-result-label {
   text-align: center;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--tirea-font);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 3px;
@@ -752,13 +752,13 @@
 }
 
 .tirea-result-label.before {
-  color: #999;
+  color: var(--tirea-color-text-faint);
   background: #f0f0f0;
 }
 
 .tirea-result-label.after {
   color: white;
-  background: #1e6fc4;
+  background: var(--tirea-color-primary);
 }
 
 .tirea-result-image {
@@ -861,11 +861,11 @@
 }
 
 .tirea-step-number {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--tirea-font);
   font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #999;
+  color: var(--tirea-color-text-faint);
   font-weight: 600;
   margin-bottom: 8px;
 }
@@ -873,20 +873,20 @@
 .tirea-step-title {
   font-family: 'Playfair Display', serif;
   font-size: 26px;
-  color: #000;
+  color: var(--tirea-color-text);
   font-weight: 600;
   margin-bottom: 14px;
 }
 
 .tirea-step-text {
   font-size: 15px;
-  color: #555;
+  color: var(--tirea-color-text-soft);
   line-height: 1.6;
   max-width: 260px;
 }
 
 .tirea-step-text strong {
-  color: #000;
+  color: var(--tirea-color-text);
   font-weight: 600;
 }
 
@@ -905,7 +905,7 @@
   margin: 30px auto;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid #1e6fc4;
+  border: 2px solid var(--tirea-color-primary);
   aspect-ratio: 1 / 1;
 }
 
@@ -918,21 +918,21 @@
 
 .tirea-final-text {
   font-size: 18px;
-  color: #555;
+  color: var(--tirea-color-text-soft);
   line-height: 1.7;
   max-width: 600px;
   margin: 0 auto 30px;
 }
 
 .tirea-final-text strong {
-  color: #000;
+  color: var(--tirea-color-text);
   font-weight: 600;
 }
 
 .tirea-final-tagline {
   font-family: 'Playfair Display', serif;
   font-size: 28px;
-  color: #000;
+  color: var(--tirea-color-text);
   font-weight: 600;
   margin-bottom: 40px;
 }
@@ -945,7 +945,7 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  background: #000;
+  background: var(--tirea-color-text);
   color: white;
   text-decoration: none;
   border-radius: 14px;
@@ -957,7 +957,7 @@
 }
 
 .tirea-final-btn:hover {
-  background: #1e6fc4;
+  background: var(--tirea-color-primary);
   color: white;
 }
 
@@ -973,7 +973,7 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 100px 60px;
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: var(--tirea-font);
   color: #111;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1011,13 +1011,13 @@
 
 .tirea-lifestyle-text {
   font-size: 17px;
-  color: #555;
+  color: var(--tirea-color-text-soft);
   line-height: 1.7;
   margin-bottom: 36px;
 }
 
 .tirea-lifestyle-text strong {
-  color: #000;
+  color: var(--tirea-color-text);
   font-weight: 600;
 }
 
@@ -1320,7 +1320,7 @@
 .tirea-rating-value {
   font-size: 15px;
   font-weight: 700;
-  color: #000;
+  color: var(--tirea-color-text);
 }
 
 .tirea-rating-count {
@@ -1336,7 +1336,7 @@
   padding: 100px 60px;
   max-width: 1400px;
   margin: 0 auto;
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: var(--tirea-font);
   color: #111;
   text-align: center;
   background: white;
@@ -1356,7 +1356,7 @@
 .tirea-reviews-avg {
   font-size: 18px;
   font-weight: 700;
-  color: #000;
+  color: var(--tirea-color-text);
   margin-left: 4px;
 }
 
@@ -1368,14 +1368,14 @@
 
 .tirea-reviews-mention {
   font-size: 12px;
-  color: #888;
+  color: var(--tirea-color-text-muted);
   margin-bottom: 50px;
   letter-spacing: 0.3px;
 }
 
 .tirea-photos-mention {
   font-size: 12px;
-  color: #888;
+  color: var(--tirea-color-text-muted);
   margin-bottom: 14px;
   letter-spacing: 0.3px;
 }
@@ -1518,7 +1518,7 @@
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(0, 0, 0, 0.06);
-  color: #555;
+  color: var(--tirea-color-text-soft);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -1528,18 +1528,20 @@
   transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.tirea-reviews-arrow:focus,
-.tirea-reviews-arrow:focus-visible,
 .tirea-reviews-arrow:active {
   background: white !important;
-  color: #555 !important;
-  outline: none !important;
+  color: var(--tirea-color-text-soft) !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+.tirea-reviews-arrow:focus-visible {
+  outline: 2px solid var(--tirea-color-primary);
+  outline-offset: 2px;
 }
 
 .tirea-reviews-arrow:hover {
   background: white;
-  color: #000;
+  color: var(--tirea-color-text);
 }
 
 .tirea-reviews-arrow svg {
@@ -1696,7 +1698,7 @@
   position: absolute;
   top: -10px;
   right: 20px;
-  background: #1e6fc4;
+  background: var(--tirea-color-primary);
   color: white;
   font-size: 10px;
   font-weight: 700;
@@ -1712,7 +1714,7 @@
   font-family: 'Playfair Display', serif;
   font-size: 19px;
   font-weight: 600;
-  color: #000;
+  color: var(--tirea-color-text);
   margin-bottom: 8px;
   margin-top: 4px;
   line-height: 1.3;
@@ -1721,7 +1723,7 @@
 
 .tirea-usecase-text {
   font-size: 14px;
-  color: #555;
+  color: var(--tirea-color-text-soft);
   line-height: 1.6;
 }
 
