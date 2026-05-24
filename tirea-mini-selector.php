@@ -168,6 +168,7 @@ foreach ($variations as $index => $variation) {
 
       <!-- Total + CTA -->
       <div class="tirea-total-card">
+        <div class="tirea-cart-error" role="alert" aria-live="polite" hidden></div>
         <div class="tirea-total-row">
           <span class="tirea-total-label">Total à payer</span>
           <div class="tirea-total-amount">

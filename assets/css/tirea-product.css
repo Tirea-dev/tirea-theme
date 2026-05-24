@@ -1562,6 +1562,20 @@
 }
 
 /* ============================================
+   MESSAGE D'ERREUR PANIER (inline)
+   ============================================ */
+.tirea-cart-error {
+  background: #fef5f5;
+  border: 1px solid #f5d4d4;
+  color: #c33;
+  font-size: 13px;
+  line-height: 1.4;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+/* ============================================
    LIGHTBOX PHOTOS
    ============================================ */
 .tirea-lightbox {
@@ -1596,6 +1610,12 @@
 }
 
 .tirea-lightbox-close {
+  /* Reset styles natifs du <button> pour garder le rendu actuel */
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  /* Style lightbox */
   position: absolute;
   top: 24px;
   right: 32px;
@@ -1615,6 +1635,11 @@
 
 .tirea-lightbox-close:hover {
   background: rgba(255, 255, 255, 0.15);
+}
+
+.tirea-lightbox-close:focus-visible {
+  outline: 2px solid var(--tirea-color-primary);
+  outline-offset: 2px;
 }
 
 /* ============================================

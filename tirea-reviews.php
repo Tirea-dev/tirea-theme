@@ -142,7 +142,7 @@ $tirea_total_count = defined('TIREA_GLOBAL_COUNT') ? TIREA_GLOBAL_COUNT : 0;
 </section>
 
 <!-- Lightbox photos -->
-<div class="tirea-lightbox" id="tireaLightbox">
-  <div class="tirea-lightbox-close">×</div>
+<div class="tirea-lightbox" id="tireaLightbox" role="dialog" aria-modal="true" aria-label="Photo agrandie">
+  <button type="button" class="tirea-lightbox-close" aria-label="Fermer">×</button>
   <img class="tirea-lightbox-img" src="" alt="">
 </div>

@@ -718,3 +718,55 @@ function tirea_restrict_woopayments_assets() {
     }
 }
 add_action('wp_enqueue_scripts', 'tirea_restrict_woopayments_assets', 99);
+
+/* ==========================================================================
+   TIREA — Pages légales (CGV, mentions, confidentialité, livraison, retours…)
+   Shortcode : [tirea_legal_page slug="cgv"]
+   ========================================================================== */
+
+// Slugs des pages WordPress qui utilisent le système légal
+function tirea_legal_slugs() {
+    return ['cgv', 'contact', 'livraison', 'mentions-legales', 'notre-histoire', 'confidentialite', 'retours'];
+}
+
+// Enqueue CSS/JS — uniquement sur les pages légales
+function tirea_enqueue_legal_assets() {
+    if (!is_page(tirea_legal_slugs())) return;
+
+    $css_path = get_stylesheet_directory() . '/assets/css/tirea-legal.css';
+    $js_path  = get_stylesheet_directory() . '/assets/js/tirea-legal.js';
+
+    wp_enqueue_style(
+        'tirea-legal-css',
+        get_stylesheet_directory_uri() . '/assets/css/tirea-legal.css',
+        ['tirea-tokens-css'],
+        file_exists($css_path) ? filemtime($css_path) : null
+    );
+
+    wp_enqueue_script(
+        'tirea-legal-js',
+        get_stylesheet_directory_uri() . '/assets/js/tirea-legal.js',
+        [],
+        file_exists($js_path) ? filemtime($js_path) : null,
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'tirea_enqueue_legal_assets');
+
+// JS en defer
+function tirea_defer_legal_js($tag, $handle) {
+    if ($handle === 'tirea-legal-js') {
+        return str_replace(' src=', ' defer src=', $tag);
+    }
+    return $tag;
+}
+add_filter('script_loader_tag', 'tirea_defer_legal_js', 10, 2);
+
+// Shortcode principal
+function tirea_legal_page_shortcode($atts) {
+    $atts = shortcode_atts(['slug' => ''], $atts, 'tirea_legal_page');
+    ob_start();
+    include get_stylesheet_directory() . '/tirea-legal.php';
+    return ob_get_clean();
+}
+add_shortcode('tirea_legal_page', 'tirea_legal_page_shortcode');

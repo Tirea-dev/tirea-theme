@@ -8,6 +8,21 @@
     $(document).ready(function() {
 
         // ============================================
+        // Helpers erreur panier (inline)
+        // ============================================
+        function showCartError($section, message) {
+            const $err = $section.find('.tirea-cart-error');
+            if (!$err.length) return;
+            $err.text(message).removeAttr('hidden');
+        }
+
+        function hideCartError($section) {
+            const $err = $section.find('.tirea-cart-error');
+            if (!$err.length) return;
+            $err.text('').attr('hidden', 'hidden');
+        }
+
+        // ============================================
         // Init de chaque section sélecteur
         // ============================================
         $('.tirea-product-section').each(function() {
@@ -131,6 +146,9 @@
                 }
 
                 updateTotal();
+
+                // Une sélection valide → on cache un éventuel message d'erreur
+                hideCartError($section);
             }
 
             // Init prix au chargement
@@ -151,9 +169,12 @@
             $ctaBtn.on('click', function(e) {
                 e.preventDefault();
 
+                // On repart toujours d'un état propre à chaque clic
+                hideCartError($section);
+
                 const $selected = $section.find('.tirea-pack.selected');
                 if (!$selected.length) {
-                    alert('Veuillez sélectionner un pack');
+                    showCartError($section, 'Veuillez sélectionner un pack.');
                     return;
                 }
 
@@ -178,13 +199,13 @@
                         } else {
                             $ctaBtn.removeClass('loading').prop('disabled', false);
                             $ctaText.text('Ajouter au panier');
-                            alert(response.data.message || 'Une erreur est survenue');
+                            showCartError($section, (response.data && response.data.message) || 'Une erreur est survenue.');
                         }
                     },
                     error: function() {
                         $ctaBtn.removeClass('loading').prop('disabled', false);
                         $ctaText.text('Ajouter au panier');
-                        alert('Erreur réseau, veuillez réessayer');
+                        showCartError($section, 'Erreur réseau, veuillez réessayer.');
                     }
                 });
             });
@@ -458,19 +479,32 @@
         const $lightboxImg = $lightbox.find('.tirea-lightbox-img');
         const $lightboxClose = $lightbox.find('.tirea-lightbox-close');
 
+        // Mémorise le focus précédent pour le restituer à la fermeture
+        let lightboxPreviousFocus = null;
+
         $('.tirea-photo-item').on('click', function(e) {
             const $img = $(this).find('img');
             if ($img.length && $img.attr('src')) {
+                lightboxPreviousFocus = document.activeElement;
                 $lightboxImg.attr('src', $img.attr('src'));
                 $lightboxImg.attr('alt', $img.attr('alt') || '');
                 $lightbox.addClass('active');
                 $('body').css('overflow', 'hidden');
+                // Donne le focus au bouton fermer (seul élément focusable du dialog)
+                if ($lightboxClose.length) {
+                    $lightboxClose[0].focus();
+                }
             }
         });
 
         function closeLightbox() {
             $lightbox.removeClass('active');
             $('body').css('overflow', '');
+            // Restitue le focus à l'élément qui a ouvert la lightbox
+            if (lightboxPreviousFocus && typeof lightboxPreviousFocus.focus === 'function' && document.contains(lightboxPreviousFocus)) {
+                lightboxPreviousFocus.focus();
+            }
+            lightboxPreviousFocus = null;
         }
 
         $lightbox.on('click', closeLightbox);
@@ -486,6 +520,14 @@
         $(document).on('keydown', function(e) {
             if (e.key === 'Escape' && $lightbox.hasClass('active')) {
                 closeLightbox();
+                return;
+            }
+            // Focus-trap : un seul focusable (le bouton fermer) → on garde le focus dessus
+            if (e.key === 'Tab' && $lightbox.hasClass('active')) {
+                e.preventDefault();
+                if ($lightboxClose.length) {
+                    $lightboxClose[0].focus();
+                }
             }
         });
 

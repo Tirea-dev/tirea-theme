@@ -1,0 +1,527 @@
+/* ==========================================================================
+   TIREA — Pages légales (CGV, mentions, confidentialité, livraison, retours…)
+   Préfixe : .tirea-legal-*
+   Dépend de : tirea-tokens.css (chargé globalement en priorité)
+   ========================================================================== */
+
+/* ===== Anti-scroll horizontal ===== */
+.tirea-legal-wrapper html,
+.tirea-legal-wrapper body { overflow-x: hidden; }
+
+/* ===== Variables locales (couleurs spécifiques pages légales, pas dans les tokens) ===== */
+.tirea-legal-wrapper{
+  --tlg-ink: #0b0b0c;
+  --tlg-ink-2: #2a2a2e;
+  --tlg-body: #4a4a52;
+  --tlg-mute: #8a8a93;
+  --tlg-line: #e7e7ea;
+  --tlg-line-2: #ececef;
+  --tlg-soft: #f5f5f7;
+  --tlg-soft-2: #fafafb;
+  --tlg-blue: var(--tirea-color-primary);
+  --tlg-blue-soft: #e7edff;
+  --tlg-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --tlg-radius-pill: 999px;
+}
+
+/* ===== Wrapper pleine largeur ===== */
+.tirea-legal-wrapper{
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+}
+.tirea-legal-page{
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 32px;
+  font-family: var(--tirea-font);
+  color: var(--tlg-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.tirea-legal-page *{ box-sizing: border-box; }
+.tirea-legal-page ::selection{ background: var(--tlg-blue-soft); color: var(--tlg-ink); }
+
+/* ===== Hero ===== */
+.tirea-legal-hero{
+  padding: 96px 0 56px;
+  text-align: center;
+  width: 100%;
+}
+.tirea-legal-pill{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px 8px 14px;
+  border-radius: var(--tlg-radius-pill);
+  background: var(--tlg-blue-soft);
+  color: var(--tlg-blue);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.tirea-legal-pill::before{
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--tlg-blue);
+}
+.tirea-legal-hero h1{
+  font-family: 'Playfair Display', serif;
+  color: var(--tlg-ink);
+  font-size: clamp(40px, 6vw, 76px);
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  margin: 28px 0 8px;
+  text-wrap: balance;
+}
+.tirea-legal-hero h1 em{
+  color: var(--tlg-blue);
+  font-style: italic;
+  font-weight: 600;
+  display: block;
+}
+.tirea-legal-lede{
+  font-size: clamp(16px, 1.4vw, 18px);
+  color: var(--tlg-body);
+  margin: 24px auto 0;
+  max-width: 720px;
+  text-wrap: pretty;
+}
+.tirea-legal-meta{
+  margin-top: 28px;
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  color: var(--tlg-mute);
+  font-size: 13px;
+}
+.tirea-legal-meta strong{ color: var(--tlg-ink-2); font-weight: 600; }
+
+/* ===== Layout 2 colonnes ===== */
+.tirea-legal-layout{
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 64px;
+  padding: 56px 0 96px;
+  align-items: start;
+}
+
+/* ===== TOC desktop ===== */
+.tirea-legal-toc{ position: sticky; top: 32px; }
+.tirea-legal-toc-label{
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--tlg-mute);
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+.tirea-legal-toc ol{
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex; flex-direction: column;
+  gap: 2px;
+}
+.tirea-legal-toc a{
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 10px;
+  padding: 8px 12px 8px 14px;
+  color: var(--tlg-body);
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1.45;
+  border-left: 2px solid transparent;
+  transition: color .2s ease, border-color .2s ease, background .2s ease;
+  border-radius: 0 8px 8px 0;
+}
+.tirea-legal-num{
+  font-family: var(--tlg-mono);
+  font-size: 11px;
+  color: var(--tlg-mute);
+  padding-top: 2px;
+}
+.tirea-legal-toc a:hover{ color: var(--tlg-ink); background: var(--tlg-soft-2); }
+.tirea-legal-toc a:focus-visible{ outline: 2px solid var(--tlg-blue); outline-offset: 2px; }
+.tirea-legal-toc a.is-active{ color: var(--tlg-ink); border-left-color: var(--tlg-blue); font-weight: 500; }
+.tirea-legal-toc a.is-active .tirea-legal-num{ color: var(--tlg-blue); }
+
+/* ===== TOC mobile ===== */
+.tirea-legal-toc-mobile{
+  display: none;
+  border: 1px solid var(--tlg-line);
+  border-radius: 14px;
+  background: #fff;
+  overflow: hidden;
+}
+.tirea-legal-toc-mobile summary{
+  list-style: none;
+  cursor: pointer;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 500;
+  color: var(--tlg-ink);
+}
+.tirea-legal-toc-mobile summary::-webkit-details-marker{ display: none; }
+.tirea-legal-chev{
+  width: 14px; height: 14px;
+  border-right: 1.5px solid var(--tlg-ink);
+  border-bottom: 1.5px solid var(--tlg-ink);
+  transform: rotate(45deg);
+  transition: transform .25s ease;
+  margin-top: -4px;
+}
+.tirea-legal-toc-mobile[open] .tirea-legal-chev{ transform: rotate(-135deg); margin-top: 4px; }
+.tirea-legal-toc-mobile-list{
+  padding: 4px 8px 12px;
+  border-top: 1px solid var(--tlg-line-2);
+  display: flex; flex-direction: column;
+}
+.tirea-legal-toc-mobile-list a{
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 8px;
+  padding: 10px 12px;
+  color: var(--tlg-body);
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 8px;
+}
+.tirea-legal-toc-mobile-list a:hover{ background: var(--tlg-soft); color: var(--tlg-ink); }
+.tirea-legal-toc-mobile-list a:focus-visible{ outline: 2px solid var(--tlg-blue); outline-offset: 2px; }
+
+/* ===== Contenu ===== */
+.tirea-legal-content{ width: 100%; word-break: break-word; }
+.tirea-legal-section{
+  padding-top: 56px;
+  margin-top: 24px;
+  scroll-margin-top: 32px;
+}
+.tirea-legal-section:first-child{ padding-top: 0; margin-top: 0; }
+.tirea-legal-section + .tirea-legal-section{ border-top: 1px solid var(--tlg-line-2); }
+.tirea-legal-section-num{
+  font-family: var(--tlg-mono);
+  font-size: 12px;
+  color: var(--tlg-mute);
+  letter-spacing: .04em;
+  margin-bottom: 12px;
+  display: block;
+}
+.tirea-legal-section h2{
+  font-family: 'Playfair Display', serif;
+  color: var(--tlg-ink);
+  font-size: clamp(26px, 2.6vw, 34px);
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -.005em;
+  margin: 0 0 24px;
+  text-wrap: balance;
+}
+.tirea-legal-section h3{
+  font-family: var(--tirea-font);
+  color: var(--tlg-ink);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 32px 0 10px;
+  letter-spacing: -.005em;
+}
+.tirea-legal-section p{
+  margin: 0 0 16px;
+  color: var(--tlg-body);
+  text-wrap: pretty;
+}
+.tirea-legal-section a{
+  color: var(--tlg-blue);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in oklab, var(--tlg-blue) 30%, transparent);
+  transition: border-color .2s ease;
+}
+.tirea-legal-section a:hover{ border-bottom-color: var(--tlg-blue); }
+.tirea-legal-section a:focus-visible{ outline: 2px solid var(--tlg-blue); outline-offset: 2px; border-radius: 2px; }
+.tirea-legal-section ul{
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+.tirea-legal-section ul li{
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 8px;
+}
+.tirea-legal-section ul li::before{
+  content: "";
+  position: absolute;
+  left: 4px; top: 11px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--tlg-blue);
+}
+.tirea-legal-section strong{ color: var(--tlg-ink-2); font-weight: 600; }
+
+/* ===== Callout ===== */
+.tirea-legal-callout{
+  background: var(--tlg-soft);
+  border-radius: 14px;
+  padding: 20px 22px;
+  margin: 20px 0 24px;
+  font-size: 14.5px;
+}
+.tirea-legal-callout-label{
+  display: block;
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--tlg-blue);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.tirea-legal-callout p:last-child{ margin-bottom: 0; }
+
+/* ===== Ident card (identification société) ===== */
+.tirea-legal-ident{
+  border: 1px solid var(--tlg-line);
+  border-radius: 14px;
+  padding: 22px 24px;
+  background: #fff;
+  margin: 8px 0 16px;
+}
+.tirea-legal-ident dl{
+  margin: 0;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  row-gap: 10px;
+  column-gap: 16px;
+  font-size: 14.5px;
+}
+.tirea-legal-ident dt{ color: var(--tlg-mute); font-weight: 500; }
+.tirea-legal-ident dd{ margin: 0; color: var(--tlg-ink-2); }
+
+/* ===== CTA finale ===== */
+.tirea-legal-cta{
+  margin: 56px 0 0;
+  background: var(--tlg-soft);
+  border-radius: 22px;
+  padding: 48px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: center;
+}
+.tirea-legal-cta .tirea-legal-pill{ margin-bottom: 18px; }
+.tirea-legal-cta h2{
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 3vw, 34px);
+  line-height: 1.15;
+  font-weight: 600;
+  color: var(--tlg-ink);
+  margin: 0;
+}
+.tirea-legal-cta h2 em{ color: var(--tlg-blue); font-style: italic; display: block; }
+.tirea-legal-cta p{ margin: 14px 0 0; color: var(--tlg-body); font-size: 15px; }
+
+.tirea-legal-btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--tlg-ink);
+  color: #fff;
+  padding: 16px 26px;
+  border-radius: var(--tlg-radius-pill);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
+  transition: transform .15s ease, background .2s ease;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+}
+.tirea-legal-btn:hover{ background: #1c1c20; transform: translateY(-1px); color: #fff; }
+.tirea-legal-btn:focus-visible{ outline: 2px solid var(--tlg-blue); outline-offset: 3px; }
+.tirea-legal-arrow{ width: 16px; height: 16px; display: inline-block; position: relative; }
+.tirea-legal-arrow::after{
+  content: "→";
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 980px){
+  .tirea-legal-layout{ grid-template-columns: 1fr; gap: 32px; padding: 40px 0 72px; }
+  .tirea-legal-page{ padding: 0 24px; }
+  .tirea-legal-toc{ display: none; }
+  .tirea-legal-toc-mobile{ display: block; }
+}
+
+@media (max-width: 767px){
+  .tirea-legal-content,
+  .tirea-legal-section-num,
+  .tirea-legal-section h2,
+  .tirea-legal-section h3,
+  .tirea-legal-section p{ text-align: center; }
+  .tirea-legal-section ul{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .tirea-legal-section ul li{ padding-left: 0; text-align: center; }
+  .tirea-legal-section ul li::before{
+    position: relative;
+    display: inline-block;
+    left: 0; top: -2px;
+    margin-right: 8px;
+  }
+  .tirea-legal-callout,
+  .tirea-legal-ident{ text-align: center; }
+  .tirea-legal-ident dl{ grid-template-columns: 1fr; text-align: center; }
+  .tirea-legal-cta{ text-align: center; justify-items: center; }
+  .tirea-legal-cta .tirea-legal-btn{ justify-self: center; }
+}
+
+@media (max-width: 720px){
+  .tirea-legal-cta{ grid-template-columns: 1fr; padding: 32px 26px; gap: 24px; }
+}
+
+@media (max-width: 520px){
+  .tirea-legal-ident dl{ grid-template-columns: 1fr; row-gap: 4px; }
+  .tirea-legal-ident dt{ margin-top: 8px; }
+}
+
+/* ===== Accessibilité — reduced motion ===== */
+@media (prefers-reduced-motion: reduce){
+  .tirea-legal-toc a,
+  .tirea-legal-section a,
+  .tirea-legal-btn,
+  .tirea-legal-chev,
+  *[class^="tirea-legal-"]{
+    transition: none !important;
+  }
+  html{ scroll-behavior: auto !important; }
+}
+
+/* ==========================================================================
+   Composants spécifiques (table, security chips, steps, table-wrap)
+   ========================================================================== */
+
+/* ===== Tableau finalités (Confidentialité) ===== */
+.tirea-legal-table-wrap{
+  overflow-x: auto;
+  margin: 0 0 20px;
+  border-radius: 14px;
+  border: 1px solid var(--tlg-line);
+}
+.tirea-legal-table-wrap table{
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.tirea-legal-table-wrap thead tr{ background: var(--tlg-soft); }
+.tirea-legal-table-wrap thead th{
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--tlg-mute);
+  font-weight: 600;
+  border-bottom: 1px solid var(--tlg-line);
+}
+.tirea-legal-table-wrap tbody td{
+  padding: 12px 16px;
+  color: var(--tlg-body);
+  border-bottom: 1px solid var(--tlg-line-2);
+  vertical-align: top;
+  line-height: 1.55;
+}
+.tirea-legal-table-wrap tbody tr:last-child td{ border-bottom: none; }
+.tirea-legal-table-wrap tbody tr:hover td{ background: var(--tlg-soft-2); }
+.tirea-legal-table-wrap tbody td:first-child{ color: var(--tlg-ink-2); font-weight: 500; }
+
+/* ===== Chips sécurité (Confidentialité §08) ===== */
+.tirea-legal-security-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin: 4px 0 20px;
+}
+.tirea-legal-security-chip{
+  background: var(--tlg-soft);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--tlg-ink-2);
+  font-weight: 500;
+}
+.tirea-legal-security-chip::before{
+  content: "✓";
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--tlg-blue-soft);
+  color: var(--tlg-blue);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ===== Steps numérotés (Retours §03) ===== */
+.tirea-legal-steps{
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.tirea-legal-steps li{
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+.tirea-legal-steps li::before{ display: none; } /* override de la puce générique des ul */
+.tirea-legal-step-num{
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--tlg-blue-soft);
+  color: var(--tlg-blue);
+  font-family: var(--tlg-mono);
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+.tirea-legal-step-text{
+  color: var(--tlg-body);
+  line-height: 1.6;
+}
+
+/* ===== Mobile : adapter les nouveaux composants ===== */
+@media (max-width: 767px){
+  .tirea-legal-steps li{
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .tirea-legal-security-grid{
+    grid-template-columns: 1fr;
+  }
+}
