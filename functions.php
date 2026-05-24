@@ -36,20 +36,23 @@ if (!defined('TIREA_GLOBAL_RATING')) {
 // ============================================
 
 function tirea_enqueue_product_assets() {
-    if (is_product() || is_front_page()) {
-        wp_enqueue_style(
-            'tirea-product-css',
-            get_stylesheet_directory_uri() . '/assets/css/tirea-product.css',
-            ['tirea-tokens-css'],
-            '1.0.0'
-        );
-    }
+    if (!is_product() && !is_front_page()) return;
+
+    $css_path = get_stylesheet_directory() . '/assets/css/tirea-product.css';
+    $js_path  = get_stylesheet_directory() . '/assets/js/tirea-product.js';
+
+    wp_enqueue_style(
+        'tirea-product-css',
+        get_stylesheet_directory_uri() . '/assets/css/tirea-product.css',
+        ['tirea-tokens-css'],
+        file_exists($css_path) ? filemtime($css_path) : null
+    );
 
     wp_enqueue_script(
         'tirea-product-js',
         get_stylesheet_directory_uri() . '/assets/js/tirea-product.js',
         ['jquery'],
-        '1.0.0',
+        file_exists($js_path) ? filemtime($js_path) : null,
         true
     );
 
@@ -57,9 +60,21 @@ function tirea_enqueue_product_assets() {
         'ajax_url' => admin_url('admin-ajax.php'),
         'checkout_url' => wc_get_checkout_url(),
         'cart_url' => wc_get_cart_url(),
+        'nonce' => wp_create_nonce('tirea_add_to_cart'),
     ]);
 }
 add_action('wp_enqueue_scripts', 'tirea_enqueue_product_assets');
+
+add_filter('script_loader_tag', 'tirea_defer_product_js', 10, 2);
+add_action('wp_enqueue_scripts', 'tirea_enqueue_product_assets');
+
+function tirea_defer_product_js($tag, $handle) {
+    if ('tirea-product-js' === $handle) {
+        return str_replace(' src=', ' defer src=', $tag);
+    }
+    return $tag;
+}
+add_filter('script_loader_tag', 'tirea_defer_product_js', 10, 2);
 
 function tirea_product_selector_shortcode($atts) {
     $atts = shortcode_atts(['id' => 0], $atts);
@@ -77,6 +92,7 @@ function tirea_product_selector_shortcode($atts) {
 add_shortcode('tirea_product_selector', 'tirea_product_selector_shortcode');
 
 function tirea_ajax_add_to_cart() {
+    check_ajax_referer('tirea_add_to_cart', 'nonce');
     $variation_id = isset($_POST['variation_id']) ? intval($_POST['variation_id']) : 0;
     $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
     $quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
