@@ -587,3 +587,117 @@ function tirea_faq_contact_handler() {
 }
 add_action('wp_ajax_tirea_faq_contact', 'tirea_faq_contact_handler');
 add_action('wp_ajax_nopriv_tirea_faq_contact', 'tirea_faq_contact_handler');
+
+// ============================================
+// TIREA — Optimisation perf : dequeue conditionnel
+// ============================================
+
+/**
+ * Détermine si la page courante est réellement construite avec Elementor.
+ */
+function tirea_page_uses_elementor() {
+    if (!class_exists('\Elementor\Plugin')) return false;
+
+    $post_id = get_queried_object_id();
+    if (!$post_id) return false;
+
+    $document = \Elementor\Plugin::$instance->documents->get($post_id);
+    if (!$document) return false;
+
+    return $document->is_built_with_elementor();
+}
+
+/**
+ * Dequeue des assets Elementor sur les pages qui ne l'utilisent pas.
+ * IMPORTANT : on utilise wp_dequeue_* SEUL (pas de wp_deregister_*), pour ne pas
+ * casser les scripts qui déclarent ces handles comme dépendance.
+ * On ne touche PAS à : lodash, swiper (dépendances potentielles de Woo / du slider avis).
+ */
+function tirea_dequeue_elementor_when_unused() {
+    if (is_admin()) return;
+
+    if (class_exists('\Elementor\Plugin') && \Elementor\Plugin::$instance->preview->is_preview_mode()) return;
+
+    if (tirea_page_uses_elementor()) return;
+
+    // CSS Elementor + Hello Elementor + Font Awesome à virer (sûrs à dequeue)
+    $elementor_styles = [
+        'elementor-frontend',
+        'elementor-frontend-legacy',
+        'elementor-post',
+        'elementor-icons',
+        'elementor-animations',
+        'widget-icon-list',
+        'widget-social-icons',
+        'header-footer-elementor',
+        'font-awesome-5-all',
+        'font-awesome-5-brands',
+        'font-awesome-5-solid',
+        'font-awesome-brands',
+        'font-awesome-solid',
+        'font-awesome',
+        'fontawesome',
+    ];
+    foreach ($elementor_styles as $handle) {
+        wp_dequeue_style($handle);
+    }
+
+    // JS Elementor à virer — SANS lodash ni swiper (dépendances risquées)
+    $elementor_scripts = [
+        'elementor-frontend',
+        'elementor-frontend-modules',
+        'elementor-waypoints',
+        'elementor-dialog',
+        'share-link',
+        'swiper',
+        'e-swiper',
+        'lodash',
+    ];
+    foreach ($elementor_scripts as $handle) {
+        wp_dequeue_script($handle);
+    }
+}
+add_action('wp_enqueue_scripts', 'tirea_dequeue_elementor_when_unused', 99);
+
+/**
+ * Décharge Gutenberg block-library (contenu front géré par templates PHP + shortcodes).
+ */
+function tirea_dequeue_gutenberg_styles() {
+    wp_dequeue_style('wp-block-library');
+    wp_dequeue_style('wp-block-library-theme');
+    wp_dequeue_style('classic-theme-styles');
+    wp_dequeue_style('global-styles');
+}
+add_action('wp_enqueue_scripts', 'tirea_dequeue_gutenberg_styles', 99);
+
+/**
+ * Restreint le SDK Stripe + scripts WooPayments aux pages d'achat.
+ * IMPORTANT : wp_dequeue_* SEUL (pas de deregister) pour ne casser aucune dépendance.
+ */
+function tirea_restrict_woopayments_assets() {
+    if (is_admin()) return;
+    if (!function_exists('is_product')) return;
+
+    $needs_stripe = is_product() || is_cart() || is_checkout() || is_account_page();
+    if ($needs_stripe) return;
+
+    $woopayments_handles_js = [
+        'wcpay-express-checkout',
+        'wcpay-express-checkout-ece',
+        'wc-payments-checkout',
+        'wcpay-checkout',
+    ];
+    foreach ($woopayments_handles_js as $handle) {
+        wp_dequeue_script($handle);
+    }
+
+    $woopayments_handles_css = [
+        'wcpay-express-checkout',
+        'wcpay-express-checkout-style',
+        'wc-payments-checkout',
+    ];
+    foreach ($woopayments_handles_css as $handle) {
+        wp_dequeue_style($handle);
+    }
+}
+add_action('wp_enqueue_scripts', 'tirea_restrict_woopayments_assets', 99);
