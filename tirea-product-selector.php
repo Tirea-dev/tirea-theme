@@ -22,13 +22,14 @@ foreach ($variations as $variation) {
 $main_image_id = $product->get_image_id();
 $main_image_url = $main_image_id ? wp_get_attachment_image_url($main_image_id, 'large') : wc_placeholder_img_src('large');
 
-// Métadonnées packs
+// Métadonnées packs — clés = valeurs littérales de l'attribut "pack"
+// Si Woo réordonne les variations dans l'admin, badges/noms restent collés au bon pack.
 $pack_meta = [
-    0 => ['name' => "L'Essentiel",      'detail' => '1 ajusteur · Pour découvrir',      'badge' => null,            'badge_class' => ''],
-    1 => ['name' => "Le Quotidien",     'detail' => '2 ajusteurs · Recommandé',         'badge' => 'BEST SELLER',   'badge_class' => ''],
-    2 => ['name' => "L'Indispensable",  'detail' => '3 ajusteurs · Jamais au dépourvu', 'badge' => '-25€ OFFERTS',  'badge_class' => 'discount'],
+    "L'Essentiel"     => ['detail' => '1 ajusteur · Pour découvrir',      'badge' => null,           'badge_class' => ''],
+    "Le Quotidien"    => ['detail' => '2 ajusteurs · Recommandé',         'badge' => 'BEST SELLER',  'badge_class' => ''],
+    "L'Indispensable" => ['detail' => '3 ajusteurs · Jamais au dépourvu', 'badge' => '-25€ OFFERTS', 'badge_class' => 'discount'],
 ];
-$default_index = 1;
+$default_pack_name = "Le Quotidien";
 
 // Construction du tableau de toutes les images (principale + variations)
 $all_images = [['url' => $main_image_url, 'alt' => $product->get_name()]];
@@ -54,15 +55,13 @@ $steps = [
 ];
 ?>
 
-<!-- ============================================
-     SECTION 1 — SÉLECTEUR DE PACKS
-     ============================================ -->
+<?php // ===== SECTION 1 — SÉLECTEUR DE PACKS ===== ?>
 <section class="tirea-product-section" data-product-id="<?php echo esc_attr($product_id); ?>">
   <div class="tirea-product-grid">
 
     <div class="tirea-gallery">
       <div class="tirea-main-image">
-        <!-- Toutes les images superposées (fade) -->
+        <?php // Toutes les images superposées (fade) ?>
         <?php foreach ($all_images as $i => $img): ?>
           <img class="tirea-slide <?php echo $i === 0 ? 'active' : ''; ?>"
                src="<?php echo esc_url($img['url']); ?>"
@@ -71,7 +70,7 @@ $steps = [
                <?php echo $i > 0 ? 'loading="lazy"' : ''; ?>>
         <?php endforeach; ?>
 
-        <!-- Flèches navigation (desktop) -->
+        <?php // Flèches navigation (desktop) ?>
         <button class="tirea-slider-arrow tirea-slider-prev" aria-label="Image précédente">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="15 18 9 12 15 6"/>
@@ -95,8 +94,8 @@ $steps = [
 
     <div class="tirea-product-info">
       <h1 class="tirea-product-title"><?php echo esc_html($product->get_name()); ?></h1>
-      
-      <!-- Note globale avec étoiles précises (pilotée depuis functions.php) -->
+
+      <?php // Note globale avec étoiles précises (pilotée depuis functions.php) ?>
       <?php
       $tirea_sel_avg = defined('TIREA_GLOBAL_RATING') ? TIREA_GLOBAL_RATING : 4.5;
       $tirea_sel_fill = ($tirea_sel_avg / 5) * 100;
@@ -122,12 +121,28 @@ $steps = [
 
       <div class="tirea-packs">
         <?php foreach ($variations as $index => $variation):
-            $meta = isset($pack_meta[$index]) ? $pack_meta[$index] : ['name' => 'Pack ' . ($index+1), 'detail' => '', 'badge' => null, 'badge_class' => ''];
+            // Nom littéral de l'attribut "pack" de cette variation (ex. "Le Quotidien")
+            $attr_pack = isset($variation['attributes']['attribute_pack']) ? $variation['attributes']['attribute_pack'] : '';
+
+            // Résolution du meta par NOM d'attribut (stable même si l'ordre change dans l'admin)
+            if (isset($pack_meta[$attr_pack])) {
+                $meta = $pack_meta[$attr_pack];
+                $meta['name'] = $attr_pack;
+            } else {
+                // Fallback safe : pack non répertorié → affiche juste son nom, sans badge
+                $meta = [
+                    'name'        => $attr_pack !== '' ? $attr_pack : 'Pack ' . ($index + 1),
+                    'detail'      => '',
+                    'badge'       => null,
+                    'badge_class' => '',
+                ];
+            }
+
             $var_id = $variation['variation_id'];
             $price_html = $variation['display_price'];
             $regular_price = $variation['display_regular_price'];
             $on_sale = $price_html < $regular_price;
-            $is_selected = ($index === $default_index);
+            $is_selected = ($attr_pack === $default_pack_name);
             $var_img = !empty($variation['image']['url']) ? $variation['image']['url'] : $main_image_url;
             // L'index de l'image associée au pack dans le slider (index 0 = principale, donc packs commencent à 1)
             $img_index = $index + 1;
@@ -156,7 +171,7 @@ $steps = [
         <?php endforeach; ?>
       </div>
 
-      <!-- Bloc stock + réception (ligne) -->
+      <?php // Bloc stock + réception (ligne) ?>
       <div class="tirea-info-row">
         <?php if ($has_stock_management): ?>
         <div class="tirea-stock-indicator <?php echo $total_stock <= 0 ? 'out-of-stock' : ''; ?>">
@@ -186,7 +201,7 @@ $steps = [
         </div>
       </div>
 
-      <!-- Total + CTA -->
+      <?php // Total + CTA ?>
       <div class="tirea-total-card">
         <div class="tirea-total-row">
           <span class="tirea-total-label">Total à payer</span>
@@ -204,7 +219,7 @@ $steps = [
         </button>
       </div>
 
-      <!-- Paiements acceptés -->
+      <?php // Paiements acceptés ?>
       <div class="tirea-payments">
         <div class="tirea-payments-label">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -233,7 +248,7 @@ $steps = [
         </div>
       </div>
 
-      <!-- Mini badges réassurance -->
+      <?php // Mini badges réassurance ?>
       <div class="tirea-mini-badges">
         <div class="tirea-mini-badge">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -256,14 +271,10 @@ $steps = [
   </div>
 </section>
 
-<!-- ============================================
-     SECTION 2 — AJUSTEUR (factorisé via shortcode)
-     ============================================ -->
+<?php // ===== SECTION 2 — AJUSTEUR (factorisé via shortcode) ===== ?>
 <?php echo do_shortcode('[tirea_ajusteur show_cta="0"]'); ?>
 
-<!-- ============================================
-     SECTION 3 — COMPOSANTS
-     ============================================ -->
+<?php // ===== SECTION 3 — COMPOSANTS ===== ?>
 <section class="tirea-components-section">
   <div class="tirea-section-overline">Zoom sur les composants</div>
   <h2 class="tirea-section-title">Conçu pour durer</h2>
@@ -287,9 +298,7 @@ $steps = [
 <?php // ===== SECTIONS 5 & 6 — GUIDE + RÉSULTAT "C'EST PRÊT" (factorisé via shortcode) ===== ?>
 <?php echo do_shortcode('[tirea_guide variant="full"]'); ?>
 
-<!-- ============================================
-     SECTION 7 — PHOTO LIFESTYLE FINALE + CTA
-     ============================================ -->
+<?php // ===== SECTION 7 — PHOTO LIFESTYLE FINALE + CTA ===== ?>
 <section class="tirea-lifestyle-section">
   <div class="tirea-lifestyle-image">
     <img src="https://tirea.fr/wp-content/uploads/2026/05/ajusteur-tirea-homme-femme.webp" alt="Une silhouette parfaite pour tous" loading="lazy">
@@ -312,7 +321,5 @@ $steps = [
   </div>
 </section>
 
-<!-- ============================================
-     SECTION 8 — AVIS CLIENTS
-     ============================================ -->
+<?php // ===== SECTION 8 — AVIS CLIENTS ===== ?>
 <?php echo do_shortcode('[tirea_reviews]'); ?>
