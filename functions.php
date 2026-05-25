@@ -611,9 +611,14 @@ add_action('wp_ajax_nopriv_tirea_faq_contact', 'tirea_faq_contact_handler');
 
 /**
  * Détermine si la page courante est réellement construite avec Elementor.
+ * Exception : produits WooCommerce → rendus par shortcode dans notre thème,
+ * on force `false` même si Elementor déclare un document fantôme pour eux.
  */
 function tirea_page_uses_elementor() {
     if (!class_exists('\Elementor\Plugin')) return false;
+
+    // Fiche produit : toujours en pur shortcode chez nous, jamais Elementor
+    if (function_exists('is_product') && is_product()) return false;
 
     $post_id = get_queried_object_id();
     if (!$post_id) return false;
@@ -718,6 +723,41 @@ function tirea_restrict_woopayments_assets() {
     }
 }
 add_action('wp_enqueue_scripts', 'tirea_restrict_woopayments_assets', 99);
+
+/**
+ * Dequeue conservateur des CSS Woo render-blocking inutiles sur NOTRE fiche produit custom.
+ * Notre template woocommerce/single-product.php ne déclenche aucun composant Woo natif
+ * (pas de galerie, pas de tabs, pas de related, pas de bouton .button) : ces styles sont du déchet.
+ * Rappel : wp_dequeue_style SEUL — JAMAIS wp_deregister_style (casse les dépendances checkout).
+ */
+function tirea_dequeue_woo_assets_on_product() {
+    if (is_admin()) return;
+    if (!function_exists('is_product') || !is_product()) return;
+
+    // Galerie zoom Woo (Photoswipe) — slider Tirea custom, aucune dépendance lib externe
+    wp_dequeue_style('photoswipe');
+    wp_dequeue_style('photoswipe-default-skin');
+
+    // Styles des blocs Gutenberg WooCommerce — fiche rendue par shortcode PHP, aucun bloc Woo
+    wp_dequeue_style('wc-blocks-style');
+    wp_dequeue_style('wc-blocks-vendors-style');
+    wp_dequeue_style('wc-block-style');
+}
+add_action('wp_enqueue_scripts', 'tirea_dequeue_woo_assets_on_product', 99);
+
+/**
+ * Désactive la galerie WooCommerce native (zoom, lightbox Photoswipe, slider).
+ * Notre fiche produit utilise un slider custom (tirea-product-selector.php),
+ * donc la galerie Woo injecte un <div class="pswp"> inutile dans le DOM
+ * et fait charger photoswipe.js/css pour rien.
+ * Priorité 100 = on passe APRÈS Hello Elementor qui déclare ces supports.
+ */
+function tirea_remove_woo_gallery_support() {
+    remove_theme_support('wc-product-gallery-zoom');
+    remove_theme_support('wc-product-gallery-lightbox');
+    remove_theme_support('wc-product-gallery-slider');
+}
+add_action('after_setup_theme', 'tirea_remove_woo_gallery_support', 100);
 
 /* ==========================================================================
    TIREA — Pages légales (CGV, mentions, confidentialité, livraison, retours, contact, histoire)
