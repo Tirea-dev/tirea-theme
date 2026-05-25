@@ -113,7 +113,7 @@ $tirea_hero_imgs = tirea_hero_images();
           <?php endforeach; ?>
         </div>
         <span class="tirea-social-text">
-          Plus de <strong><?php echo number_format($tirea_hero_proof_count, 0, ',', ' '); ?> clients</strong> nous font déjà confiance
+          Plus de <strong><?php echo number_format($tirea_hero_proof_count, 0, ',', ' '); ?> clients</strong> nous ont déjà fait confiance
         </span>
       </div>
 
