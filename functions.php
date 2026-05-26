@@ -623,6 +623,9 @@ function tirea_page_uses_elementor() {
     // Home : rendue par front-page.php (shortcodes purs), jamais Elementor
     if (is_front_page()) return false;
 
+    // Pages légales : rendues par template-tirea-legal.php (shortcode pur), jamais Elementor
+    if (is_page(tirea_legal_slugs())) return false;
+
     $post_id = get_queried_object_id();
     if (!$post_id) return false;
 
@@ -816,6 +819,15 @@ function tirea_enqueue_legal_assets() {
     ]);
 }
 add_action('wp_enqueue_scripts', 'tirea_enqueue_legal_assets');
+
+// Pages légales : forcer le gabarit PHP automatiquement, par slug (zéro assignation manuelle)
+add_filter('template_include', function($template) {
+    if (is_page(tirea_legal_slugs())) {
+        $tpl = get_stylesheet_directory() . '/template-tirea-legal.php';
+        if (file_exists($tpl)) return $tpl;
+    }
+    return $template;
+});
 
 // JS en defer
 function tirea_defer_legal_js($tag, $handle) {
