@@ -620,6 +620,9 @@ function tirea_page_uses_elementor() {
     // Fiche produit : toujours en pur shortcode chez nous, jamais Elementor
     if (function_exists('is_product') && is_product()) return false;
 
+    // Home : rendue par front-page.php (shortcodes purs), jamais Elementor
+    if (is_front_page()) return false;
+
     $post_id = get_queried_object_id();
     if (!$post_id) return false;
 
@@ -659,6 +662,21 @@ function tirea_dequeue_elementor_when_unused() {
         'font-awesome-solid',
         'font-awesome',
         'fontawesome',
+        // Elementor base layout — non utilisé par nos templates PHP (home + fiche produit)
+        'base-desktop',
+        // UAE (Ultimate Addons for Elementor / Header Footer Elementor) — non utilisé sur la home
+        'hfe-style',
+        'hfe-widgets-style',
+        'hfe-woo-product-grid',
+        'hfe-elementor-icons',
+        'hfe-icons-list',
+        'hfe-social-icons',
+        'hfe-social-share-icons-brands',
+        'hfe-social-share-icons-fontawesome',
+        'hfe-nav-menu-icons',
+        // CSS per-post Elementor (anciens header/footer UAE — IDs 10 et 19)
+        'elementor-post-10',
+        'elementor-post-19',
     ];
     foreach ($elementor_styles as $handle) {
         wp_dequeue_style($handle);
