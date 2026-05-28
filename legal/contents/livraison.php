@@ -4,8 +4,8 @@ if (!defined('ABSPATH')) exit; ?>
 <section class="tirea-legal-section" id="s01">
   <span class="tirea-legal-section-num">01</span>
   <h2>Délais de préparation</h2>
-  <p>Toutes les commandes passées sur tirea.fr sont préparées avec soin dans nos entrepôts en France métropolitaine. Nous nous engageons à expédier votre commande sous <strong>24 heures ouvrées</strong> à compter de la confirmation de paiement.</p>
-  <p>Les commandes passées le week-end ou les jours fériés sont préparées le premier jour ouvré suivant.</p>
+  <p>Toutes les commandes passées sur tirea.fr sont préparées avec soin dans nos entrepôts <strong>en France métropolitaine</strong>. Nous nous engageons à expédier votre commande sous <strong>24 heures ouvrées</strong> à compter de votre commande.</p>
+  <p>Les commandes passées le week-end ou les jours fériés sont expédiées le premier jour ouvré suivant.</p>
 </section>
 
 <section class="tirea-legal-section" id="s02">
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit; ?>
   <h2>Zones desservies & tarifs</h2>
   <p>TIREA livre dans les zones suivantes :</p>
   <ul>
-    <li><strong>France métropolitaine :</strong> livraison gratuite, sans minimum d'achat.</li>
+    <li><strong>France métropolitaine :</strong> livraison offerte, sans minimum d'achat.</li>
     <li><strong>Corse :</strong> frais de port appliqués selon le poids et la destination.</li>
     <li><strong>DROM-COM :</strong> livraison possible, frais et délais précisés au moment du paiement.</li>
     <li><strong>Union européenne :</strong> livraison sous réserve, frais variables selon le pays de destination.</li>
@@ -41,7 +41,7 @@ if (!defined('ABSPATH')) exit; ?>
   <span class="tirea-legal-section-num">04</span>
   <h2>Suivi de votre colis</h2>
   <p>Dès l'expédition de votre commande, un e-mail de confirmation vous est envoyé avec un <strong>numéro de suivi</strong>. Ce numéro vous permet de suivre l'acheminement de votre colis en temps réel directement sur le site du transporteur.</p>
-  <p>Si vous ne recevez pas cet e-mail dans les 48 heures suivant votre commande, pensez à vérifier vos courriers indésirables, puis contactez-nous à <a href="mailto:contact@tirea.fr">contact@tirea.fr</a>.</p>
+  <p>Si vous ne recevez pas cet e-mail dans les 48 heures suivant votre commande, pensez à vérifier vos courriers indésirables, puis contactez-nous à <a href="mailto:sav@tirea.fr">sav@tirea.fr</a>.</p>
 </section>
 
 <section class="tirea-legal-section" id="s05">
@@ -55,7 +55,7 @@ if (!defined('ABSPATH')) exit; ?>
   </ul>
   <div class="tirea-legal-callout">
     <span class="tirea-legal-callout-label">Important</span>
-    <p>Toute anomalie constatée à la livraison doit être signalée à <a href="mailto:contact@tirea.fr">contact@tirea.fr</a> dans un délai de <strong>48 heures après la réception</strong>, photographies à l'appui. Passé ce délai, aucune réclamation ne pourra être prise en compte.</p>
+    <p>Toute anomalie constatée à la livraison doit être signalée à <a href="mailto:sav@tirea.fr">sav@tirea.fr</a> dans un délai de <strong>48 heures après la réception</strong>, photographies à l'appui. Passé ce délai, aucune réclamation ne pourra être prise en compte.</p>
   </div>
 </section>
 
@@ -63,5 +63,5 @@ if (!defined('ABSPATH')) exit; ?>
   <span class="tirea-legal-section-num">06</span>
   <h2>Problème de livraison</h2>
   <p>En cas d'absence lors du passage du livreur, le colis est mis en consigne par le transporteur, à retirer selon ses propres modalités (point relais, bureau de poste, nouvelle présentation).</p>
-  <p>Si votre colis est déclaré perdu par le transporteur ou s'il ne vous parvient pas dans un délai raisonnable, contactez-nous à <a href="mailto:contact@tirea.fr">contact@tirea.fr</a>. Nous lancerons une enquête auprès du transporteur et trouverons rapidement une solution (renvoi ou remboursement).</p>
+  <p>Si votre colis est déclaré perdu par le transporteur ou s'il ne vous parvient pas dans un délai raisonnable, contactez-nous à <a href="mailto:sav@tirea.fr">sav@tirea.fr</a>. Nous lancerons une enquête auprès du transporteur et trouverons rapidement une solution (renvoi ou remboursement).</p>
 </section>

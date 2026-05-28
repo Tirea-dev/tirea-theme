@@ -26,13 +26,12 @@ $main_image_url = $main_image_id ? wp_get_attachment_image_url($main_image_id, '
 // Lien vers la fiche produit complète
 $product_url = get_permalink($product_id);
 
-// Métadonnées packs
 $pack_meta = [
-    0 => ['name' => "L'Essentiel",      'detail' => '1 ajusteur · Pour découvrir',      'badge' => null,            'badge_class' => ''],
-    1 => ['name' => "Le Quotidien",     'detail' => '2 ajusteurs · Recommandé',         'badge' => 'BEST SELLER',   'badge_class' => ''],
-    2 => ['name' => "L'Indispensable",  'detail' => '3 ajusteurs · Jamais au dépourvu', 'badge' => '-25€ OFFERTS',  'badge_class' => 'discount'],
+    "L'Essentiel"     => ['detail' => '1 ajusteur · Pour découvrir',      'badge' => null,           'badge_class' => ''],
+    "Le Quotidien"    => ['detail' => '2 ajusteurs · Recommandé',         'badge' => 'BEST SELLER',  'badge_class' => ''],
+    "L'Indispensable" => ['detail' => '3 ajusteurs · Jamais au dépourvu', 'badge' => '-25€ OFFERTS', 'badge_class' => 'discount'],
 ];
-$default_index = 1;
+$default_pack_name = "Le Quotidien";
 
 // Toutes les images (principale + variations)
 $all_images = [['url' => $main_image_url, 'alt' => $product->get_name()]];
@@ -104,12 +103,27 @@ foreach ($variations as $index => $variation) {
 
       <div class="tirea-packs">
         <?php foreach ($variations as $index => $variation):
-            $meta = isset($pack_meta[$index]) ? $pack_meta[$index] : ['name' => 'Pack ' . ($index+1), 'detail' => '', 'badge' => null, 'badge_class' => ''];
+            // Nom littéral de l'attribut "pack" de cette variation (ex. "Le Quotidien")
+            $attr_pack = isset($variation['attributes']['attribute_pack']) ? $variation['attributes']['attribute_pack'] : '';
+
+            // Résolution du meta par NOM d'attribut (stable même si l'ordre change dans l'admin)
+            if (isset($pack_meta[$attr_pack])) {
+                $meta = $pack_meta[$attr_pack];
+                $meta['name'] = $attr_pack;
+            } else {
+                $meta = [
+                    'name'        => $attr_pack !== '' ? $attr_pack : 'Pack ' . ($index + 1),
+                    'detail'      => '',
+                    'badge'       => null,
+                    'badge_class' => '',
+                ];
+            }
+
             $var_id = $variation['variation_id'];
             $price_html = $variation['display_price'];
             $regular_price = $variation['display_regular_price'];
             $on_sale = $price_html < $regular_price;
-            $is_selected = ($index === $default_index);
+            $is_selected = ($attr_pack === $default_pack_name);
             $img_index = $index + 1;
         ?>
           <div class="tirea-pack <?php echo $is_selected ? 'selected' : ''; ?>"

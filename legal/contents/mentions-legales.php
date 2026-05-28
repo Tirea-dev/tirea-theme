@@ -7,13 +7,14 @@ if (!defined('ABSPATH')) exit; ?>
   <p>Le site tirea.fr est édité par :</p>
   <div class="tirea-legal-ident">
     <dl>
-      <dt>Raison sociale</dt><dd>[Ton Prénom et Nom] (EI : TIREA)</dd>
+      <dt>Raison sociale</dt><dd>Kelvin Devidal (EI : TIREA)</dd>
       <dt>Statut juridique</dt><dd>Entrepreneur Individuel (Micro-entreprise)</dd>
-      <dt>Siège social</dt><dd>[Ton adresse postale complète]</dd>
-      <dt>SIRET</dt><dd>[En cours d'attribution]</dd>
-      <dt>TVA</dt><dd>[Numéro de TVA intra. ou « TVA non applicable, art. 293 B du CGI »]</dd>
+      <dt>Siège social</dt><dd>44 rue Bastiat, 31200 Toulouse</dd>
+      <dt>SIREN</dt><dd>880 987 581</dd>
+      <dt>SIRET</dt><dd>880 987 581 00043</dd>
+      <dt>TVA</dt><dd>TVA non applicable, art. 293 B du CGI</dd>
       <dt>E-mail</dt><dd><a href="mailto:contact@tirea.fr">contact@tirea.fr</a></dd>
-      <dt>Directeur publication</dt><dd>[Ton Prénom et Nom]</dd>
+      <dt>Directeur publication</dt><dd>Kelvin Devidal</dd>
     </dl>
   </div>
 </section>

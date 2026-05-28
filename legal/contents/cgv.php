@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) exit; ?>
   <span class="tirea-legal-section-num">01</span>
   <h2>Objet & champ d'application</h2>
   <p>Les présentes Conditions Générales de Vente (ci-après « CGV ») régissent l'ensemble des relations contractuelles entre l'entreprise TIREA et toute personne physique majeure, non-commerçante (ci-après « le Client »), souhaitant procéder à un achat sur le site <a href="<?php echo esc_url(home_url('/')); ?>">tirea.fr</a>.</p>
-  <p>Toute commande passée sur le site implique l'acceptation pleine et entière des présentes CGV par le Client. Elles s'appliquent à l'exclusion de toute autre condition, et notamment celles applicables à la vente en magasin ou par d'autres canaux.</p>
+  <p>Toute commande passée sur le site implique l'acceptation pleine et entière des présentes CGV par le Client. Elles s'appliquent à l'exclusion de toute autre condition, et notamment celles applicables à la vente par d'autres canaux.</p>
   <div class="tirea-legal-callout">
     <span class="tirea-legal-callout-label">À retenir</span>
     <p>En validant votre commande, vous reconnaissez avoir lu et accepté ces CGV dans leur version en vigueur au jour de la commande.</p>
@@ -18,13 +18,14 @@ if (!defined('ABSPATH')) exit; ?>
   <p>Le site tirea.fr est édité et exploité par :</p>
   <div class="tirea-legal-ident">
     <dl>
-      <dt>Raison sociale</dt><dd>[Ton Prénom et Nom] (EI : TIREA)</dd>
+      <dt>Raison sociale</dt><dd>Kelvin Devidal (EI : TIREA)</dd>
       <dt>Statut juridique</dt><dd>Entrepreneur Individuel (Micro-entreprise)</dd>
-      <dt>Siège social</dt><dd>[Ton adresse postale complète]</dd>
-      <dt>SIRET</dt><dd>[En cours d'attribution]</dd>
-      <dt>TVA</dt><dd>[Numéro de TVA intra. ou « TVA non applicable, art. 293 B du CGI »]</dd>
+      <dt>Siège social</dt><dd>44 rue Bastiat, 31200 Toulouse</dd>
+      <dt>SIREN</dt><dd>880 987 581</dd>
+      <dt>SIRET</dt><dd>880 987 581 00043</dd>
+      <dt>TVA</dt><dd>TVA non applicable, art. 293 B du CGI</dd>
       <dt>E-mail</dt><dd><a href="mailto:contact@tirea.fr">contact@tirea.fr</a></dd>
-      <dt>Directeur publication</dt><dd>[Ton Prénom et Nom]</dd>
+      <dt>Directeur publication</dt><dd>Kelvin Devidal</dd>
     </dl>
   </div>
 </section>
@@ -62,28 +63,29 @@ if (!defined('ABSPATH')) exit; ?>
 <section class="tirea-legal-section" id="s06">
   <span class="tirea-legal-section-num">06</span>
   <h2>Paiement</h2>
-  <p>Le règlement s'effectue en ligne au moment de la commande, par : carte bancaire (Visa, Mastercard, American Express), PayPal ou Apple Pay. Les transactions sont sécurisées par notre prestataire de paiement, conforme au standard PCI-DSS, et utilisent un protocole de chiffrement SSL/TLS.</p>
+  <p>Le règlement s'effectue en ligne au moment de la commande, par : carte bancaire (Visa, Mastercard, American Express), PayPal, Apple Pay ou Google Pay. D'autres moyens de paiement pourront être proposés ponctuellement et seront indiqués lors du processus de commande. Les transactions sont sécurisées par notre prestataire de paiement, conforme au standard PCI-DSS, et utilisent un protocole de chiffrement SSL/TLS.</p>
   <p>TIREA n'a accès à aucun moment à vos données bancaires complètes : elles sont saisies directement sur l'interface de notre prestataire et ne transitent jamais par nos serveurs.</p>
 </section>
 
 <section class="tirea-legal-section" id="s07">
   <span class="tirea-legal-section-num">07</span>
   <h2>Livraison</h2>
-  <p>Les commandes sont préparées et expédiées sous <strong>24 heures ouvrées</strong> depuis nos entrepôts en France métropolitaine. Le délai de livraison estimatif est de <strong>24 à 72 heures</strong> après expédition, selon la zone et le transporteur.</p>
+  <p>Les commandes sont préparées et expédiées sous <strong>24 heures ouvrées</strong> depuis nos entrepôts <strong>en France métropolitaine</strong>. Le délai de livraison estimatif est de <strong>24 à 72 heures</strong> après expédition, selon la zone et le transporteur.</p>
   <h3>Zones desservies et tarifs</h3>
-  <p>La <strong>livraison est gratuite en France métropolitaine</strong>. Nous livrons également en Corse, dans les DROM-COM et dans l'Union européenne moyennant des frais de port supplémentaires. Les frais et délais exacts varient selon la destination et sont précisés au moment du paiement.</p>
+  <p>La <strong>livraison est offerte en France métropolitaine</strong>. Nous livrons également en Corse, dans les DROM-COM et dans l'Union européenne moyennant des frais de port supplémentaires. Les frais et délais exacts varient selon la destination et sont précisés au moment du paiement.</p>
   <h3>Suivi & réception</h3>
-  <p>Un numéro de suivi est transmis par e-mail dès l'expédition. En cas d'absence lors de la livraison, le colis est mis en consigne par le transporteur, à retirer selon ses propres modalités. Le Client est invité à vérifier l'état du colis à réception : toute anomalie doit être signalée sous 48 heures à <a href="mailto:contact@tirea.fr">contact@tirea.fr</a>.</p>
+  <p>Un <strong>numéro de suivi est transmis par e-mail</strong> dès l'expédition. En cas d'absence lors de la livraison, le colis est mis en consigne par le transporteur, à retirer selon ses propres modalités. Le Client est invité à vérifier l'état du colis à réception : toute anomalie doit être signalée sous 48 heures à <a href="mailto:sav@tirea.fr">sav@tirea.fr</a>.</p>
 </section>
 
 <section class="tirea-legal-section" id="s08">
   <span class="tirea-legal-section-num">08</span>
   <h2>Droit de rétractation</h2>
   <p>Conformément aux articles L221-18 et suivants du Code de la consommation, le Client dispose d'un délai de <strong>14 jours</strong> à compter de la réception de sa commande pour exercer son droit de rétractation, sans avoir à justifier de motifs ni à payer de pénalités.</p>
-  <p>Pour exercer ce droit, il suffit de notifier sa décision par e-mail à <a href="mailto:contact@tirea.fr">contact@tirea.fr</a>. Le produit doit être retourné dans son emballage d'origine, en parfait état, dans un délai de 14 jours suivant cette notification.</p>
+  <p>Au-delà de cette obligation légale, TIREA vous offre un <strong>délai étendu à 30 jours</strong> pour changer d'avis, à compter de la réception de votre commande. Cette garantie commerciale s'ajoute à vos droits légaux et ne s'y substitue pas.</p>
+  <p>Pour exercer ce droit, il suffit de notifier votre décision par e-mail à <a href="mailto:sav@tirea.fr">sav@tirea.fr</a>. Le produit doit être retourné dans son emballage d'origine, en parfait état, dans un délai de 14 jours suivant cette notification.</p>
   <div class="tirea-legal-callout">
     <span class="tirea-legal-callout-label">Notre engagement</span>
-    <p>Retour simple, sans justification ni question. Le remboursement intervient sous 14 jours à compter de la réception du produit retourné, par le même moyen de paiement que celui utilisé lors de la commande. <strong>Veuillez noter que les frais de retour sont à la charge exclusive du Client.</strong></p>
+    <p>Retour simple, sans justification ni question. Le remboursement intervient sous 14 jours à compter de la réception du produit retourné, ou jusqu'à ce que vous ayez fourni une preuve d'expédition. Ce remboursement inclut les sommes versées lors de la commande, y compris les frais de livraison initiaux le cas échéant, sur la base du mode de livraison standard le moins onéreux proposé sur notre site. Le remboursement est effectué sur le même moyen de paiement que celui utilisé lors de la commande. Les frais de transport liés au retour restent à la charge exclusive du client.</p>
   </div>
 </section>
 
@@ -129,5 +131,5 @@ if (!defined('ABSPATH')) exit; ?>
   <h2>Litiges & médiation</h2>
   <p>Les présentes CGV sont régies par le droit français. En cas de litige, le Client est invité à contacter en priorité notre service client afin de rechercher une solution amiable.</p>
   <p>À défaut, conformément à l'article L612-1 du Code de la consommation, le Client peut recourir gratuitement au service de médiation suivant : <strong>[Nom de ton médiateur de la consommation]</strong> : <a href="#">[Lien vers le site du médiateur]</a>.</p>
-  <p>Le Client peut également saisir la plateforme européenne de règlement en ligne des litiges : <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">ec.europa.eu/consumers/odr</a>.</p>
+  <p>Le Client peut également saisir la plateforme européenne de règlement en ligne des litiges : <a href="https://consumer-redress.ec.europa.eu" target="_blank" rel="noopener">consumer-redress.ec.europa.eu</a>.</p>
 </section>

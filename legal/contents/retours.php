@@ -6,19 +6,16 @@ $tirea_legal_dir = get_stylesheet_directory() . '/legal';
 <section class="tirea-legal-section" id="s01">
   <span class="tirea-legal-section-num">01</span>
   <h2>Délai de rétractation</h2>
-  <p>Conformément aux dispositions de l'article L.221-18 du Code de la consommation, vous disposez d'un délai légal de <strong>quatorze (14) jours francs</strong> pour exercer votre droit de rétractation, sans avoir à justifier de motifs ni à payer de pénalités.</p>
+  <p>Conformément aux articles L221-18 et suivants du Code de la consommation, le Client dispose d'un délai de <strong>14 jours</strong> à compter de la réception de sa commande pour exercer son droit de rétractation, sans avoir à justifier de motifs ni à payer de pénalités.</p>
+  <p>Au-delà de cette obligation légale, TIREA vous offre un <strong>délai étendu à 30 jours</strong> pour changer d'avis, à compter de la réception de votre commande. Cette garantie commerciale s'ajoute à vos droits légaux et ne s'y substitue pas.</p>
   <p>Ce délai court à compter du lendemain de la réception physique de votre commande par vous-même ou par un tiers désigné.</p>
 </section>
 
 <section class="tirea-legal-section" id="s02">
   <span class="tirea-legal-section-num">02</span>
   <h2>Conditions d'éligibilité</h2>
-  <p>Pour que votre retour soit accepté et le remboursement validé, l'article doit nous être renvoyé dans son <strong>état d'origine strict</strong>. Il ne doit avoir été ni porté, ni lavé, ni altéré d'aucune manière.</p>
+  <p>Pour que votre retour soit accepté et le remboursement validé, l'article doit nous être renvoyé dans son <strong>état d'origine strict</strong>. Il ne doit pas avoir été altéré d'aucune manière.</p>
   <p>Il doit impérativement être accompagné de l'intégralité de ses accessoires, de ses étiquettes d'origine intactes et de son emballage initial en parfait état. TIREA se réserve le droit de refuser tout retour ne respectant pas ces conditions rigoureuses. Dans ce cas, le produit vous sera renvoyé à vos frais.</p>
-  <div class="tirea-legal-callout">
-    <span class="tirea-legal-callout-label">Articles exclus</span>
-    <p>Les articles personnalisés, réalisés sur mesure ou descellés ne pouvant être renvoyés pour des raisons d'hygiène sont exclus du droit de rétractation, conformément à l'article L.221-28 du Code de la consommation.</p>
-  </div>
 </section>
 
 <section class="tirea-legal-section" id="s03">
@@ -28,7 +25,7 @@ $tirea_legal_dir = get_stylesheet_directory() . '/legal';
   <ol class="tirea-legal-steps">
     <li>
       <span class="tirea-legal-step-num">1</span>
-      <span class="tirea-legal-step-text">Notifiez notre service client de votre volonté de retourner un article en écrivant à <a href="mailto:sav@tirea.fr">sav@tirea.fr</a>, en précisant impérativement votre numéro de commande. Vous pouvez pour cela utiliser le formulaire de rétractation en section&nbsp;08.</span>
+      <span class="tirea-legal-step-text">Notifiez notre service client de votre volonté de retourner un article en écrivant à <a href="mailto:sav@tirea.fr">sav@tirea.fr</a>, en précisant impérativement votre numéro de commande. <strong>Vous pouvez pour cela utiliser le formulaire de rétractation en section&nbsp;08</strong>.</span>
     </li>
     <li>
       <span class="tirea-legal-step-num">2</span>
@@ -58,8 +55,8 @@ $tirea_legal_dir = get_stylesheet_directory() . '/legal';
 <section class="tirea-legal-section" id="s05">
   <span class="tirea-legal-section-num">05</span>
   <h2>Modalités de remboursement</h2>
-  <p>Dès réception et inspection de votre retour par notre service qualité, nous procéderons au remboursement des sommes versées, incluant les frais de livraison initiaux (sur la base du mode de livraison standard le moins onéreux proposé sur notre site).</p>
-  <p>Le remboursement sera déclenché dans un délai maximal de <strong>quatorze (14) jours</strong> suivant la réception de l'article dans nos entrepôts, ou jusqu'à ce que vous ayez fourni une preuve d'expédition. Il sera effectué automatiquement via le mode de paiement utilisé lors de la transaction initiale, sauf accord exprès de votre part pour un autre moyen.</p>
+  <p>Dès réception et inspection de votre retour par notre service qualité, nous procéderons au remboursement des sommes versées, incluant les frais de livraison initiaux le cas échéant (sur la base du mode de livraison standard le moins onéreux proposé sur notre site).</p>
+  <p>Le remboursement sera déclenché dans un délai maximal de <strong>14 jours</strong> suivant la réception de l'article dans nos entrepôts, ou jusqu'à ce que vous ayez fourni une preuve d'expédition. Le remboursement sera effectué automatiquement sur le mode de paiement utilisé lors de la transaction initiale. Pour des raisons de sécurité et de lutte contre la fraude bancaire, aucun virement vers un autre compte ou autre moyen de paiement ne pourra être exigé.</p>
   <p>Un e-mail de confirmation vous sera envoyé dès que le virement aura été ordonné.</p>
 </section>
 

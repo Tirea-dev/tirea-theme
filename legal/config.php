@@ -21,7 +21,7 @@ return [
         'h1_em'   => 'Générales de Vente.',
         'lede'    => 'Le cadre qui régit chacune de vos commandes sur tirea.fr. Lecture claire, sans jargon, pour acheter en toute sérénité.',
         'meta'    => [
-            ['label' => 'En vigueur depuis le', 'value' => '[Date de publication]'],
+            ['label' => 'En vigueur depuis le', 'value' => '27/05/2026'],
             ['label' => 'Version', 'value' => '1.0'],
             ['label' => 'Lecture', 'value' => '≈ 8 min'],
         ],
@@ -52,7 +52,7 @@ return [
         'h1_em'   => 'Légales.',
         'lede'    => 'Informations légales relatives à l\'édition du site tirea.fr, conformément à la loi pour la confiance dans l\'économie numérique (LCEN).',
         'meta'    => [
-            ['label' => 'En vigueur depuis le', 'value' => '[Date de publication]'],
+            ['label' => 'En vigueur depuis le', 'value' => '27/05/2026'],
             ['label' => 'Version', 'value' => '1.0'],
             ['label' => 'Lecture', 'value' => '≈ 4 min'],
         ],
@@ -76,7 +76,7 @@ return [
         'h1_em'   => 'Confidentialité.',
         'lede'    => 'Parce que la transparence est la clé d\'une relation de confiance. Découvrez comment TIREA collecte, utilise et protège vos données personnelles, dans le strict respect du RGPD et de la loi Informatique et Libertés.',
         'meta'    => [
-            ['label' => 'En vigueur depuis le', 'value' => '[Date de publication]'],
+            ['label' => 'En vigueur depuis le', 'value' => '27/05/2026'],
             ['label' => 'Version', 'value' => '1.0'],
             ['label' => 'Lecture', 'value' => '≈ 6 min'],
         ],
@@ -110,7 +110,7 @@ return [
         'h1_em'   => 'Livraison.',
         'lede'    => 'Une expédition rapide, un suivi fiable, une livraison gratuite en France métropolitaine. Tout ce qu\'il faut savoir avant de commander.',
         'meta'    => [
-            ['label' => 'En vigueur depuis le', 'value' => '[Date de publication]'],
+            ['label' => 'En vigueur depuis le', 'value' => '27/05/2026'],
             ['label' => 'Version', 'value' => '1.0'],
             ['label' => 'Lecture', 'value' => '≈ 3 min'],
         ],

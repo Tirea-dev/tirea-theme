@@ -297,6 +297,9 @@ img.tirea-footer-logo {
   list-style: none;
   padding: 0;
   margin: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
 }
 
 .tirea-footer .tirea-payments li {

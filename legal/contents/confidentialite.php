@@ -6,15 +6,16 @@ if (!defined('ABSPATH')) exit; ?>
   <h2>Responsable de traitement</h2>
   <p>Le responsable de traitement des données à caractère personnel collectées sur le site tirea.fr est :</p>
   <div class="tirea-legal-ident">
-    <dl>
-      <dt>Identité</dt><dd>[Votre Prénom et Nom], agissant sous le nom commercial TIREA</dd>
-      <dt>Forme juridique</dt><dd>Entrepreneur Individuel (EI)</dd>
-      <dt>Siège social</dt><dd>[Votre adresse postale complète]</dd>
-      <dt>SIRET</dt><dd>[Votre numéro SIRET à 14 chiffres]</dd>
-      <dt>TVA</dt><dd>[Votre numéro de TVA ou « TVA non applicable, art. 293 B du CGI »]</dd>
-      <dt>Contact RGPD</dt><dd><a href="mailto:rgpd@tirea.fr">rgpd@tirea.fr</a></dd>
-    </dl>
-  </div>
+  <dl>
+    <dt>Identité</dt><dd>Kelvin Devidal, agissant sous le nom commercial TIREA</dd>
+    <dt>Forme juridique</dt><dd>Entrepreneur Individuel (EI)</dd>
+    <dt>Siège social</dt><dd>44 rue Bastiat, 31200 Toulouse</dd>
+    <dt>SIREN</dt><dd>880 987 581</dd>
+    <dt>SIRET</dt><dd>880 987 581 00043</dd>
+    <dt>TVA</dt><dd>TVA non applicable, art. 293 B du CGI</dd>
+    <dt>Contact RGPD</dt><dd><a href="mailto:rgpd@tirea.fr">rgpd@tirea.fr</a></dd>
+  </dl>
+</div>
   <p>Pour toute information complémentaire, vous pouvez consulter nos <a href="<?php echo esc_url(home_url('/mentions-legales/')); ?>">Mentions Légales</a>.</p>
 </section>
 
@@ -96,7 +97,7 @@ if (!defined('ABSPATH')) exit; ?>
     <li><strong>Prestataire de paiement</strong> (solution conforme PCI-DSS) : vos données bancaires sont saisies sur son interface sécurisée et ne nous sont jamais communiquées.</li>
     <li><strong>Transporteurs :</strong> nom, prénom, adresse postale, numéro de téléphone (pour la livraison uniquement).</li>
     <li><strong>Hébergeur du site :</strong> O2switch SAS, responsable de l'infrastructure. Les données sont stockées sur des serveurs situés en France.</li>
-    <li><strong>Outils d'analyse et de marketing</strong> (si applicables) : [ex. Google Analytics, Meta Pixel — à renseigner]. Ces outils ne reçoivent que des données pseudonymisées ou agrégées.</li>
+    <li><strong>Outils d'analyse et de marketing :</strong> [ex. Google Analytics, Meta Pixel]. Ces outils ne reçoivent que des données pseudonymisées ou agrégées.</li>
   </ul>
   <p>Chaque sous-traitant présente des garanties suffisantes quant à la sécurité et à la confidentialité des données, et agit exclusivement sous nos instructions.</p>
 </section>
@@ -109,7 +110,7 @@ if (!defined('ABSPATH')) exit; ?>
     <li><strong>Données de compte client :</strong> jusqu'à la suppression du compte ou après 3 ans d'inactivité, puis archivage intermédiaire le temps de la prescription légale applicable.</li>
     <li><strong>Données de commande et facturation :</strong> 10 ans à compter de la clôture de l'exercice comptable (obligation légale).</li>
     <li><strong>Données de navigation (cookies) :</strong> 13 mois maximum après leur dépôt.</li>
-    <li><strong>Demandes SAV et correspondances :</strong> le temps nécessaire au traitement, puis archivage probatoire pendant la durée de prescription applicable (généralement 5 ans).</li>
+    <li><strong>Demandes SAV et correspondances :</strong> le temps nécessaire au traitement, puis archivage probatoire pendant la durée de prescription applicable.</li>
   </ul>
   <p>Au-delà de ces durées, les données sont soit anonymisées à des fins statistiques, soit supprimées de manière sécurisée.</p>
 </section>
@@ -121,7 +122,7 @@ if (!defined('ABSPATH')) exit; ?>
   <ul>
     <li><strong>Droit d'accès (art. 15) :</strong> obtenir la confirmation que vos données sont ou non traitées et, le cas échéant, y accéder.</li>
     <li><strong>Droit de rectification (art. 16) :</strong> faire corriger des données inexactes ou incomplètes.</li>
-    <li><strong>Droit à l'effacement (art. 17 — « droit à l'oubli ») :</strong> dans les limites prévues par la loi.</li>
+    <li><strong>Droit à l'effacement (art. 17) :</strong> dans les limites prévues par la loi.</li>
     <li><strong>Droit à la limitation du traitement (art. 18) :</strong> geler temporairement l'utilisation de vos données.</li>
     <li><strong>Droit à la portabilité (art. 20) :</strong> recevoir vos données dans un format structuré et couramment utilisé.</li>
     <li><strong>Droit d'opposition (art. 21) :</strong> vous opposer au traitement, y compris au profilage, pour des motifs légitimes.</li>
@@ -139,7 +140,7 @@ if (!defined('ABSPATH')) exit; ?>
   <ul>
     <li><strong>Cookies strictement nécessaires :</strong> indispensables au fonctionnement du site (gestion du panier, sécurité, session). Ils ne requièrent pas votre consentement.</li>
     <li><strong>Cookies d'analyse et de performance :</strong> nous aident à comprendre l'utilisation du site pour en améliorer l'ergonomie. Déposés uniquement avec votre consentement.</li>
-    <li><strong>Cookies publicitaires et de réseaux sociaux :</strong> [ex. pixel Meta, Google Ads — à renseigner si applicable]. Déposés uniquement avec votre consentement.</li>
+    <li><strong>Cookies publicitaires et de réseaux sociaux :</strong> [ex. pixel Meta, Google Ads]. Déposés uniquement avec votre consentement.</li>
   </ul>
   <div class="tirea-legal-callout">
     <span class="tirea-legal-callout-label">Gérer vos préférences</span>
