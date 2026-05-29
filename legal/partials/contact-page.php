@@ -24,7 +24,7 @@ $tirea_legal_dir = get_stylesheet_directory() . '/legal'; ?>
     <a class="tirea-contact-intent" href="<?php echo esc_url(home_url('/retours/')); ?>">
       <span class="tirea-contact-intent-num">03</span>
       <span class="tirea-contact-intent-h">Retour</span>
-      <span class="tirea-contact-intent-sub">14 jours · sans justification</span>
+      <span class="tirea-contact-intent-sub">30 jours · sans justification</span>
       <span class="tirea-contact-intent-link">Lancer un retour →</span>
     </a>
   </div>
@@ -54,11 +54,11 @@ $tirea_legal_dir = get_stylesheet_directory() . '/legal'; ?>
     <div class="tirea-contact-info-card">
       <span class="tirea-contact-label">Horaires service client</span>
       <div class="tirea-contact-hours">
-        <div><span>Lundi – Vendredi</span><strong>9h → 19h</strong></div>
-        <div><span>Samedi</span><strong>10h → 18h</strong></div>
-        <div><span>Dimanche</span><strong>14h → 18h</strong></div>
+        <div><span>Lundi – Vendredi</span><strong>10h → 18h</strong></div>
+        <div><span>Samedi</span><strong>10h → 14h</strong></div>
+        <div><span>Dimanche</span><strong>14h → 16h</strong></div>
       </div>
-      <div class="tirea-contact-status">Réponse moyenne · 4h</div>
+      <div class="tirea-contact-status">Réponse moyenne · 2h</div>
     </div>
 
     <div class="tirea-contact-info-card">

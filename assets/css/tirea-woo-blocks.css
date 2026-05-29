@@ -1,0 +1,95 @@
+/* ==========================================================================
+   TIREA — WooCommerce Blocks (panier + checkout)
+   Overrides ciblés pour corriger :
+   1) overflow horizontal (mobile/tablette) qui décale tout vers la gauche
+   2) stack 1 colonne sous 1024px pour éviter le texte cassé lettre par lettre
+      dans le résumé de commande en bureau étroit
+   3) flex interne de la ligne produit (image + description côte à côte)
+   Aucun nouveau préfixe : on surcharge les classes wc-block-* et
+   wp-block-woocommerce-* du plugin WooCommerce Blocks.
+   Dépend de : tirea-tokens.css
+   Chargé conditionnellement sur is_cart() || is_checkout().
+   ========================================================================== */
+
+/* ===== 1) Anti-overflow — neutralise la classe `alignwide` ==================
+   `alignwide` (Gutenberg) applique des marges négatives qui font déborder
+   le bloc hors du viewport sur mobile/tablette → tout le contenu apparaît
+   décalé à gauche. On force le bloc dans son conteneur. */
+.wp-block-woocommerce-cart.alignwide,
+.wp-block-woocommerce-checkout.alignwide {
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Verrou défensif : aucun enfant ne peut être plus large que le wrapper */
+.wp-block-woocommerce-cart,
+.wp-block-woocommerce-checkout {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.wp-block-woocommerce-cart *,
+.wp-block-woocommerce-checkout * {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+/* ===== 2) Stack 1 colonne sous 1024px ======================================
+   Au-dessus de 1024px : layout 2 colonnes natif (formulaire | résumé) inchangé.
+   En dessous : formulaire en haut, résumé en bas, pleine largeur.
+   On force display:block pour annuler flex/grid quelle que soit la version du
+   plugin (les wrappers `.wc-block-checkout` / `.wc-block-cart` sont en flex
+   ou grid selon la version). */
+@media (max-width: 1023px) {
+  .wc-block-checkout,
+  .wc-block-cart {
+    display: block;
+  }
+
+  /* Les deux colonnes (form + sidebar) — toutes conventions de classe couvertes */
+  .wc-block-checkout__main,
+  .wc-block-checkout__sidebar,
+  .wc-block-cart__main,
+  .wc-block-cart__sidebar,
+  .wp-block-woocommerce-checkout-fields-block,
+  .wp-block-woocommerce-checkout-totals-block,
+  .wp-block-woocommerce-cart-items-block,
+  .wp-block-woocommerce-cart-totals-block {
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+    float: none;
+  }
+
+  /* Espace entre le formulaire et le résumé une fois empilés */
+  .wp-block-woocommerce-checkout-totals-block,
+  .wp-block-woocommerce-cart-totals-block {
+    margin-top: 32px;
+  }
+}
+
+/* ===== 3) Ligne produit du résumé — texte qui se casse lettre par lettre ===
+   Cause : la div `__description` se retrouve dans 60-80px de large à cause
+   d'un manque de `min-width: 0` sur le flex item, et le CSS du plugin force
+   un `word-break` trop agressif qui casse mot par lettre.
+   Appliqué tout le temps (utile aussi sur bureau >=1024px si la colonne droite
+   est étroite chez certaines tailles intermédiaires). */
+.wc-block-components-order-summary-item {
+  min-width: 0;
+  align-items: flex-start;
+}
+.wc-block-components-order-summary-item__image {
+  flex-shrink: 0;
+}
+.wc-block-components-order-summary-item__description {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  hyphens: auto;
+}
+.wc-block-components-order-summary-item__description p {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}

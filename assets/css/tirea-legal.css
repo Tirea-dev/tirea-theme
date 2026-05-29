@@ -840,7 +840,7 @@
 .tirea-contact-form-lead{
   font-size: 14px;
   color: var(--tlg-mute);
-  margin: 10px 0 0;
+  margin: 10px 0 5;
   line-height: 1.5;
   max-width: 560px;
 }
@@ -871,12 +871,23 @@
   background: #fff;
   transition: all .15s ease;
 }
-.tirea-contact-chip:hover{ border-color: var(--tlg-ink); }
+.tirea-contact-chip:hover,
+.tirea-contact-chip:focus{
+  border-color: var(--tlg-ink) !important;
+  background: #fff !important;
+  color: var(--tlg-ink-2) !important;
+}
 .tirea-contact-chip:focus-visible{ outline: 2px solid var(--tlg-blue); outline-offset: 2px; }
 .tirea-contact-chip.is-active{
   background: var(--tlg-ink);
   color: #fff;
   border-color: var(--tlg-ink);
+}
+.tirea-contact-chip.is-active:hover,
+.tirea-contact-chip.is-active:focus{
+  background: var(--tlg-ink) !important;
+  color: #fff !important;
+  border-color: var(--tlg-ink) !important;
 }
 
 /* Form foot */
@@ -1038,6 +1049,9 @@
   padding: 230px 64px 100px;
   overflow: hidden;
   background: var(--tlg-hero-bg);
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 }
 .tirea-histoire-hero::before{
   content: "";
@@ -1242,6 +1256,9 @@
   text-align: center;
   position: relative;
   overflow: hidden;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 }
 .tirea-histoire-cta::before{
   content: "";

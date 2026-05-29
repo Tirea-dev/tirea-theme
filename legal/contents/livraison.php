@@ -40,7 +40,7 @@ if (!defined('ABSPATH')) exit; ?>
 <section class="tirea-legal-section" id="s04">
   <span class="tirea-legal-section-num">04</span>
   <h2>Suivi de votre colis</h2>
-  <p>Dès l'expédition de votre commande, un e-mail de confirmation vous est envoyé avec un <strong>numéro de suivi</strong>. Ce numéro vous permet de suivre l'acheminement de votre colis en temps réel directement sur le site du transporteur.</p>
+  <p>Dès l'expédition de votre commande, un e-mail de confirmation vous est envoyé avec un <strong>numéro de suivi</strong>. Ce numéro vous permet de suivre l'avancement en temps réel sur <a href="<?php echo esc_url(home_url('/suivi/')); ?>">suivre ma commande</a>. Vous pouvez aussi suivre l'acheminement de votre colis directement sur le site du transporteur <a href="https://www.laposte.fr/" target="_blank" rel="noopener">laposte.fr</a>.</p>
   <p>Si vous ne recevez pas cet e-mail dans les 48 heures suivant votre commande, pensez à vérifier vos courriers indésirables, puis contactez-nous à <a href="mailto:sav@tirea.fr">sav@tirea.fr</a>.</p>
 </section>
 

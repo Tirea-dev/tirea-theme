@@ -24,7 +24,7 @@ if (!defined('ABSPATH')) exit; ?>
         <input type="email" id="fc-email" name="email" required placeholder="vous@exemple.fr" aria-required="true">
       </div>
       <div class="tirea-legal-form-group tirea-legal-form-full">
-        <label for="fc-commande">N° de commande (facultatif)</label>
+        <label for="fc-commande">N° de commande *</label>
         <input type="text" id="fc-commande" name="commande" placeholder="ex : #12345">
       </div>
     </div>

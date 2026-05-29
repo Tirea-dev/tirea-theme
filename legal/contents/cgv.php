@@ -74,7 +74,7 @@ if (!defined('ABSPATH')) exit; ?>
   <h3>Zones desservies et tarifs</h3>
   <p>La <strong>livraison est offerte en France métropolitaine</strong>. Nous livrons également en Corse, dans les DROM-COM et dans l'Union européenne moyennant des frais de port supplémentaires. Les frais et délais exacts varient selon la destination et sont précisés au moment du paiement.</p>
   <h3>Suivi & réception</h3>
-  <p>Un <strong>numéro de suivi est transmis par e-mail</strong> dès l'expédition. En cas d'absence lors de la livraison, le colis est mis en consigne par le transporteur, à retirer selon ses propres modalités. Le Client est invité à vérifier l'état du colis à réception : toute anomalie doit être signalée sous 48 heures à <a href="mailto:sav@tirea.fr">sav@tirea.fr</a>.</p>
+  <p>Un <strong>numéro de suivi est transmis par e-mail</strong> dès l'expédition, il vous permet de suivre l'avancement en temps réel directement sur <a href="<?php echo esc_url(home_url('/suivi/')); ?>">suivi de commande</a>. Vous pouvez aussi suivre l'acheminement de votre colis directement sur le site du transporteur <a href="https://www.laposte.fr/" target="_blank" rel="noopener">laposte.fr</a>. En cas d'absence lors de la livraison, le colis est mis en consigne par le transporteur, à retirer selon ses propres modalités. Le Client est invité à vérifier l'état du colis à réception : toute anomalie doit être signalée sous 48 heures à <a href="mailto:sav@tirea.fr">sav@tirea.fr</a>.</p>
 </section>
 
 <section class="tirea-legal-section" id="s08">

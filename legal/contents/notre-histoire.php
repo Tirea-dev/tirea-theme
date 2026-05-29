@@ -9,9 +9,9 @@ if (!defined('ABSPATH')) exit; ?>
   <div class="tirea-histoire-chapter-body">
     <p>Tout a commencé sur les bancs de mon école de commerce. Chaque mardi était dédié à la « tenue professionnelle ». Et chaque mardi, le même problème se posait pour tout le monde : impossible de garder sa chemise correctement rentrée dans son pantalon. Au moindre mouvement, elle ressortait, cassant net la prestance de la tenue.</p>
     <blockquote class="tirea-histoire-pullquote">
-      <p>« Tout le monde subissait ce problème en silence, passant ses journées à se réajuster devant le miroir. »</p>
+      <p>« Tout le monde subissait ce problème en silence, passant ses journées à se réajuster devant le miroir, la tenue étant notée. »</p>
     </blockquote>
-    <p>Plus tard, en rejoignant le secteur de l'hôtellerie, un milieu où la présentation impeccable est une règle d'or non négociable, j'ai été frappé de voir que cette frustration était toujours là, universelle et résignée.</p>
+    <p>Plus tard, en rejoignant le secteur de l'hôtellerie, un milieu où une présentation impeccable est une règle d'or non négociable, j'ai été frappé de voir que cette frustration était toujours là, universelle et résignée.</p>
   </div>
 </article>
 
@@ -37,8 +37,8 @@ if (!defined('ABSPATH')) exit; ?>
     <h2 class="tirea-histoire-chapter-title">Notre mission :<br><em>redéfinir les standards</em></h2>
   </aside>
   <div class="tirea-histoire-chapter-body">
-    <p>Aujourd'hui, l'ambition de TIREA dépasse la simple création de l'Ajusteur. Notre objectif est de faire de cet accessoire méconnu un <strong>véritable classique de la garde-robe</strong> masculine et féminine.</p>
-    <p>Mais notre vision va plus loin. Nous voulons bâtir un espace de confiance, une destination de référence pour les professionnels et les amateurs d'élégance. Un lieu où vous trouverez une sélection d'accessoires de qualité premium, proposés à des prix justes. Des produits intelligents qui facilitent le quotidien et subliment chaque silhouette.</p>
+    <p>Aujourd'hui, l'ambition de TIREA ne se limite plus à résoudre un inconfort personnel. Notre objectif est de faire de cet accessoire méconnu un <strong>véritable classique de la garde-robe</strong> masculine et féminine.</p>
+    <p>Mais notre vision va encore plus loin. Nous voulons bâtir un espace de confiance, une destination de référence pour les professionnels et les amateurs d'élégance. Un lieu où vous trouverez une sélection d'accessoires de qualité premium, proposés à des prix justes. Des produits intelligents qui facilitent le quotidien et subliment chaque silhouette.</p>
   </div>
 </article>
 

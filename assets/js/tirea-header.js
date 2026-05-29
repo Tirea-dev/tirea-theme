@@ -306,4 +306,27 @@
   }
   setActiveLinks();
 
+  // ============================================
+  // 13. Pastille panier — présence d'articles
+  // ============================================
+  var cartLinks = document.querySelectorAll('.tirea-cart-link');
+
+  function cartHasItems() {
+    return document.cookie.split('; ').some(function(c) {
+      return c.indexOf('woocommerce_items_in_cart=') === 0 &&
+             c.slice('woocommerce_items_in_cart='.length) !== '0';
+    });
+  }
+
+  function updateCartDot() {
+    var hasItems = cartHasItems();
+    for (var i = 0; i < cartLinks.length; i++) {
+      cartLinks[i].classList.toggle('tirea-cart-has-items', hasItems);
+      cartLinks[i].setAttribute('aria-label', hasItems ? 'Panier (articles ajoutés)' : 'Panier');
+    }
+  }
+
+  updateCartDot();
+  window.addEventListener('pageshow', updateCartDot);
+
 })();

@@ -1,0 +1,232 @@
+/* ==========================================================================
+   TIREA — Page Suivi de commande (.tirea-suivi-*)
+   Dépend de tirea-tokens.css. Présentation alignée sur tirea-legal.css.
+   ========================================================================== */
+
+.tirea-suivi-wrapper{
+  --tsv-ink: #0b0b0c;
+  --tsv-ink-2: #2a2a2e;
+  --tsv-body: #4a4a52;
+  --tsv-mute: #8a8a93;
+  --tsv-line: #e7e7ea;
+  --tsv-soft-2: #fafafb;
+  --tsv-blue: var(--tirea-color-primary);
+  --tsv-blue-soft: #e7edff;
+  --tsv-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --tsv-radius-pill: 999px;
+
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--tirea-color-white);
+}
+.tirea-suivi-page{
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 32px;
+  font-family: var(--tirea-font);
+  color: var(--tsv-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.tirea-suivi-page *{ box-sizing: border-box; }
+.tirea-suivi-page ::selection{ background: var(--tsv-blue-soft); color: var(--tsv-ink); }
+
+/* ===== Hero ===== */
+.tirea-suivi-hero{ padding: 96px 0 40px; text-align: center; }
+.tirea-suivi-pill{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px 8px 14px;
+  border-radius: var(--tsv-radius-pill);
+  background: var(--tsv-blue-soft);
+  color: var(--tsv-blue);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.tirea-suivi-pill::before{
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--tsv-blue);
+}
+.tirea-suivi-hero h1{
+  font-family: 'Playfair Display', serif;
+  color: var(--tsv-ink);
+  font-size: clamp(40px, 6vw, 76px);
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  margin: 28px 0 8px;
+  text-wrap: balance;
+}
+.tirea-suivi-hero h1 em{ color: var(--tsv-blue); font-style: italic; font-weight: 600; }
+.tirea-suivi-lede{
+  font-size: clamp(16px, 1.4vw, 18px);
+  color: var(--tsv-body);
+  margin: 24px auto 0;
+  max-width: 560px;
+  text-wrap: pretty;
+}
+
+/* ===== Carte formulaire ===== */
+.tirea-suivi-form-card{
+  border: 1px solid var(--tsv-line);
+  border-radius: 16px;
+  padding: 32px;
+  background: var(--tsv-soft-2);
+  margin: 0 0 96px;
+}
+.tirea-suivi-field-group{ display: flex; flex-direction: column; gap: 8px; }
+.tirea-suivi-field-group > label{
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--tsv-mute);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.tirea-suivi-field{ display: flex; gap: 10px; }
+.tirea-suivi-field input{
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--tsv-line);
+  border-radius: 10px;
+  padding: 13px 16px;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--tsv-ink);
+  background: var(--tirea-color-white);
+  outline: none;
+  transition: border-color var(--tirea-duration-fast) var(--tirea-ease),
+              box-shadow var(--tirea-duration-fast) var(--tirea-ease);
+}
+.tirea-suivi-field input::placeholder{ color: var(--tsv-mute); }
+.tirea-suivi-field input:focus{
+  border-color: var(--tsv-blue);
+  box-shadow: 0 0 0 3px var(--tsv-blue-soft);
+}
+.tirea-suivi-field input[aria-invalid="true"]{ border-color: #c0392b; background: #fdf6f6; }
+
+.tirea-suivi-btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--tsv-ink);
+  color: var(--tirea-color-white);
+  padding: 13px 24px;
+  border-radius: var(--tsv-radius-pill);
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 15px;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  transition: transform var(--tirea-duration-fast) var(--tirea-ease),
+              background var(--tirea-duration-fast) var(--tirea-ease),
+              opacity var(--tirea-duration-fast) var(--tirea-ease);
+}
+.tirea-suivi-btn:hover,
+.tirea-suivi-btn:focus,
+.tirea-suivi-btn:active{
+  background: #1c1c20 !important;
+  color: var(--tirea-color-white) !important;
+  transform: translateY(-1px);
+}
+.tirea-suivi-btn:focus-visible{ outline: 2px solid var(--tsv-blue); outline-offset: 3px; }
+.tirea-suivi-btn.is-loading{ opacity: .65; pointer-events: none; }
+.tirea-suivi-arrow{ width: 16px; height: 16px; position: relative; }
+.tirea-suivi-arrow::after{
+  content: "→";
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.tirea-suivi-feedback{ margin: 14px 0 0; font-size: 13px; color: #c0392b; min-height: 18px; }
+.tirea-suivi-feedback:empty{ margin-top: 0; }
+
+.tirea-suivi-honeypot{
+  position: absolute;
+  left: -9999px;
+  width: 1px; height: 1px;
+  overflow: hidden;
+}
+
+/* ===== Résultat ===== */
+.tirea-suivi-result{ margin-top: 24px; }
+.tirea-suivi-card{
+  border: 1px solid var(--tsv-line);
+  border-radius: 14px;
+  padding: 24px;
+  background: var(--tirea-color-white);
+}
+.tirea-suivi-card-state{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--tsv-radius-pill);
+  background: var(--tsv-blue-soft);
+  color: var(--tsv-blue);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.tirea-suivi-card-state::before{
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.tirea-suivi-card.is-delivered .tirea-suivi-card-state{ background: #e7f6ec; color: #1a8f4c; }
+.tirea-suivi-card-label{
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 2.4vw, 28px);
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--tsv-ink);
+  letter-spacing: -.005em;
+  margin: 0 0 10px;
+  text-wrap: balance;
+}
+.tirea-suivi-card-date{ font-size: 15px; color: var(--tsv-body); margin: 0 0 4px; }
+.tirea-suivi-card-num{
+  font-family: var(--tsv-mono);
+  font-size: 13px;
+  color: var(--tsv-mute);
+  letter-spacing: .04em;
+  margin: 0 0 20px;
+}
+.tirea-suivi-card-link{
+  color: var(--tsv-blue);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  border-bottom: 1px solid color-mix(in oklab, var(--tsv-blue) 30%, transparent);
+  transition: border-color var(--tirea-duration-fast) var(--tirea-ease);
+}
+.tirea-suivi-card-link:hover{ border-bottom-color: var(--tsv-blue); }
+.tirea-suivi-card-link:focus-visible{ outline: 2px solid var(--tsv-blue); outline-offset: 2px; border-radius: 2px; }
+
+/* ===== Responsive ===== */
+@media (max-width: 767px){
+  .tirea-suivi-page{ padding: 0 24px; }
+  .tirea-suivi-hero{ padding: 64px 0 32px; }
+  .tirea-suivi-form-card{ padding: 24px 22px; margin-bottom: 64px; }
+  .tirea-suivi-field{ flex-direction: column; }
+  .tirea-suivi-btn{ justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .tirea-suivi-btn,
+  .tirea-suivi-field input,
+  .tirea-suivi-card-link{ transition: none !important; }
+}

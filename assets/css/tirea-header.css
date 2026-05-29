@@ -807,3 +807,38 @@ button.tirea-sticky-burger-mobile {
   overflow: hidden;
   clip: rect(0 0 0 0);
 }
+
+/* ==========================================================================
+   16. PASTILLE PANIER — point de présence (allumé en JS via le cookie Woo)
+   ========================================================================== */
+.tirea-cart-link { position: relative; }
+.tirea-cart-dot {
+  position: absolute;
+  top: -1px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--tirea-color-primary);
+  border: 2px solid var(--tirea-color-white);
+  box-sizing: content-box;
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity var(--tirea-duration-fast) ease,
+              transform var(--tirea-duration-fast) var(--tirea-ease);
+  pointer-events: none;
+}
+.tirea-cart-link.tirea-cart-has-items .tirea-cart-dot {
+  opacity: 1;
+  transform: scale(1);
+}
+/* Sticky : icône plus petite, on resserre la pastille */
+.tirea-sticky-icon-link.tirea-cart-link .tirea-cart-dot {
+  top: 0;
+  right: -1px;
+  width: 7px;
+  height: 7px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tirea-cart-dot { transition-duration: 0.01ms; }
+}

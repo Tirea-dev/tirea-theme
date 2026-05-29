@@ -116,9 +116,10 @@ $tirea_render_header_block = function($mode, $deps) {
           <?php echo $deps['svg']['search']; ?>
         </button>
 
-        <?php // Lien Panier ?>
-        <a href="<?php echo esc_url(function_exists('wc_get_cart_url') ? wc_get_cart_url() : '/panier'); ?>" class="<?php echo esc_attr($prefix); ?>icon-link" aria-label="Panier">
+        <?php // Lien Panier (+ pastille de présence, allumée en JS via le cookie Woo) ?>
+        <a href="<?php echo esc_url(function_exists('wc_get_cart_url') ? wc_get_cart_url() : '/panier'); ?>" class="<?php echo esc_attr($prefix); ?>icon-link tirea-cart-link" aria-label="Panier">
           <?php echo $deps['svg']['cart']; ?>
+          <span class="tirea-cart-dot" aria-hidden="true"></span>
         </a>
 
         <?php // Burger desktop + dropdown "Informations" ?>

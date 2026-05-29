@@ -1035,3 +1035,137 @@ function tirea_handle_form_contact() {
 }
 add_action('wp_ajax_tirea_form_contact', 'tirea_handle_form_contact');
 add_action('wp_ajax_nopriv_tirea_form_contact', 'tirea_handle_form_contact');
+
+// ============================================
+// TIREA — Wording WooCommerce Blocks (panier + checkout)
+// ============================================
+
+function tirea_enqueue_woo_wording() {
+    if (!is_cart() && !is_checkout()) return;
+
+    $js_path = get_stylesheet_directory() . '/assets/js/tirea-woo-wording.js';
+
+    wp_enqueue_script(
+        'tirea-woo-wording-js',
+        get_stylesheet_directory_uri() . '/assets/js/tirea-woo-wording.js',
+        ['wp-hooks', 'wp-i18n'],
+        file_exists($js_path) ? filemtime($js_path) : null,
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'tirea_enqueue_woo_wording');
+
+/* ==========================================================================
+   TIREA — Page Suivi de commande (API Suivi La Poste)
+   ========================================================================== */
+
+// Enqueue — uniquement sur la page "suivi" (modèle tirea_enqueue_legal_assets)
+function tirea_enqueue_suivi_assets() {
+    if (!is_page('suivi')) return;
+
+    $css_path = get_stylesheet_directory() . '/assets/css/tirea-suivi.css';
+    $js_path  = get_stylesheet_directory() . '/assets/js/tirea-suivi.js';
+
+    wp_enqueue_style(
+        'tirea-suivi-css',
+        get_stylesheet_directory_uri() . '/assets/css/tirea-suivi.css',
+        ['tirea-tokens-css'],
+        file_exists($css_path) ? filemtime($css_path) : null
+    );
+
+    wp_enqueue_script(
+        'tirea-suivi-js',
+        get_stylesheet_directory_uri() . '/assets/js/tirea-suivi.js',
+        [],
+        file_exists($js_path) ? filemtime($js_path) : null,
+        true
+    );
+
+    wp_localize_script('tirea-suivi-js', 'tireaSuiviData', [
+        'ajax_url' => admin_url('admin-ajax.php'),
+    ]);
+}
+add_action('wp_enqueue_scripts', 'tirea_enqueue_suivi_assets');
+
+// Routage par slug (zéro assignation manuelle, comme le légal)
+add_filter('template_include', function($template) {
+    if (is_page('suivi')) {
+        $tpl = get_stylesheet_directory() . '/template-tirea-suivi.php';
+        if (file_exists($tpl)) return $tpl;
+    }
+    return $template;
+});
+
+function tirea_defer_suivi_js($tag, $handle) {
+    if ($handle === 'tirea-suivi-js') {
+        return str_replace(' src=', ' defer src=', $tag);
+    }
+    return $tag;
+}
+add_filter('script_loader_tag', 'tirea_defer_suivi_js', 10, 2);
+
+// Handler AJAX — API Suivi La Poste (côté serveur)
+function tirea_suivi_track() {
+    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'tirea_suivi')) {
+        wp_send_json_error(['message' => 'Session expirée, rechargez la page.']);
+    }
+    if (!empty($_POST['website'])) {
+        wp_send_json_error(['message' => 'Aucun colis trouvé pour ce numéro.']);
+    }
+
+    $ip   = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field($_SERVER['REMOTE_ADDR']) : 'unknown';
+    $rl   = 'tirea_rl_suivi_' . md5($ip);
+    $hits = (int) get_transient($rl);
+    if ($hits >= 15) {
+        wp_send_json_error(['message' => 'Trop de recherches. Réessayez dans quelques minutes.']);
+    }
+    set_transient($rl, $hits + 1, 10 * MINUTE_IN_SECONDS);
+
+    if (!defined('TIREA_LAPOSTE_API_KEY') || TIREA_LAPOSTE_API_KEY === '') {
+        wp_send_json_error(['message' => 'Service de suivi momentanément indisponible.']);
+    }
+
+    $tracking = isset($_POST['tracking'])
+        ? strtoupper(preg_replace('/[^A-Za-z0-9]/', '', (string) wp_unslash($_POST['tracking'])))
+        : '';
+    if (strlen($tracking) < 8 || strlen($tracking) > 20) {
+        wp_send_json_error(['message' => "Numéro de suivi invalide. Vérifiez votre e-mail de confirmation d'expédition."]);
+    }
+
+    $public_link = 'https://www.laposte.fr/outils/suivre-vos-envois?code=' . rawurlencode($tracking);
+
+    $response = wp_remote_get('https://api.laposte.fr/suivi/v1/' . rawurlencode($tracking), [
+        'timeout' => 12,
+        'headers' => [
+            'Accept'      => 'application/json',
+            'X-Okapi-Key' => TIREA_LAPOSTE_API_KEY,
+        ],
+    ]);
+
+    if (is_wp_error($response)) {
+        wp_send_json_error(['message' => 'Service de suivi injoignable. Réessayez dans un instant.']);
+    }
+
+    $http = (int) wp_remote_retrieve_response_code($response);
+    $body = json_decode(wp_remote_retrieve_body($response), true);
+
+    if ($http === 404 || (isset($body['returnCode']) && (int) $body['returnCode'] === 404)) {
+        wp_send_json_error(['message' => "Aucun colis trouvé pour ce numéro. Le suivi peut mettre 24 à 48 h à s'activer après l'expédition."]);
+    }
+    if ($http !== 200 || empty($body) || empty($body['message'])) {
+        wp_send_json_error(['message' => 'Service de suivi momentanément indisponible. Réessayez plus tard.']);
+    }
+
+    $status_raw = isset($body['status']) ? strtoupper((string) $body['status']) : '';
+    $delivered  = (strpos($status_raw, 'LIVRE') !== false || strpos($status_raw, 'DISTRIBUE') !== false);
+
+    wp_send_json_success([
+        'state'    => $delivered ? 'delivered' : 'transit',
+        'label'    => wp_strip_all_tags($body['message']),
+        'date'     => !empty($body['date']) ? sanitize_text_field($body['date']) : '',
+        'tracking' => $tracking,
+        'link'     => !empty($body['link']) ? esc_url_raw($body['link']) : $public_link,
+    ]);
+}
+add_action('wp_ajax_tirea_suivi_track', 'tirea_suivi_track');
+add_action('wp_ajax_nopriv_tirea_suivi_track', 'tirea_suivi_track');
