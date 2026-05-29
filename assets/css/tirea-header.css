@@ -832,12 +832,13 @@ button.tirea-sticky-burger-mobile {
   opacity: 1;
   transform: scale(1);
 }
-/* Sticky : icône plus petite, on resserre la pastille */
+/* Sticky : icône plus petite, on resserre la pastille (~30 % de moins) */
 .tirea-sticky-icon-link.tirea-cart-link .tirea-cart-dot {
   top: 0;
   right: -1px;
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
+  border-width: 1.7px;
 }
 @media (prefers-reduced-motion: reduce) {
   .tirea-cart-dot { transition-duration: 0.01ms; }
