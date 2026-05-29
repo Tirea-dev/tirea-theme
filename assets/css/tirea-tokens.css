@@ -1,9 +1,5 @@
 /* ==========================================================================
    TIREA — DESIGN TOKENS
-   Variables globales du design system : couleurs, typo, ombres, durées,
-   easing, z-index.
-   Chargées en priorité haute, indépendamment de toute section.
-   Modifie ici pour changer la charte globale.
    ========================================================================== */
 :root {
   /* Couleurs */
@@ -11,8 +7,8 @@
   --tirea-color-primary-bg: #f0f4f9;
   --tirea-color-text: #000;
   --tirea-color-text-soft: #555;
-  --tirea-color-text-muted: #888;
-  --tirea-color-text-faint: #999;
+  --tirea-color-text-muted: #666;
+  --tirea-color-text-faint: #6b6b6b;
   --tirea-color-border: #ececec;
   --tirea-color-border-soft: #f0f0f0;
   --tirea-color-bg-soft: #f7f7f7;

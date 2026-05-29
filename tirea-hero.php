@@ -66,10 +66,14 @@ $tirea_hero_imgs = tirea_hero_images();
 
   <?php // Image hero en <img> sémantique cachée (lue par lecteurs d'écran + SEO) ?>
   <?php // Pas de fetchpriority : le preload dans <head> est le seul signal de priorité LCP ?>
-  <img src="<?php echo esc_url($tirea_hero_imgs['desktop']); ?>"
-       alt="<?php echo esc_attr($tirea_hero_image_alt); ?>"
-       class="tirea-hero-img-sr"
-       width="1920" height="1080">
+  <?php // <picture> : en ≤640px on sert la version mobile — MÊME URL que le fond CSS et le preload mobile, donc réutilisée depuis le cache (aucun téléchargement en plus). Breakpoint aligné sur tirea_hero_preload() + le @media du fond. ?>
+  <picture>
+    <source media="(max-width: 640px)" srcset="<?php echo esc_url($tirea_hero_imgs['mobile']); ?>">
+    <img src="<?php echo esc_url($tirea_hero_imgs['desktop']); ?>"
+         alt="<?php echo esc_attr($tirea_hero_image_alt); ?>"
+         class="tirea-hero-img-sr"
+         width="1920" height="1080">
+  </picture>
 
   <div class="tirea-hero-content">
     <div class="tirea-hero-text">
