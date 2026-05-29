@@ -35,7 +35,8 @@ $default_pack_name = "Le Quotidien";
 $all_images = [['url' => $main_image_url, 'alt' => $product->get_name()]];
 foreach ($variations as $index => $variation) {
     $var_img = !empty($variation['image']['url']) ? $variation['image']['url'] : $main_image_url;
-    $all_images[] = ['url' => $var_img, 'alt' => 'Pack ' . ($index + 1)];
+    $pack_name = isset($variation['attributes']['attribute_pack']) ? $variation['attributes']['attribute_pack'] : 'Pack ' . ($index + 1);
+    $all_images[] = ['url' => $var_img, 'alt' => $product->get_name() . ' — pack ' . $pack_name];
 }
 
 // Composants (matériaux)

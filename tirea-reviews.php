@@ -54,14 +54,14 @@ $tirea_usecases = [
     ],
 ];
 
-// Photos clients (modifiables ici)
+// Photos (modifiables ici) — le champ "name" sert d'alt (SEO + accessibilité)
 $tirea_review_photos = [
-    ['url' => 'https://tirea.fr/wp-content/uploads/2026/05/test-avis-5.webp', 'name' => 'Photo 1'],
-    ['url' => 'https://tirea.fr/wp-content/uploads/2026/05/test-avis-2.webp', 'name' => 'Photo 2'],
-    ['url' => 'https://tirea.fr/wp-content/uploads/2026/05/test-avis-IMG.webp', 'name' => 'Photo 3'],
-    ['url' => 'https://tirea.fr/wp-content/uploads/2026/05/test-avis-3.webp', 'name' => 'Photo 4'],
-    ['url' => 'https://tirea.fr/wp-content/uploads/2026/05/test-avis-4.webp', 'name' => 'Photo 5'],
-    ['url' => 'https://tirea.fr/wp-content/uploads/2026/05/test-avis-6.webp', 'name' => 'Photo 6'],
+    ['url' => 'https://tirea.fr/wp-content/uploads/2026/05/test-avis-5.webp', 'name' => "Client portant l'Ajusteur Tirea™"],
+    ['url' => 'https://tirea.fr/wp-content/uploads/2026/05/test-avis-2.webp', 'name' => "L'Ajusteur Tirea™ porté en conditions réelles"],
+    ['url' => 'https://tirea.fr/wp-content/uploads/2026/05/test-avis-IMG.webp', 'name' => "Tenue ajustée grâce à l'Ajusteur Tirea™"],
+    ['url' => 'https://tirea.fr/wp-content/uploads/2026/05/test-avis-3.webp', 'name' => "L'Ajusteur Tirea™ en situation, photo client"],
+    ['url' => 'https://tirea.fr/wp-content/uploads/2026/05/test-avis-4.webp', 'name' => "Silhouette ajustée avec l'Ajusteur Tirea™"],
+    ['url' => 'https://tirea.fr/wp-content/uploads/2026/05/test-avis-6.webp', 'name' => "L'Ajusteur Tirea™ utilisé au quotidien"],
 ];
 
 // Note globale (récupérée depuis functions.php)
