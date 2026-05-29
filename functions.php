@@ -1090,7 +1090,7 @@ add_action('wp_enqueue_scripts', 'tirea_enqueue_suivi_assets');
 // Routage par slug (zéro assignation manuelle, comme le légal)
 add_filter('template_include', function($template) {
     if (is_page('suivi')) {
-        $tpl = get_stylesheet_directory() . '/template-tirea-suivi.php';
+        $tpl = get_stylesheet_directory() . '/tirea-suivi.php';
         if (file_exists($tpl)) return $tpl;
     }
     return $template;
