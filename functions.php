@@ -559,20 +559,24 @@ function tirea_faq_shortcode($atts) {
     // mode    : "home" (allégé, défaut) ou "full" (page /faq : tout affiché + JSON-LD)
     // contact : "on" (défaut) affiche le formulaire de contact ; "off" le masque
     // more    : "on" (défaut) affiche le lien "Voir toutes les questions" ; "off" le masque
+    // badge   : "on" (défaut) affiche le badge "Centre d'aide" ; "off" le masque
     $atts = shortcode_atts([
         'mode'    => 'home',
         'contact' => 'on',
         'more'    => 'on',
+        'badge'   => 'on',
     ], $atts, 'tirea_faq');
 
     $tirea_faq_mode         = ($atts['mode'] === 'full') ? 'full' : 'home';
     $tirea_faq_show_contact = ($atts['contact'] !== 'off');
     $tirea_faq_show_more    = ($atts['more'] !== 'off');
+    $tirea_faq_show_badge   = ($atts['badge'] !== 'off');
 
     ob_start();
     include get_stylesheet_directory() . '/tirea-faq.php';
     return ob_get_clean();
 }
+add_shortcode('tirea_faq', 'tirea_faq_shortcode');
 add_shortcode('tirea_faq', 'tirea_faq_shortcode');
 
 // Page /faq : forcer le gabarit PHP automatiquement, par slug (modèle /suivi)

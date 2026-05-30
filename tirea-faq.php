@@ -21,6 +21,12 @@ if (!defined('ABSPATH')) exit;
 $tirea_faq_mode    = (isset($tirea_faq_mode) && $tirea_faq_mode === 'full') ? 'full' : 'home';
 $tirea_faq_is_full = ($tirea_faq_mode === 'full');
 
+// Affichage du formulaire de contact, du lien "Voir toutes les questions" et du badge
+// (désactivables via le shortcode : contact="off" / more="off" / badge="off" — ex. fiche produit)
+$tirea_faq_show_contact = isset($tirea_faq_show_contact) ? (bool) $tirea_faq_show_contact : true;
+$tirea_faq_show_more    = isset($tirea_faq_show_more) ? (bool) $tirea_faq_show_more : true;
+$tirea_faq_show_badge   = isset($tirea_faq_show_badge) ? (bool) $tirea_faq_show_badge : true;
+
 // ============================================
 // SOURCE UNIQUE DES DONNÉES
 // ============================================
@@ -77,7 +83,7 @@ $tirea_faq_nonce = wp_create_nonce('tirea_faq_contact');
 
   <?php // ===== HERO ===== ?>
   <div class="tirea-faq-hero">
-    <div class="tirea-faq-badge"><?php echo esc_html($tirea_faq_badge); ?></div>
+    <?php if ($tirea_faq_show_badge): ?><div class="tirea-faq-badge"><?php echo esc_html($tirea_faq_badge); ?></div><?php endif; ?>
     <h2 id="tirea-faq-title" class="tirea-faq-h2">
       <?php echo esc_html($tirea_faq_title); ?><br>
       <em><?php echo esc_html($tirea_faq_title_em); ?></em><span class="tirea-faq-dot">.</span>
@@ -150,8 +156,8 @@ $tirea_faq_nonce = wp_create_nonce('tirea_faq_contact');
     </div>
   </div>
 
-  <?php // ===== LIEN VERS LA FAQ COMPLÈTE — version allégée uniquement ===== ?>
-  <?php if ($tirea_faq_has_extra): ?>
+  <?php // ===== LIEN VERS LA FAQ COMPLÈTE — version allégée uniquement, sauf si désactivé (more="off") ===== ?>
+  <?php if ($tirea_faq_has_extra && $tirea_faq_show_more): ?>
     <div class="tirea-faq-more" id="tirea-faq-more">
       <a class="tirea-faq-more-link" href="<?php echo esc_url(home_url('/faq/')); ?>">
         Voir toutes les questions
@@ -162,7 +168,8 @@ $tirea_faq_nonce = wp_create_nonce('tirea_faq_contact');
     </div>
   <?php endif; ?>
 
-  <?php // ===== FORMULAIRE CONTACT ===== ?>
+  <?php // ===== FORMULAIRE CONTACT — masquable via contact="off" ===== ?>
+  <?php if ($tirea_faq_show_contact): ?>
   <div class="tirea-faq-contact">
     <div class="tirea-faq-contact-intro">
       <div class="tirea-faq-badge"><?php echo esc_html($tirea_faq_contact_badge); ?></div>
@@ -198,4 +205,5 @@ $tirea_faq_nonce = wp_create_nonce('tirea_faq_contact');
       <p class="tirea-faq-form-status" id="tirea-faq-status" role="status" aria-live="polite"></p>
     </form>
   </div>
+  <?php endif; ?>
 </section>
