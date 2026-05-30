@@ -1,6 +1,7 @@
 /**
  * TIREA — FAQ
- * Recherche, "Tout déplier/replier", formulaire de contact AJAX.
+ * Recherche (révèle les questions masquées de la version allégée),
+ * "Tout déplier/replier", formulaire de contact AJAX.
  */
 (function () {
     'use strict';
@@ -8,41 +9,70 @@
     var root = document.getElementById('tirea-faq');
     if (!root) return;
 
-    // ============================================
-    // RECHERCHE
-    // ============================================
     var searchInput = root.querySelector('#tirea-faq-search-input');
     var emptyMsg = root.querySelector('#tirea-faq-empty');
     var items = root.querySelectorAll('.tirea-faq-item');
+    var moreBlock = root.querySelector('#tirea-faq-more'); // lien "Voir toutes les questions" (home)
 
+    // ============================================
+    // ÉTAT "REPOS" (champ de recherche vide)
+    // Sur la home : seules les questions non surnuméraires sont visibles.
+    // Sur /faq : toutes les questions sont visibles (aucune n'est "is-extra").
+    // ============================================
+    function resetToDefault() {
+        items.forEach(function (it) {
+            if (it.classList.contains('is-extra')) {
+                it.classList.add('is-hidden');
+            } else {
+                it.classList.remove('is-hidden');
+            }
+        });
+        if (emptyMsg) emptyMsg.hidden = true;
+        if (moreBlock) moreBlock.hidden = false;
+    }
+
+    // ============================================
+    // RECHERCHE
+    // ============================================
     if (searchInput) {
         searchInput.addEventListener('input', function () {
             var q = searchInput.value.trim().toLowerCase();
-            var visible = 0;
 
+            // Champ vidé → on revient à l'état de repos
+            if (!q) {
+                resetToDefault();
+                return;
+            }
+
+            // Recherche active → on affiche TOUTE question qui correspond
+            // (y compris les questions masquées de la version allégée).
+            var visible = 0;
             items.forEach(function (it) {
-                var haystack = (it.getAttribute('data-q') || '');
-                var match = !q || haystack.indexOf(q) !== -1;
-                it.style.display = match ? '' : 'none';
+                var haystack = it.getAttribute('data-q') || '';
+                var match = haystack.indexOf(q) !== -1;
+                it.classList.toggle('is-hidden', !match);
                 if (match) visible++;
             });
 
-            if (emptyMsg) {
-                emptyMsg.hidden = visible !== 0;
-            }
+            if (emptyMsg) emptyMsg.hidden = visible !== 0;
+            // Pendant une recherche, le lien "voir tout" est redondant (tout est révélé)
+            if (moreBlock) moreBlock.hidden = true;
         });
     }
 
     // ============================================
-    // TOUT DÉPLIER / REPLIER
+    // TOUT DÉPLIER / REPLIER (agit sur les questions visibles uniquement)
     // ============================================
     var expandBtn = root.querySelector('#tirea-faq-expand');
     if (expandBtn) {
         expandBtn.addEventListener('click', function () {
-            var anyClosed = Array.prototype.some.call(items, function (it) {
+            var visibleItems = Array.prototype.filter.call(items, function (it) {
+                return !it.classList.contains('is-hidden');
+            });
+            var anyClosed = visibleItems.some(function (it) {
                 return !it.open;
             });
-            items.forEach(function (it) {
+            visibleItems.forEach(function (it) {
                 it.open = anyClosed;
             });
             expandBtn.textContent = anyClosed ? 'Tout replier' : 'Tout déplier';

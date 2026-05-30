@@ -18,6 +18,7 @@ while (have_posts()) :
     } else {
         // Notre template custom
         echo do_shortcode('[tirea_product_selector id="' . $product->get_id() . '"]');
+        echo do_shortcode('[tirea_faq contact="off" more="off"]');
     }
 endwhile;
 

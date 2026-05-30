@@ -520,7 +520,8 @@ add_shortcode('tirea_guide', 'tirea_guide_shortcode');
 // ============================================
 
 function tirea_enqueue_faq_assets() {
-    if (!is_front_page()) return;
+    // Version allégée sur la home + FAQ complète sur la page /faq
+    if (!is_front_page() && !is_page('faq') && !is_product()) return;
 
     $css_path = get_stylesheet_directory() . '/assets/css/tirea-faq.css';
     $js_path  = get_stylesheet_directory() . '/assets/js/tirea-faq.js';
@@ -554,12 +555,34 @@ function tirea_defer_faq_js($tag, $handle) {
 }
 add_filter('script_loader_tag', 'tirea_defer_faq_js', 10, 2);
 
-function tirea_faq_shortcode() {
+function tirea_faq_shortcode($atts) {
+    // mode    : "home" (allégé, défaut) ou "full" (page /faq : tout affiché + JSON-LD)
+    // contact : "on" (défaut) affiche le formulaire de contact ; "off" le masque
+    // more    : "on" (défaut) affiche le lien "Voir toutes les questions" ; "off" le masque
+    $atts = shortcode_atts([
+        'mode'    => 'home',
+        'contact' => 'on',
+        'more'    => 'on',
+    ], $atts, 'tirea_faq');
+
+    $tirea_faq_mode         = ($atts['mode'] === 'full') ? 'full' : 'home';
+    $tirea_faq_show_contact = ($atts['contact'] !== 'off');
+    $tirea_faq_show_more    = ($atts['more'] !== 'off');
+
     ob_start();
     include get_stylesheet_directory() . '/tirea-faq.php';
     return ob_get_clean();
 }
 add_shortcode('tirea_faq', 'tirea_faq_shortcode');
+
+// Page /faq : forcer le gabarit PHP automatiquement, par slug (modèle /suivi)
+add_filter('template_include', function($template) {
+    if (is_page('faq')) {
+        $tpl = get_stylesheet_directory() . '/tirea-faq-page.php';
+        if (file_exists($tpl)) return $tpl;
+    }
+    return $template;
+});
 
 /**
  * Handler AJAX — envoi du formulaire de contact FAQ via wp_mail()
@@ -625,6 +648,9 @@ function tirea_page_uses_elementor() {
 
     // Pages légales : rendues par template-tirea-legal.php (shortcode pur), jamais Elementor
     if (is_page(tirea_legal_slugs())) return false;
+
+    // Page FAQ : rendue par tirea-faq-page.php (shortcode pur), jamais Elementor
+    if (is_page('faq')) return false;
 
     $post_id = get_queried_object_id();
     if (!$post_id) return false;
@@ -704,8 +730,13 @@ add_action('wp_enqueue_scripts', 'tirea_dequeue_elementor_when_unused', 99);
 
 /**
  * Décharge Gutenberg block-library (contenu front géré par templates PHP + shortcodes).
+ * EXCEPTION : panier / checkout / compte sont rendus par WooCommerce Blocks et
+ * dépendent de ces styles — on ne décharge JAMAIS sur le tunnel d'achat.
  */
 function tirea_dequeue_gutenberg_styles() {
+    if (is_admin()) return;
+    if (function_exists('is_cart') && (is_cart() || is_checkout() || is_account_page())) return;
+
     wp_dequeue_style('wp-block-library');
     wp_dequeue_style('wp-block-library-theme');
     wp_dequeue_style('classic-theme-styles');
@@ -868,6 +899,10 @@ function tirea_form_security_check() {
     // Honeypot — si rempli, on simule un succès silencieux pour ne pas alerter le bot
     if (!empty($_POST['website'])) {
         wp_send_json_success();
+    }
+    // Anti-abus : max 3 envois / 10 min par IP (même helper que les formulaires légaux)
+    if (!tirea_form_rate_limit('faq')) {
+        wp_send_json_error(['message' => 'Trop de tentatives. Réessayez dans quelques minutes.']);
     }
 }
 

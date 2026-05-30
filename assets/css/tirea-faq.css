@@ -117,7 +117,7 @@
    BARRE DE RECHERCHE
    ============================================ */
 .tirea-faq-search {
-    margin: 0 0 28px;
+    margin: 0 0 10px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -143,6 +143,20 @@
     font-size: 14px;
     font-family: inherit;
     color: var(--tirea-faq-ink);
+}
+
+.tirea-faq-search-hint {
+    margin: 0 0 28px;
+    max-width: 520px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--tirea-faq-mute);
+}
+
+.tirea-faq-search-count {
+    font-weight: 600;
+    color: var(--tirea-faq-blue);
 }
 
 /* ===== Bouton "Tout déplier" — override Elementor ===== */
@@ -544,4 +558,46 @@
     .tirea-faq-submit:hover {
         transform: none;
     }
+}
+
+/* ============================================
+   VERSION ALLÉGÉE (home) + lien vers la FAQ complète
+   ============================================ */
+
+/* Question masquée : surnuméraire au repos sur la home,
+   ou hors résultats pendant une recherche. */
+.tirea-faq-item.is-hidden {
+    display: none;
+}
+
+/* Lien "Voir toutes les questions" (page d'accueil uniquement) */
+.tirea-faq-more {
+    margin-top: 24px;
+    text-align: center;
+}
+
+.tirea-faq-more-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 26px;
+    border-radius: 999px;
+    border: 1px solid var(--tirea-faq-line);
+    background: #fff;
+    color: var(--tirea-faq-ink);
+    font-size: 14px;
+    font-weight: 500;
+    transition: border-color 0.2s ease;
+}
+
+.tirea-faq-more-link:hover,
+.tirea-faq-more-link:focus,
+.tirea-faq-more-link:focus-visible {
+    border-color: var(--tirea-faq-ink);
+}
+
+.tirea-faq-more-link svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
 }
