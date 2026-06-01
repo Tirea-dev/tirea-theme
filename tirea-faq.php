@@ -84,10 +84,12 @@ $tirea_faq_nonce = wp_create_nonce('tirea_faq_contact');
   <?php // ===== HERO ===== ?>
   <div class="tirea-faq-hero">
     <?php if ($tirea_faq_show_badge): ?><div class="tirea-faq-badge"><?php echo esc_html($tirea_faq_badge); ?></div><?php endif; ?>
-    <h2 id="tirea-faq-title" class="tirea-faq-h2">
+    <?php // /faq (mode full) : ce titre devient le H1 de la page ; sur la home il reste H2 (le H1 = le hero) ?>
+    <?php $tirea_faq_htag = $tirea_faq_is_full ? 'h1' : 'h2'; ?>
+    <<?php echo $tirea_faq_htag; ?> id="tirea-faq-title" class="tirea-faq-h2">
       <?php echo esc_html($tirea_faq_title); ?><br>
       <em><?php echo esc_html($tirea_faq_title_em); ?></em><span class="tirea-faq-dot">.</span>
-    </h2>
+    </<?php echo $tirea_faq_htag; ?>>
     <p class="tirea-faq-intro"><?php echo esc_html($tirea_faq_intro); ?></p>
   </div>
 

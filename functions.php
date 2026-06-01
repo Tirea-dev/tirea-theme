@@ -602,6 +602,11 @@ function tirea_faq_contact_handler() {
         wp_send_json_success(['message' => 'Message envoyé ! Nous vous répondons sous 24h.']);
     }
 
+    // Anti-abus : max 3 envois / 10 min par IP (même helper que les formulaires légaux)
+    if (!tirea_form_rate_limit('faq_contact')) {
+        wp_send_json_error(['message' => 'Trop de tentatives. Réessayez dans quelques minutes.']);
+    }
+
     $name    = isset($_POST['name'])    ? sanitize_text_field(wp_unslash($_POST['name']))    : '';
     $email   = isset($_POST['email'])   ? sanitize_email(wp_unslash($_POST['email']))        : '';
     $message = isset($_POST['message']) ? sanitize_textarea_field(wp_unslash($_POST['message'])) : '';

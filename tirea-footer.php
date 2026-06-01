@@ -55,7 +55,7 @@ $tirea_footer_columns = [
         'title' => 'Boutique',
         'links' => [
             ['label' => 'Notre histoire', 'url' => '/notre-histoire'],
-            ['label' => "L'Ajusteur",      'url' => '/lajusteur'],
+            ['label' => "L'Ajusteur",      'url' => '/produit/lajusteur-tirea/'],
             ['label' => 'Suivi de commande', 'url' => '/suivi'],
         ],
     ],
