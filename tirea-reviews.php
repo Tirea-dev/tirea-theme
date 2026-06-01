@@ -71,14 +71,14 @@ $tirea_show_count = defined('TIREA_GLOBAL_SHOW_COUNT') ? TIREA_GLOBAL_SHOW_COUNT
 $tirea_total_count = defined('TIREA_GLOBAL_COUNT') ? TIREA_GLOBAL_COUNT : 0;
 ?>
 
-<!-- ============================================
+<?php /* ============================================
      SECTION TIREA EN ACTION (use cases)
-     ============================================ -->
+     ============================================ */ ?>
 <section class="tirea-reviews-section" id="tireaReviews">
   <div class="tirea-section-overline">Sur le terrain</div>
   <h2 class="tirea-section-title">En conditions <span class="tirea-accent">réelles</span></h2>
 
-  <!-- Note globale avec dégradé d'étoiles précis -->
+  <?php // Note globale avec dégradé d'étoiles précis ?>
   <div class="tirea-reviews-summary">
     <span class="tirea-stars-precise">
       <span class="tirea-stars-bg">★★★★★</span>
@@ -93,7 +93,7 @@ $tirea_total_count = defined('TIREA_GLOBAL_COUNT') ? TIREA_GLOBAL_COUNT : 0;
   <div class="tirea-reviews-mention">Score de satisfaction historique · Plus de 1000 produits expédiés</div>
   <div class="tirea-photos-mention">Photos issues de nos réseaux (@Tirea.fr)</div>
 
-  <!-- Carrousel photos -->
+  <?php // Carrousel photos ?>
   <div class="tirea-photos-carousel" data-paused="false" data-auto="true">
     <div class="tirea-photos-track">
       <?php
@@ -112,7 +112,7 @@ $tirea_total_count = defined('TIREA_GLOBAL_COUNT') ? TIREA_GLOBAL_COUNT : 0;
     <div class="tirea-photos-fade tirea-photos-fade-right"></div>
   </div>
 
-  <!-- Roulette use cases avec flèches manuelles -->
+  <?php // Roulette use cases avec flèches manuelles ?>
   <div class="tirea-reviews-roulette" data-paused="false">
     <div class="tirea-reviews-track">
       <?php
@@ -141,7 +141,7 @@ $tirea_total_count = defined('TIREA_GLOBAL_COUNT') ? TIREA_GLOBAL_COUNT : 0;
   </div>
 </section>
 
-<!-- Lightbox photos -->
+<?php // Lightbox photos ?>
 <div class="tirea-lightbox" id="tireaLightbox" role="dialog" aria-modal="true" aria-label="Photo agrandie">
   <button type="button" class="tirea-lightbox-close" aria-label="Fermer">×</button>
   <img class="tirea-lightbox-img" src="" alt="">

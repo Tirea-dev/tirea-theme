@@ -312,7 +312,7 @@ $steps = [
       Conçu pour <strong>toutes les morphologies</strong>, l'Ajusteur Tirea™ s'adapte aussi bien aux chemises masculines qu'aux chemisiers féminins. <strong>Une solution universelle</strong> pour une élégance sans compromis.
     </p>
     <div class="tirea-final-cta">
-      <a href="#" class="tirea-final-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+      <a href="#" class="tirea-final-btn">
         Choisir mon pack
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="5" y1="12" x2="19" y2="12"/>

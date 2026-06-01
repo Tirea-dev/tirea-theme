@@ -174,7 +174,7 @@
 
 .tirea-pack-old-price {
   font-size: 13px;
-  color: #aaa;
+  color: var(--tirea-color-text-muted);
   text-decoration: line-through;
 }
 

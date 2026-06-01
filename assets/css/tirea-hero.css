@@ -66,7 +66,7 @@
   border-radius: 30px;
   padding: 9px 18px;
   font-size: 11px;
-  color: #1e6fc4;
+  color: var(--tirea-color-primary);
   font-weight: 600;
   letter-spacing: 1.2px;
   margin-bottom: 32px;
@@ -75,7 +75,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #1e6fc4;
+  background: var(--tirea-color-primary);
 }
 
 /* Titres */
@@ -93,13 +93,13 @@
 }
 .tirea-title-italic {
   font-style: italic;
-  color: #1e6fc4;
+  color: var(--tirea-color-primary);
   font-weight: 600;
 }
 
 /* Sous-titre */
 .tirea-subtitle {
-  border-left: 2px solid #1e6fc4;
+  border-left: 2px solid var(--tirea-color-primary);
   padding-left: 18px;
   margin-bottom: 40px;
   max-width: 460px;
@@ -134,13 +134,13 @@
   background: #000;
   color: white;
 }
-.tirea-btn-primary:hover { background: #1e6fc4; color: white; }
+.tirea-btn-primary:hover { background: var(--tirea-color-primary); color: white; }
 .tirea-btn-secondary {
   background: rgba(255,255,255,0.9);
   color: #333;
   border: 1px solid #ddd;
 }
-.tirea-btn-secondary:hover { border-color: #1e6fc4; color: #1e6fc4; }
+.tirea-btn-secondary:hover { border-color: var(--tirea-color-primary); color: var(--tirea-color-primary); }
 
 /* Preuve sociale */
 .tirea-social-proof {

@@ -42,9 +42,9 @@ foreach ($variations as $index => $variation) {
 }
 ?>
 
-<!-- ============================================
+<?php /* ============================================
      MINI SÉLECTEUR DE PACKS (Page d'accueil)
-     ============================================ -->
+     ============================================ */ ?>
 <section class="tirea-product-section tirea-mini-section" data-product-id="<?php echo esc_attr($product_id); ?>">
   <div class="tirea-product-grid">
 
@@ -82,7 +82,7 @@ foreach ($variations as $index => $variation) {
     <div class="tirea-product-info">
       <h2 class="tirea-product-title"><?php echo esc_html($product->get_name()); ?></h2>
       
-      <!-- Note globale avec étoiles précises (pilotée depuis functions.php) -->
+      <?php // Note globale avec étoiles précises (pilotée depuis functions.php) ?>
       <?php
       $tirea_sel_avg = defined('TIREA_GLOBAL_RATING') ? TIREA_GLOBAL_RATING : 4.5;
       $tirea_sel_fill = ($tirea_sel_avg / 5) * 100;
@@ -151,7 +151,7 @@ foreach ($variations as $index => $variation) {
         <?php endforeach; ?>
       </div>
 
-      <!-- Bloc stock + réception (ligne) -->
+      <?php // Bloc stock + réception (ligne) ?>
       <div class="tirea-info-row">
         <?php if ($has_stock_management): ?>
         <div class="tirea-stock-indicator <?php echo $total_stock <= 0 ? 'out-of-stock' : ''; ?>">
@@ -181,7 +181,7 @@ foreach ($variations as $index => $variation) {
         </div>
       </div>
 
-      <!-- Total + CTA -->
+      <?php // Total + CTA ?>
       <div class="tirea-total-card">
         <div class="tirea-cart-error" role="alert" aria-live="polite" hidden></div>
         <div class="tirea-total-row">
@@ -200,7 +200,7 @@ foreach ($variations as $index => $variation) {
         </button>
       </div>
 
-      <!-- Paiements acceptés -->
+      <?php // Paiements acceptés ?>
       <div class="tirea-payments">
         <div class="tirea-payments-label">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -229,7 +229,7 @@ foreach ($variations as $index => $variation) {
         </div>
       </div>
 
-      <!-- Mini badges réassurance -->
+      <?php // Mini badges réassurance ?>
       <div class="tirea-mini-badges">
         <div class="tirea-mini-badge">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -249,7 +249,7 @@ foreach ($variations as $index => $variation) {
         </div>
       </div>
 
-      <!-- Lien vers fiche complète -->
+      <?php // Lien vers fiche complète ?>
       <div class="tirea-full-link">
         <a href="<?php echo esc_url($product_url); ?>">Voir la fiche complète →</a>
       </div>

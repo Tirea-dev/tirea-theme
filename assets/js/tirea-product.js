@@ -7,6 +7,12 @@
 
     $(document).ready(function() {
 
+        // Scroll-to-top sur le CTA final (remplace l'ancien onclick inline)
+        $('.tirea-final-btn').on('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
         // ============================================
         // Helpers erreur panier (inline)
         // ============================================

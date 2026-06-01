@@ -577,7 +577,6 @@ function tirea_faq_shortcode($atts) {
     return ob_get_clean();
 }
 add_shortcode('tirea_faq', 'tirea_faq_shortcode');
-add_shortcode('tirea_faq', 'tirea_faq_shortcode');
 
 // Page /faq : forcer le gabarit PHP automatiquement, par slug (modèle /suivi)
 add_filter('template_include', function($template) {
