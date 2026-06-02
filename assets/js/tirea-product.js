@@ -218,113 +218,51 @@
         }
 
         // ============================================
-        // COMPTEUR D'EXPÉDITION FUSIONNÉ AU STOCK
+        // EXPÉDITION (chrono ou date) + RÉCEPTION ESTIMÉE
         // ============================================
         const $shippingInline = $('.tirea-shipping-inline');
-        const $timerValue = $('.tirea-timer-value');
-
-        if ($shippingInline.length) {
-            function getShippingCutoff() {
-                const now = new Date();
-                const day = now.getDay();
-                const hour = now.getHours();
-                const minute = now.getMinutes();
-
-                // Dimanche : pas d'expédition
-                if (day === 0) return null;
-
-                // Créneau MATIN (00h00 → 11h50)
-                if (hour < 11 || (hour === 11 && minute < 50)) {
-                    const cutoff = new Date(now);
-                    cutoff.setHours(12, 0, 0, 0);
-                    return cutoff;
-                }
-
-                // Samedi : pas d'après-midi
-                if (day === 6) return null;
-
-                // Créneau APRÈS-MIDI (12h00 → 14h50)
-                if (hour >= 12 && (hour < 14 || (hour === 14 && minute < 50))) {
-                    const cutoff = new Date(now);
-                    cutoff.setHours(15, 0, 0, 0);
-                    return cutoff;
-                }
-
-                return null;
-            }
-
-            function updateCountdown() {
-                const cutoff = getShippingCutoff();
-
-                if (!cutoff) {
-                    $shippingInline.hide();
-                    return;
-                }
-
-                const now = new Date();
-                const diff = cutoff - now;
-
-                if (diff <= 0) {
-                    $shippingInline.hide();
-                    return;
-                }
-
-                const totalMinutes = Math.floor(diff / 60000);
-                const hours = Math.floor(totalMinutes / 60);
-                const minutes = totalMinutes % 60;
-
-                // Format : "2h 34min" si ≥ 1h, "34min" si < 1h
-                let timerStr;
-                if (hours > 0) {
-                    timerStr = hours + 'h ' + minutes + 'min';
-                } else {
-                    timerStr = minutes + 'min';
-                }
-
-                $timerValue.text(timerStr);
-                $shippingInline.show();
-            }
-
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
-        }
-
-        // ============================================
-        // RÉCEPTION ESTIMÉE (date dynamique)
-        // ============================================
         const $receptionValue = $('.tirea-reception-value');
 
-        if ($receptionValue.length) {
+        if ($shippingInline.length || $receptionValue.length) {
+
             const joursCourts = ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'];
             const moisCourts = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'];
 
-            function getShippingDate() {
-                const now = new Date();
-                const day = now.getDay();
-                const hour = now.getHours();
-                const minute = now.getMinutes();
+            // Heures de départ par jour (0 = dimanche … 6 = samedi)
+            const departuresByDay = { 0: [], 1: [11, 16], 2: [11, 16], 3: [11, 16], 4: [11, 16], 5: [11, 16], 6: [11] };
+            const HIDE_BEFORE_MS = 10 * 60 * 1000; // on masque le chrono 10 min avant le départ
 
-                const shippingDate = new Date(now);
-                shippingDate.setHours(0, 0, 0, 0);
+            function departuresOn(date) {
+                return (departuresByDay[date.getDay()] || []).map(function(h) {
+                    const d = new Date(date);
+                    d.setHours(h, 0, 0, 0);
+                    return d;
+                });
+            }
 
-                // Lun-Ven
-                if (day >= 1 && day <= 5) {
-                    if (hour < 14 || (hour === 14 && minute < 50)) return shippingDate;
-                    shippingDate.setDate(shippingDate.getDate() + 1);
-                    if (shippingDate.getDay() === 0) shippingDate.setDate(shippingDate.getDate() + 1);
-                    return shippingDate;
+            // Prochain départ du jour encore à plus de 10 min, sinon null
+            function getCountdownTarget(now) {
+                const todays = departuresOn(now);
+                for (let i = 0; i < todays.length; i++) {
+                    if (todays[i] - now > HIDE_BEFORE_MS) return todays[i];
                 }
+                return null;
+            }
 
-                // Samedi
-                if (day === 6) {
-                    if (hour < 10 || (hour === 10 && minute < 50)) return shippingDate;
-                    shippingDate.setDate(shippingDate.getDate() + 2); // skip dimanche
-                    return shippingDate;
+            // Jour de départ réel : aujourd'hui si un départ du jour est encore
+            // affichable, sinon le prochain jour qui a un départ
+            function getShipDay(now) {
+                if (getCountdownTarget(now)) {
+                    const today = new Date(now);
+                    today.setHours(0, 0, 0, 0);
+                    return today;
                 }
-
-                // Dimanche
-                shippingDate.setDate(shippingDate.getDate() + 1);
-                return shippingDate;
+                const d = new Date(now);
+                d.setHours(0, 0, 0, 0);
+                do {
+                    d.setDate(d.getDate() + 1);
+                } while (departuresOn(d).length === 0);
+                return d;
             }
 
             function addBusinessDays(date, days) {
@@ -332,25 +270,46 @@
                 let added = 0;
                 while (added < days) {
                     result.setDate(result.getDate() + 1);
-                    if (result.getDay() !== 0) added++;
+                    if (result.getDay() !== 0) added++; // on saute le dimanche
                 }
                 return result;
             }
 
-            function formatReceptionDate(date) {
+            function formatDate(date) {
                 return joursCourts[date.getDay()] + ' ' + date.getDate() + ' ' + moisCourts[date.getMonth()];
             }
 
-            function updateReception() {
-                const shippingDate = getShippingDate();
-                const receptionDate = addBusinessDays(shippingDate, 3);
-                $receptionValue.text(formatReceptionDate(receptionDate));
+            // Ligne "expédition" : chrono le jour même, sinon date du prochain départ
+            if ($shippingInline.length) {
+                function updateShipping() {
+                    const now = new Date();
+                    const target = getCountdownTarget(now);
+
+                    if (target) {
+                        const totalMinutes = Math.floor((target - now) / 60000);
+                        const hours = Math.floor(totalMinutes / 60);
+                        const minutes = totalMinutes % 60;
+                        const timerStr = hours > 0 ? (hours + 'h ' + minutes + 'min') : (minutes + 'min');
+                        $shippingInline.html(', expédition dans <strong class="tirea-timer-value">' + timerStr + '</strong>').show();
+                    } else {
+                        $shippingInline.html(', expédition le <strong class="tirea-timer-value">' + formatDate(getShipDay(now)) + '</strong>').show();
+                    }
+                }
+
+                updateShipping();
+                setInterval(updateShipping, 1000);
             }
 
-            updateReception();
-            setInterval(updateReception, 60000);
-        }
+            // Ligne "réception estimée" : jour de départ + 3 jours ouvrés
+            if ($receptionValue.length) {
+                function updateReception() {
+                    $receptionValue.text(formatDate(addBusinessDays(getShipDay(new Date()), 3)));
+                }
 
+                updateReception();
+                setInterval(updateReception, 60000);
+            }
+        }
     });
 
 // ============================================
