@@ -228,6 +228,29 @@ foreach ($variations as $index => $variation) {
           <span class="tirea-pay-logo tirea-pay-more" title="Et plus">+</span>
         </div>
       </div>
+      
+      <?php // ===== GARANTIE MEILLEUR PRIX (avant la description) ===== ?>
+      <details class="tirea-price-guarantee">
+        <summary class="tirea-price-guarantee-summary">
+          <span class="tirea-price-guarantee-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </span>
+          <span class="tirea-price-guarantee-text">
+            <strong>Garantie meilleur prix.</strong> Vu moins cher en France ? On vous rembourse la différence.
+          </span>
+          <span class="tirea-price-guarantee-toggle">Voir les conditions</span>
+        </summary>
+        <div class="tirea-price-guarantee-conditions">
+          <p>Garantie valable sur le produit neuf et identique, vendu par un site marchand professionnel établi en France (mentions légales et SIREN valides), au prix public affiché TTC, frais de port inclus. Sont exclus les places de marché et vendeurs tiers (Amazon, AliExpress, eBay, Temu, Cdiscount Marketplace, Leboncoin…), le déstockage, les ventes privées et les produits d'occasion ou reconditionnés. Remboursement de la différence sur présentation d'une preuve datée (lien ou capture) fournie sous 14 jours après la commande.</p>
+        </div>
+      </details>
+
+      <?php if ($product->get_short_description()): ?>
+        <div class="tirea-product-description"><?php echo wp_kses_post(wpautop($product->get_short_description())); ?></div>
+      <?php endif; ?>
 
       <?php // Mini badges réassurance ?>
       <div class="tirea-mini-badges">

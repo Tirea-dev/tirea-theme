@@ -113,8 +113,6 @@ $steps = [
           <span class="tirea-rating-count">(<?php echo $tirea_sel_count; ?> avis)</span>
         <?php endif; ?>
       </a>
-      
-      </a>
 
       <?php if ($product->get_short_description()): ?>
         <div class="tirea-product-description"><?php echo wp_kses_post(wpautop($product->get_short_description())); ?></div>
