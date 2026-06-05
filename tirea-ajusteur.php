@@ -26,11 +26,11 @@ $tirea_ajusteur_title    = "Un accessoire indispensable";
 $tirea_ajusteur_subtitle = "Améliore la silhouette de votre chemise avec <strong>un effet cintré</strong> en toute circonstance. Conçu pour être <strong>invisible sous vos vêtements</strong>, <strong>modulable</strong> et s'adapter à <strong>toutes les morphologies</strong>.";
 
 $tirea_ajusteur_image_left  = [
-    'url' => 'https://tirea.fr/wp-content/uploads/2026/05/zoom_left-e1778206828884.png',
+    'url' => 'https://tirea.fr/wp-content/uploads/2026/06/ajusteur-zoom-g.webp',
     'alt' => 'Boucle métallique TIREA',
 ];
 $tirea_ajusteur_image_right = [
-    'url' => 'https://tirea.fr/wp-content/uploads/2026/05/zoom_right-e1778206809607.png',
+    'url' => 'https://tirea.fr/wp-content/uploads/2026/06/ajusteur-zoom-d.webp',
     'alt' => 'Élastique et cuir antidérapant TIREA',
 ];
 

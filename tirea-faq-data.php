@@ -68,7 +68,7 @@ return [
         ],
         [
             'q' => "Peut-il abîmer mes vêtements ?",
-            'a' => "<p>Non. Le similicuir adhère au tissu <b>sans en accrocher les fibres</b> : il se fixe sur le dernier bouton sans le forcer ni marquer le vêtement.</p>
+            'a' => "<p>Non. La suédine adhère au tissu <b>sans en accrocher les fibres</b> : il se fixe sur le dernier bouton sans le forcer ni marquer le vêtement.</p>
                     <p>Il convient à tous les textiles, du plus fin au plus épais, sans déchirure ni marque permanente.</p>",
             'tags' => ['Compatibilité', 'Avantages'],
             'keywords' => "abîme les vêtements, marque le tissu",
@@ -78,7 +78,7 @@ return [
             'a' => "<p><b>Trois</b> matériaux choisis pour durer :</p>
                     <ul>
                       <li><b>Élastique en nylon</b> : souple et résistant, il conserve sa tension dans le temps.</li>
-                      <li><b>Similicuir</b> : un toucher cuir doté de propriétés antidérapantes, qui adhère sans abîmer le tissu.</li>
+                      <li><b>Patins en suédine</b> : un toucher doux doté de propriétés antidérapantes, qui adhère sans abîmer le tissu.</li>
                       <li><b>Boucle en acier inoxydable</b> : pour l'attache, garantie sans rouille.</li>
                     </ul>",
             'tags' => ['Matières', 'Durabilité'],
@@ -105,7 +105,7 @@ return [
             'q' => "Comment s'utilise-t-il ?",
             'a' => "<p>En <b>3 étapes et 30 secondes</b> :</p>
                     <ul>
-                      <li>Insérez l'accroche dans le dernier bouton de la chemise (étape à sauter sur les hauts sans bouton : le maintien reste efficace grâce aux patchs en similicuir).</li>
+                      <li>Insérez l'accroche dans le dernier bouton de la chemise (étape à sauter sur les hauts sans bouton : le maintien reste efficace grâce aux patins en suédine).</li>
                       <li>Insérez la boucle en acier dans l'accroche.</li>
                       <li>Ajustez la tension à votre tour de taille.</li>
                     </ul>
@@ -116,7 +116,7 @@ return [
         [
             'q' => "Fonctionne-t-il avec tous les types de chemise ?",
             'a' => "<p>Oui : lin, coton, popeline, velours, mais aussi polos et t-shirts fins. L'accroche au dernier bouton optimise la tenue sur une chemise classique.</p>
-                    <p><b>Pas de dernier bouton ?</b> Aucun problème : il suffit de refermer l'accessoire sans passer par le bouton. Le similicuir assure le maintien sur la plupart des textiles, avec une tenue légèrement moins ferme.</p>",
+                    <p><b>Pas de dernier bouton ?</b> Aucun problème : il suffit de refermer l'accessoire sans passer par le bouton. La suédine assure le maintien sur la plupart des textiles, avec une tenue légèrement moins ferme.</p>",
             'tags' => ['Compatibilité', 'Sans bouton'],
             'keywords' => "type de chemise, sans bouton",
         ],
@@ -141,7 +141,7 @@ return [
         ],
         [
             'q' => "Qu'a-t-il de mieux qu'une simple ceinture ?",
-            'a' => "<p>Une ceinture serre la taille mais laisse la chemise remonter et se déformer au fil de la journée. L'Ajusteur combine <b>adhérence</b> (similicuir), <b>élasticité</b> (tension calibrée) et <b>invisibilité</b> : il est pensé pour maintenir le tissu en place sans bouger.</p>",
+            'a' => "<p>Une ceinture serre la taille mais laisse la chemise remonter et se déformer au fil de la journée. L'Ajusteur combine <b>adhérence</b> (suédine), <b>élasticité</b> (tension calibrée) et <b>invisibilité</b> : il est pensé pour maintenir le tissu en place sans bouger.</p>",
             'tags' => ['Comparaison', 'Avantages'],
             'keywords' => "vs ceinture, mieux qu'une ceinture",
         ],

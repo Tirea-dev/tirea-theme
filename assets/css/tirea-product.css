@@ -693,21 +693,21 @@
 }
 
 .tirea-component-img {
-  width: 130px;
-  height: 130px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   background: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   border: 1px solid #eee;
   overflow: hidden;
 }
 
 .tirea-component-img img {
-  width: 75%;
-  height: 75%;
+  width: 85%;
+  height: 85%;
   object-fit: contain;
 }
 

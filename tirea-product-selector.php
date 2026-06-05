@@ -41,11 +41,11 @@ foreach ($variations as $index => $variation) {
 
 // Composants (matériaux)
 $components = [
-    ['img' => 'https://tirea.fr/wp-content/uploads/2026/05/ajusteur-blank.png',  'name' => 'Ajusteur',         'detail' => 'en acier'],
-    ['img' => 'https://tirea.fr/wp-content/uploads/2026/05/elastique-blank.png', 'name' => 'Élastique',        'detail' => 'gros grain'],
-    ['img' => 'https://tirea.fr/wp-content/uploads/2026/05/cuir-blank.png',      'name' => 'Cuir skyvertex',   'detail' => 'antidérapant'],
-    ['img' => 'https://tirea.fr/wp-content/uploads/2026/05/boucle-blank.png',    'name' => 'Boucle',           'detail' => 'en acier'],
-    ['img' => 'https://tirea.fr/wp-content/uploads/2026/05/accroche-blank.png',  'name' => 'Accroche',         'detail' => 'en cuir'],
+    ['img' => 'https://tirea.fr/wp-content/uploads/2026/06/composant-boucle.webp',    'name' => 'Boucle',           'detail' => 'acier inoxydable'],
+    ['img' => 'https://tirea.fr/wp-content/uploads/2026/06/composant-accroche.webp',  'name' => 'Accroche',         'detail' => 'suédine premium'],
+    ['img' => 'https://tirea.fr/wp-content/uploads/2026/06/composant-ajusteur.webp',  'name' => 'Ajusteur',         'detail' => 'acier inoxydable'],
+    ['img' => 'https://tirea.fr/wp-content/uploads/2026/06/composant-patin.webp',      'name' => 'Patins',   'detail' => 'suédine antidérapant'],
+    ['img' => 'https://tirea.fr/wp-content/uploads/2026/06/composant-elastique.webp', 'name' => 'Élastique',        'detail' => 'nylon renforcé'],
 ];
 
 // Étapes guide
