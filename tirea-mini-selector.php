@@ -33,8 +33,19 @@ $pack_meta = [
 ];
 $default_pack_name = "Le Quotidien";
 
-// Toutes les images (principale + variations)
+// Toutes les images (principale + galerie + variations)
 $all_images = [['url' => $main_image_url, 'alt' => $product->get_name()]];
+
+// Images de la galerie produit, insérées entre l'image principale et les packs
+$tirea_gallery_count = 0;
+foreach ($product->get_gallery_image_ids() as $tirea_gallery_id) {
+    $tirea_gallery_url = wp_get_attachment_image_url($tirea_gallery_id, 'large');
+    if (!$tirea_gallery_url) { continue; }
+    $tirea_gallery_alt = get_post_meta($tirea_gallery_id, '_wp_attachment_image_alt', true);
+    if ($tirea_gallery_alt === '') { $tirea_gallery_alt = $product->get_name(); }
+    $all_images[] = ['url' => $tirea_gallery_url, 'alt' => $tirea_gallery_alt];
+    $tirea_gallery_count++;
+}
 foreach ($variations as $index => $variation) {
     $var_img = !empty($variation['image']['url']) ? $variation['image']['url'] : $main_image_url;
     $pack_name = isset($variation['attributes']['attribute_pack']) ? $variation['attributes']['attribute_pack'] : 'Pack ' . ($index + 1);
@@ -125,7 +136,7 @@ foreach ($variations as $index => $variation) {
             $regular_price = $variation['display_regular_price'];
             $on_sale = $price_html < $regular_price;
             $is_selected = ($attr_pack === $default_pack_name);
-            $img_index = $index + 1;
+            $img_index = $index + 1 + $tirea_gallery_count;
         ?>
           <div class="tirea-pack <?php echo $is_selected ? 'selected' : ''; ?>"
                data-variation-id="<?php echo esc_attr($var_id); ?>"

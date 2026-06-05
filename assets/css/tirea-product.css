@@ -35,12 +35,18 @@
 }
 
 .tirea-thumbnails {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
   gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
+.tirea-thumbnails::-webkit-scrollbar { display: none; }
 
 .tirea-thumbnail {
+  flex: 0 0 calc((100% - 48px) / 5);
+  scroll-snap-align: start;
   background: #f8f8f8;
   border-radius: 12px;
   aspect-ratio: 1/1;
@@ -531,7 +537,7 @@
   .tirea-product-grid { gap: 40px; }
   .tirea-main-image { border-radius: 18px; margin-bottom: 12px; }
   .tirea-thumbnails { gap: 8px; }
-  .tirea-thumbnail { border-radius: 10px; }
+  .tirea-thumbnail { border-radius: 10px; flex: 0 0 23%; }
   .tirea-product-title {
     font-size: 32px;
     letter-spacing: 0;
