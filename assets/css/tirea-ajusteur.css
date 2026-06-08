@@ -107,6 +107,21 @@
   display: block;
 }
 
+.tirea-ajusteur-half::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.tirea-ajusteur-left::after {
+  background: linear-gradient(to right, #fff, rgba(255, 255, 255, 0) 20px);
+}
+
+.tirea-ajusteur-right::after {
+  background: linear-gradient(to left, #fff, rgba(255, 255, 255, 0) 20px);
+}
+
 .tirea-ajusteur-cta {
   margin-top: 50px;
   text-align: center;
@@ -159,8 +174,8 @@
   .tirea-section-quote { font-size: 17px; margin-top: 40px; }
   .tirea-ajusteur-visual { height: 90px; margin-top: 20px; }
   .tirea-ajusteur-half { height: 70px; }
-  .tirea-ajusteur-visual.in-view .tirea-ajusteur-left { transform: translateY(-50%) translateX(-15%); }
-  .tirea-ajusteur-visual.in-view .tirea-ajusteur-right { transform: translateY(-50%) translateX(15%); }
+  .tirea-ajusteur-visual.in-view .tirea-ajusteur-left { transform: translateY(-50%) translateX(-20%); }
+  .tirea-ajusteur-visual.in-view .tirea-ajusteur-right { transform: translateY(-50%) translateX(20%); }
   .tirea-ajusteur-cta { margin-top: 36px; }
   .tirea-ajusteur-btn { padding: 14px 28px; font-size: 13px; }
 }

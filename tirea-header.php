@@ -39,7 +39,7 @@ $tirea_logo_url = 'https://tirea.fr/wp-content/uploads/2026/05/Logo-Last-5x4-1.p
 $tirea_logo_alt = 'TIREA';
 
 // Bandeau promo (passe à false ou string vide pour le désactiver)
-$tirea_promo_text = "DÉCOUVREZ NOS PACKS : JUSQU'À -25€ & LIVRAISON EN 72H OFFERTE !";
+$tirea_promo_text = "EXCLUSIVITÉ BOUTIQUE OFFICIELLE : JUSQU'À -25€ & LIVRAISON 48H OFFERTE !";
 
 // ============================================
 // SVG ICONS (centralisés, réutilisés via les partials)

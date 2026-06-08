@@ -46,8 +46,8 @@ $tirea_legal_dir = get_stylesheet_directory() . '/legal'; ?>
       </div>
       <div class="tirea-contact-info-section">
         <span class="tirea-contact-sublabel">Téléphone</span>
-        <div class="tirea-contact-big">Bientôt disponible</div>
-        <div class="tirea-contact-tiny">Ligne pro en cours d'attribution</div>
+        <div class="tirea-contact-big">07 75 77 56 16</div>
+        <div class="tirea-contact-tiny">Appel ou SMS · réponse rapide</div>
       </div>
     </div>
 
