@@ -75,3 +75,51 @@ $tirea_legal_type = isset($tirea_legal_page['type']) ? $tirea_legal_page['type']
 
   </main>
 </div>
+
+/* ==========================================================================
+   Réseaux sociaux : composant partagé, même rendu que le footer
+   ========================================================================== */
+.tirea-socials{
+  display: flex;
+  gap: 14px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.tirea-socials li{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+.tirea-socials li::before,
+.tirea-socials li::marker{
+  content: none;
+  display: none;
+}
+.tirea-socials a{
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  text-decoration: none;
+  transition: background-color .2s, border-color .2s, color .2s;
+}
+.tirea-socials a:hover,
+.tirea-socials a:focus-visible{
+  background: var(--tirea-color-primary);
+  border-color: var(--tirea-color-primary);
+  color: #fff;
+  outline: none;
+}
+.tirea-socials svg{
+  width: 18px;
+  height: 18px;
+}
+/* Espacement dans la carte contact (repris de l'ancien .tirea-contact-social) */
+.tirea-contact-info-card .tirea-socials{ margin-top: 18px; }

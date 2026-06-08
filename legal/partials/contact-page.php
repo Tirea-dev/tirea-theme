@@ -7,7 +7,7 @@ $tirea_legal_dir = get_stylesheet_directory() . '/legal'; ?>
   <?php // Hero (réutilise la structure standard) ?>
   <?php include $tirea_legal_dir . '/partials/hero.php'; ?>
 
-  <?php // INTENTS — 3 cards d'orientation ?>
+  <?php // INTENTS - 3 cards d'orientation ?>
   <div class="tirea-contact-intents">
     <a class="tirea-contact-intent" href="<?php echo esc_url(home_url('/mon-compte/')); ?>">
       <span class="tirea-contact-intent-num">01</span>
@@ -34,7 +34,7 @@ $tirea_legal_dir = get_stylesheet_directory() . '/legal'; ?>
     <?php include $tirea_legal_dir . '/modules/form-contact.php'; ?>
   </div>
 
-  <?php // INFO CARDS — 3 colonnes ?>
+  <?php // INFO CARDS - 3 colonnes ?>
   <div class="tirea-contact-info">
 
     <div class="tirea-contact-info-card">
@@ -64,17 +64,7 @@ $tirea_legal_dir = get_stylesheet_directory() . '/legal'; ?>
     <div class="tirea-contact-info-card">
       <span class="tirea-contact-label">Suivez TIREA</span>
       <p class="tirea-contact-social-intro">Coulisses, nouveautés et conseils style.</p>
-      <div class="tirea-contact-social">
-        <a href="#" aria-label="Instagram TIREA">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-        </a>
-        <a href="#" aria-label="Facebook TIREA">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.7c0-.9.3-1.6 1.7-1.6h1.5V4.2c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.7H8v3.2h2.5V22h3z"/></svg>
-        </a>
-        <a href="#" aria-label="TikTok TIREA">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.3 8.3a5.6 5.6 0 0 1-3.4-1.1 5.6 5.6 0 0 1-2.2-3.7h-3v12.2a2.5 2.5 0 1 1-2.5-2.5c.3 0 .5 0 .8.1V10a5.6 5.6 0 0 0-.8-.1 5.6 5.6 0 1 0 5.6 5.6V9.7a8.5 8.5 0 0 0 5 1.6V8.3z"/></svg>
-        </a>
-      </div>
+      <?php tirea_render_socials(); ?>
     </div>
 
   </div>
