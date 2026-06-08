@@ -1,0 +1,140 @@
+.tirea-rating {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-family: var(--tirea-font);
+}
+
+.tirea-rating-stars {
+  font-size: 15px;
+  line-height: 1;
+  letter-spacing: 1px;
+  font-family: Arial, sans-serif;
+  color: var(--tirea-color-text-faint);
+  opacity: 0.45;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tirea-rating-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--tirea-color-text-muted);
+}
+
+.tirea-rating-help {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1.5px solid var(--tirea-color-text-muted);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--tirea-color-text-muted);
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--tirea-font);
+  line-height: 1;
+  cursor: pointer;
+  transition: color var(--tirea-duration-fast) var(--tirea-ease), border-color var(--tirea-duration-fast) var(--tirea-ease);
+}
+
+.tirea-rating-help:hover,
+.tirea-rating-help:focus-visible {
+  color: var(--tirea-color-text);
+  border-color: var(--tirea-color-text);
+}
+
+.tirea-rating-help:focus-visible {
+  outline: 2px solid var(--tirea-color-primary);
+  outline-offset: 2px;
+}
+
+.tirea-rating-bubble {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: 50;
+  width: max-content;
+  max-width: min(320px, calc(100vw - 32px));
+  padding: 14px 16px;
+  background: var(--tirea-color-white);
+  border: 1px solid var(--tirea-color-border);
+  border-radius: 12px;
+  box-shadow: var(--tirea-shadow-md);
+  text-align: left;
+  pointer-events: none;
+}
+
+.tirea-rating-bubble[hidden] {
+  display: none;
+}
+
+.tirea-rating.is-pinned .tirea-rating-bubble {
+  pointer-events: auto;
+}
+
+.tirea-rating-bubble-text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--tirea-color-text-soft);
+}
+
+.tirea-rating-bubble-link {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--tirea-color-primary);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.tirea-rating-bubble-link:hover {
+  text-decoration: none;
+}
+
+.tirea-avis-explain {
+  max-width: 720px;
+  margin: 0 auto 40px;
+  padding: 0 20px;
+  scroll-margin-top: 100px;
+  text-align: center;
+  font-family: var(--tirea-font);
+}
+
+.tirea-avis-explain-overline {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--tirea-color-primary);
+}
+
+.tirea-avis-explain-text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--tirea-color-text-soft);
+}
+
+@media (max-width: 640px) {
+  .tirea-avis-explain-text {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tirea-rating-help {
+    transition: none;
+  }
+}

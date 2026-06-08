@@ -78,17 +78,11 @@ $tirea_total_count = defined('TIREA_GLOBAL_COUNT') ? TIREA_GLOBAL_COUNT : 0;
   <div class="tirea-section-overline">Sur le terrain</div>
   <h2 class="tirea-section-title">En conditions <span class="tirea-accent">réelles</span></h2>
 
-  <?php // Note globale avec dégradé d'étoiles précis ?>
-  <div class="tirea-reviews-summary">
-    <span class="tirea-stars-precise">
-      <span class="tirea-stars-bg">★★★★★</span>
-      <span class="tirea-stars-fg" style="width: <?php echo esc_attr($tirea_fill_percent); ?>%;">★★★★★</span>
-    </span>
-    <span class="tirea-reviews-avg"><?php echo number_format($tirea_avg_rating, 1, ',', ''); ?></span>
-    <?php if ($tirea_show_count): ?>
-      <span class="tirea-reviews-count">· <?php echo $tirea_total_count; ?> avis</span>
-    <?php endif; ?>
-  </div>
+  <?php // ===== ZONE AVIS - etat "Avis a venir" (cible du scroll, remplacable par le widget SAG) ===== ?>
+  <section id="avis-tirea" class="tirea-avis-explain" aria-labelledby="tireaAvisExplainLabel">
+    <p id="tireaAvisExplainLabel" class="tirea-avis-explain-overline">Avis à venir, 100% vérifiés</p>
+    <p class="tirea-avis-explain-text">Tirea, c'est pas nouveau. Lancée en 2019, la marque a expédié plus de 1000 commandes avec moins de 1% de retour. On relance aujourd'hui la boutique officielle, et on a fait un choix simple sur les avis : on les confie à un organisme tiers français indépendant qui ne publie que des avis d'acheteurs vérifiés. Concrètement, ce n'est pas nous qui gérons nos notes, c'est ce tiers : chaque avis vient d'un client ayant réellement commandé, vérifié et contrôlé en dehors de chez nous, pour l'info la plus objective possible. Et c'est un acteur français, soumis au droit français comme nous. Voilà pourquoi on repart de zéro : on préfère ne montrer que du 100% vérifié. Les vrais avis arrivent.</p>
+  </section>
 
   <div class="tirea-reviews-mention">Score de satisfaction historique · Plus de 1000 produits expédiés</div>
   <div class="tirea-photos-mention">Photos issues de nos réseaux (@Tirea.fr)</div>

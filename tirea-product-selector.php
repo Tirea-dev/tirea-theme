@@ -107,23 +107,15 @@ $steps = [
     <div class="tirea-product-info">
       <h1 class="tirea-product-title"><?php echo esc_html($product->get_name()); ?></h1>
 
-      <?php // Note globale avec étoiles précises (pilotée depuis functions.php) ?>
-      <?php
-      $tirea_sel_avg = defined('TIREA_GLOBAL_RATING') ? TIREA_GLOBAL_RATING : 4.5;
-      $tirea_sel_fill = ($tirea_sel_avg / 5) * 100;
-      $tirea_sel_show_count = defined('TIREA_GLOBAL_SHOW_COUNT') ? TIREA_GLOBAL_SHOW_COUNT : false;
-      $tirea_sel_count = defined('TIREA_GLOBAL_COUNT') ? TIREA_GLOBAL_COUNT : 0;
-      ?>
-      <a href="#tireaReviews" class="tirea-rating-link">
-        <span class="tirea-stars-precise tirea-stars-small">
-          <span class="tirea-stars-bg">★★★★★</span>
-          <span class="tirea-stars-fg" style="width: <?php echo esc_attr($tirea_sel_fill); ?>%;">★★★★★</span>
-        </span>
-        <span class="tirea-rating-value"><?php echo number_format($tirea_sel_avg, 1, ',', ''); ?></span>
-        <?php if ($tirea_sel_show_count): ?>
-          <span class="tirea-rating-count">(<?php echo $tirea_sel_count; ?> avis)</span>
-        <?php endif; ?>
-      </a>
+      <?php // ===== ZONE NOTE - etat "Avis a venir" (modulaire, remplacable par le widget SAG) ===== ?>
+      <div class="tirea-rating" data-tirea-rating="empty">
+        <span class="tirea-rating-stars" data-tirea-scroll="#avis-tirea" aria-hidden="true">★★★★★</span>
+        <span class="tirea-rating-label">Avis à venir</span>
+        <button type="button" class="tirea-rating-help" aria-label="En savoir plus sur nos avis" aria-expanded="false" aria-controls="tireaAvisBubble">?</button>
+        <div class="tirea-rating-bubble" id="tireaAvisBubble" role="note" hidden>
+          <p class="tirea-rating-bubble-text">Pas encore de notes affichées. Nos avis sont désormais vérifiés par un organisme tiers français indépendant : seuls les avis d'acheteurs réels sont publiés. On repart de zéro pour ne montrer que du 100% vérifié, contrôlé par un tiers et pas par nous. En attendant : plus de 1000 commandes expédiées, moins de 1% de retour. <button type="button" class="tirea-rating-bubble-link" data-tirea-scroll="#avis-tirea">En savoir plus</button></p>
+        </div>
+      </div>
 
       <?php if ($product->get_short_description()): ?>
         <div class="tirea-product-description"><?php echo wp_kses_post(wpautop($product->get_short_description())); ?></div>

@@ -9,10 +9,10 @@ $tirea_legal_dir = get_stylesheet_directory() . '/legal'; ?>
 
   <?php // INTENTS - 3 cards d'orientation ?>
   <div class="tirea-contact-intents">
-    <a class="tirea-contact-intent" href="<?php echo esc_url(home_url('/mon-compte/')); ?>">
+    <a class="tirea-contact-intent" href="<?php echo esc_url(home_url('/suivi/')); ?>">
       <span class="tirea-contact-intent-num">01</span>
       <span class="tirea-contact-intent-h">Ma commande</span>
-      <span class="tirea-contact-intent-sub">Suivi · livraison · modification</span>
+      <span class="tirea-contact-intent-sub">Suivi · livraison</span>
       <span class="tirea-contact-intent-link">Suivre →</span>
     </a>
     <a class="tirea-contact-intent" href="<?php echo esc_url(home_url('/#faq')); ?>">
@@ -58,7 +58,7 @@ $tirea_legal_dir = get_stylesheet_directory() . '/legal'; ?>
         <div><span>Samedi</span><strong>10h → 14h</strong></div>
         <div><span>Dimanche</span><strong>14h → 16h</strong></div>
       </div>
-      <div class="tirea-contact-status">Réponse moyenne · 2h</div>
+      <div class="tirea-contact-status">Réponse moyenne · 30min</div>
     </div>
 
     <div class="tirea-contact-info-card">

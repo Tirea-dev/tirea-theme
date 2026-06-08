@@ -88,7 +88,7 @@ return [
             'q' => "Quels sont les délais et frais de livraison ?",
             'a' => "<p><b>Livraison offerte</b>, sans minimum d'achat, avec <b>suivi de colis en temps réel</b> inclus.</p>
                     <ul>
-                      <li><b>France métropolitaine</b> : expédition garantie sous 24h depuis notre stock en France, livraison en 24 à 72h.</li>
+                      <li><b>France métropolitaine</b> : expédition garantie sous 24h depuis notre stock en France, livraison en 24 à 48h.</li>
                       <li><b>Europe</b> : livraison disponible, délais variables selon le pays de destination.</li>
                     </ul>",
             'tags' => ['Livraison', 'France & Europe'],

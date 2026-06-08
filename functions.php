@@ -74,6 +74,40 @@ function tirea_defer_product_js($tag, $handle) {
 }
 add_filter('script_loader_tag', 'tirea_defer_product_js', 10, 2);
 
+// ============================================
+// TIREA - Zone note "Avis a venir" (fiche produit)
+// ============================================
+function tirea_enqueue_avis_assets() {
+    if (!is_product()) return;
+
+    $css_path = get_stylesheet_directory() . '/assets/css/tirea-avis.css';
+    $js_path  = get_stylesheet_directory() . '/assets/js/tirea-avis.js';
+
+    wp_enqueue_style(
+        'tirea-avis-css',
+        get_stylesheet_directory_uri() . '/assets/css/tirea-avis.css',
+        ['tirea-tokens-css'],
+        file_exists($css_path) ? filemtime($css_path) : null
+    );
+
+    wp_enqueue_script(
+        'tirea-avis-js',
+        get_stylesheet_directory_uri() . '/assets/js/tirea-avis.js',
+        [],
+        file_exists($js_path) ? filemtime($js_path) : null,
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'tirea_enqueue_avis_assets');
+
+function tirea_defer_avis_js($tag, $handle) {
+    if ('tirea-avis-js' === $handle) {
+        return str_replace(' src=', ' defer src=', $tag);
+    }
+    return $tag;
+}
+add_filter('script_loader_tag', 'tirea_defer_avis_js', 10, 2);
+
 function tirea_product_selector_shortcode($atts) {
     $atts = shortcode_atts(['id' => 0], $atts);
     $product_id = intval($atts['id']);
