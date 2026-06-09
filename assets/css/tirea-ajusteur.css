@@ -139,7 +139,7 @@
   background: #000;
   color: white;
   border-radius: 50px;
-  padding: 18px 36px;
+  padding: 18px 25px;
   font-size: 14px;
   font-weight: 500;
   font-family: var(--tirea-font);
@@ -167,7 +167,7 @@
 }
 
 @media (max-width: 640px) {
-  .tirea-ajusteur-section { padding: 60px 20px; }
+  .tirea-ajusteur-section { padding: 55px 20px; }
   .tirea-section-overline { font-size: 11px; letter-spacing: 2px; margin-bottom: 16px; }
   .tirea-section-title { font-size: 30px; margin-bottom: 18px; }
   .tirea-section-subtitle { font-size: 14px; margin-bottom: 40px; line-height: 1.6; }

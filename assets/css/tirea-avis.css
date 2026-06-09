@@ -13,7 +13,7 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  padding: 5px 11px;
+  padding: 5px 22px;
   border: 1px solid var(--tirea-color-border);
   border-radius: 9px;
   background: var(--tirea-color-border-soft);
@@ -183,7 +183,7 @@
 }
 
 .tirea-avis-explain-overline {
-  margin: 0 0 10px;
+  margin: 0 0 16px;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.8px;

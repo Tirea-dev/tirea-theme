@@ -322,7 +322,31 @@ function tirea_enqueue_tokens() {
         file_exists($css_path) ? filemtime($css_path) : null
     );
 }
+
 add_action('wp_enqueue_scripts', 'tirea_enqueue_tokens', 5); // priorité 5 = avant les sections (défaut 10)
+
+/**
+ * Habillage du bandeau cookies WPConsent à la charte TIREA.
+ * Chargé sur le front uniquement si WPConsent est actif (le bandeau peut
+ * apparaître sur n'importe quelle page tant que le consentement n'est pas donné).
+ * Dépend de tirea-tokens-css pour réutiliser les variables de charte.
+ */
+function tirea_enqueue_cookies_assets() {
+    if ( ! function_exists('wpconsent') && ! defined('WPCONSENT_VERSION') && ! class_exists('WPConsent') ) {
+        return;
+    }
+    $css_path = get_stylesheet_directory() . '/assets/css/tirea-cookies.css';
+    if ( ! file_exists($css_path) ) {
+        return;
+    }
+    wp_enqueue_style(
+        'tirea-cookies',
+        get_stylesheet_directory_uri() . '/assets/css/tirea-cookies.css',
+        ['tirea-tokens-css'],
+        filemtime($css_path)
+    );
+}
+add_action('wp_enqueue_scripts', 'tirea_enqueue_cookies_assets', 20);
 
 // ============================================
 // TIREA — Header

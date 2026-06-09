@@ -27,11 +27,11 @@ $tirea_ajusteur_subtitle = "Améliore la silhouette de votre chemise avec <stron
 
 $tirea_ajusteur_image_left  = [
     'url' => 'https://tirea.fr/wp-content/uploads/2026/06/ajusteur-zoom-g.webp',
-    'alt' => 'Boucle métallique TIREA',
+    'alt' => 'boucle et ajusteur en acier inoxydable',
 ];
 $tirea_ajusteur_image_right = [
     'url' => 'https://tirea.fr/wp-content/uploads/2026/06/ajusteur-zoom-d.webp',
-    'alt' => 'Élastique et cuir antidérapant TIREA',
+    'alt' => 'accroche et antidérapant en suédine',
 ];
 
 // Citation finale — supporte du HTML (strong/em) via wp_kses_post au rendu

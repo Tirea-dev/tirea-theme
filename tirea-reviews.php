@@ -56,12 +56,12 @@ $tirea_usecases = [
 
 // Photos (modifiables ici) — le champ "name" sert d'alt (SEO + accessibilité)
 $tirea_review_photos = [
-    ['url' => 'https://tirea.fr/wp-content/uploads/2026/05/test-avis-5.webp', 'name' => "Client portant l'Ajusteur Tirea™"],
-    ['url' => 'https://tirea.fr/wp-content/uploads/2026/05/test-avis-2.webp', 'name' => "L'Ajusteur Tirea™ porté en conditions réelles"],
-    ['url' => 'https://tirea.fr/wp-content/uploads/2026/05/test-avis-IMG.webp', 'name' => "Tenue ajustée grâce à l'Ajusteur Tirea™"],
-    ['url' => 'https://tirea.fr/wp-content/uploads/2026/05/test-avis-3.webp', 'name' => "L'Ajusteur Tirea™ en situation, photo client"],
-    ['url' => 'https://tirea.fr/wp-content/uploads/2026/05/test-avis-4.webp', 'name' => "Silhouette ajustée avec l'Ajusteur Tirea™"],
-    ['url' => 'https://tirea.fr/wp-content/uploads/2026/05/test-avis-6.webp', 'name' => "L'Ajusteur Tirea™ utilisé au quotidien"],
+    ['url' => 'https://tirea.fr/wp-content/uploads/2026/06/insta-5.webp', 'name' => "Client portant l'Ajusteur Tirea™"],
+    ['url' => 'https://tirea.fr/wp-content/uploads/2026/06/insta-2.webp', 'name' => "L'Ajusteur Tirea™ porté en conditions réelles"],
+    ['url' => 'https://tirea.fr/wp-content/uploads/2026/06/insta-1.webp', 'name' => "Tenue ajustée grâce à l'Ajusteur Tirea™"],
+    ['url' => 'https://tirea.fr/wp-content/uploads/2026/06/insta-3.webp', 'name' => "L'Ajusteur Tirea™ en situation, photo client"],
+    ['url' => 'https://tirea.fr/wp-content/uploads/2026/06/insta-4.webp', 'name' => "Silhouette ajustée avec l'Ajusteur Tirea™"],
+    ['url' => 'https://tirea.fr/wp-content/uploads/2026/06/insta-6.webp', 'name' => "L'Ajusteur Tirea™ utilisé au quotidien"],
 ];
 
 // Note globale (récupérée depuis functions.php)
@@ -155,7 +155,7 @@ $tirea_total_count = defined('TIREA_GLOBAL_COUNT') ? TIREA_GLOBAL_COUNT : 0;
   <section id="avis-tirea" class="tirea-avis-explain" aria-labelledby="tireaAvisExplainLabel">
     <span class="tirea-avis-explain-stars" aria-hidden="true"><span>★★★★★</span></span>
     <p id="tireaAvisExplainLabel" class="tirea-avis-explain-overline">Avis à venir, 100% vérifiés</p>
-    <p class="tirea-avis-explain-text">Tirea, c'est pas nouveau. Lancée en 2019, la marque a expédié plus de 1000 commandes avec moins de 1% de retour. On relance aujourd'hui la boutique officielle, et on a fait un choix simple sur les avis : on les confie à un organisme tiers français indépendant qui ne publie que des avis d'acheteurs vérifiés. Chaque avis vient d'un client ayant réellement commandé, vérifié et contrôlé en dehors de chez nous, pour une information la plus objective possible. Et c'est un acteur français, soumis au droit français comme nous.</p>
+    <p class="tirea-avis-explain-text">Tirea, c'est pas nouveau. Lancée en 2019, la marque a expédié plus de 1000 commandes avec moins de 1% de retour. On relance aujourd'hui la boutique officielle, et on a fait un choix simple sur les avis : on les confie à un organisme tiers français indépendant qui ne publie que des avis d'acheteurs vérifiés. Chaque avis vient d'un client ayant réellement commandé, vérifié et contrôlé en dehors de chez nous, pour une information la plus objective possible.</p>
   </section>
   <?php endif; ?>
 

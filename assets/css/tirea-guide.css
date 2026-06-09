@@ -6,7 +6,7 @@
    ============================================ */
 
 .tirea-guide-section {
-  padding: 100px 60px;
+  padding: 40px 60px;
   max-width: 1400px;
   margin: 0 auto;
   font-family: var(--tirea-font);
@@ -276,7 +276,7 @@
    Reste sur 3 colonnes, tout plus compact
    ============================================ */
 @media (max-width: 1024px) {
-  .tirea-guide-section { padding: 70px 40px; }
+  .tirea-guide-section { padding: 28px 40px; }
 
   .tirea-guide-steps { gap: 24px; }
   .tirea-guide-step-illustration { width: 160px; }
@@ -303,7 +303,7 @@
    Les 3 étapes passent EN COLONNE (sans pointillé)
    ============================================ */
 @media (max-width: 640px) {
-  .tirea-guide-section { padding: 60px 24px; }
+  .tirea-guide-section { padding: 18px 24px; }
 
   .tirea-guide-steps {
     grid-template-columns: 1fr;

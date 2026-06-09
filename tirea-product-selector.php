@@ -131,13 +131,9 @@ $steps = [
           <span class="tirea-rating-label">Avis à venir</span>
           <button type="button" class="tirea-rating-help" aria-label="En savoir plus sur nos avis" aria-expanded="false" aria-controls="tireaAvisBubble">?</button>
           <div class="tirea-rating-bubble" id="tireaAvisBubble" role="note" hidden>
-            <p class="tirea-rating-bubble-text">Nos avis sont désormais vérifiés par un organisme tiers français indépendant : on repart de zéro pour ne montrer que du 100% vérifié, contrôlé par un tiers et pas par nous. En attendant : plus de 1000 commandes expédiées, moins de 1% de retour. <button type="button" class="tirea-rating-bubble-link" data-tirea-scroll="#avis-tirea">En savoir plus</button></p>
+            <p class="tirea-rating-bubble-text">Nos avis sont désormais vérifiés par un organisme tiers français indépendant : on repart de zéro pour montrer uniquement du 100% vérifié. En attendant : plus de 1000 commandes et moins de 1% de retour.<button type="button" class="tirea-rating-bubble-link" data-tirea-scroll="#avis-tirea">En savoir plus</button></p>
           </div>
         </div>
-      <?php endif; ?>
-
-      <?php if ($product->get_short_description()): ?>
-        <div class="tirea-product-description"><?php echo wp_kses_post(wpautop($product->get_short_description())); ?></div>
       <?php endif; ?>
 
       <?php if ($product->get_short_description()): ?>

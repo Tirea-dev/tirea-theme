@@ -989,7 +989,7 @@
 .tirea-lifestyle-section {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 100px 60px;
+  padding: 40px 10px;
   font-family: var(--tirea-font);
   color: #111;
   display: grid;
@@ -1046,7 +1046,7 @@
   .tirea-lifestyle-section {
     grid-template-columns: 1fr;
     gap: 50px;
-    padding: 70px 40px;
+    padding: 30px 10px;
   }
   .tirea-lifestyle-content {
     text-align: center;
@@ -1064,7 +1064,7 @@
 
 @media (max-width: 640px) {
   .tirea-lifestyle-section {
-    padding: 60px 20px;
+    padding: 30px 10px;
     gap: 36px;
   }
   .tirea-lifestyle-content .tirea-section-title {
