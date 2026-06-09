@@ -1383,13 +1383,6 @@
   font-weight: 500;
 }
 
-.tirea-reviews-mention {
-  font-size: 12px;
-  color: var(--tirea-color-text-muted);
-  margin-bottom: 50px;
-  letter-spacing: 0.3px;
-}
-
 .tirea-photos-mention {
   font-size: 12px;
   color: var(--tirea-color-text-muted);
@@ -1696,11 +1689,9 @@
     font-size: 16px;
   }
   .tirea-reviews-avg { font-size: 16px; }
-  .tirea-reviews-mention,
   .tirea-photos-mention {
     font-size: 11px;
   }
-  .tirea-reviews-mention { margin-bottom: 36px; }
   .tirea-photos-carousel { margin-bottom: 40px; }
   .tirea-photo-item {
     width: 120px;

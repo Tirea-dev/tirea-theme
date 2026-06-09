@@ -424,3 +424,8 @@
     transition: none;
   }
 }
+
+/* Mini selecteur (home) : etoiles non cliquables */
+.tirea-rating-mini .tirea-rating-stars {
+  cursor: default;
+}

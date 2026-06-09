@@ -204,7 +204,7 @@ add_filter('script_loader_tag', 'tirea_defer_product_js', 10, 2);
 // TIREA - Zone note "Avis a venir" (fiche produit)
 // ============================================
 function tirea_enqueue_avis_assets() {
-    if (!is_product()) return;
+    if (!is_product() && !is_front_page()) return;
 
     $css_path = get_stylesheet_directory() . '/assets/css/tirea-avis.css';
     $js_path  = get_stylesheet_directory() . '/assets/js/tirea-avis.js';

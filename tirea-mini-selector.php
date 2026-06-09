@@ -93,23 +93,34 @@ foreach ($variations as $index => $variation) {
     <div class="tirea-product-info">
       <h2 class="tirea-product-title"><?php echo esc_html($product->get_name()); ?></h2>
       
-      <?php // Note globale avec étoiles précises (pilotée depuis functions.php) ?>
+      <?php // Note SAG : reelle si avis verifies, sinon "Avis a venir" (sans scroll ni "En savoir plus") ?>
       <?php
-      $tirea_sel_avg = defined('TIREA_GLOBAL_RATING') ? TIREA_GLOBAL_RATING : 4.5;
-      $tirea_sel_fill = ($tirea_sel_avg / 5) * 100;
-      $tirea_sel_show_count = defined('TIREA_GLOBAL_SHOW_COUNT') ? TIREA_GLOBAL_SHOW_COUNT : false;
-      $tirea_sel_count = defined('TIREA_GLOBAL_COUNT') ? TIREA_GLOBAL_COUNT : 0;
+      $tirea_sel_sag = function_exists('tirea_sag_get_data') ? tirea_sag_get_data() : ['total' => 0, 'average' => 0];
+      $tirea_sel_has = !empty($tirea_sel_sag['total']) && (int) $tirea_sel_sag['total'] > 0;
       ?>
-      <a href="#tireaReviews" class="tirea-rating-link">
-        <span class="tirea-stars-precise tirea-stars-small">
-          <span class="tirea-stars-bg">★★★★★</span>
-          <span class="tirea-stars-fg" style="width: <?php echo esc_attr($tirea_sel_fill); ?>%;">★★★★★</span>
-        </span>
-        <span class="tirea-rating-value"><?php echo number_format($tirea_sel_avg, 1, ',', ''); ?></span>
-        <?php if ($tirea_sel_show_count): ?>
-          <span class="tirea-rating-count">(<?php echo $tirea_sel_count; ?> avis)</span>
-        <?php endif; ?>
-      </a>
+      <?php if ($tirea_sel_has):
+        $tirea_sel_avg  = (float) $tirea_sel_sag['average'];
+        $tirea_sel_fill = max(0, min(100, ($tirea_sel_avg / 5) * 100));
+        $tirea_sel_cnt  = (int) $tirea_sel_sag['total'];
+      ?>
+        <div class="tirea-rating tirea-rating-mini">
+          <span class="tirea-stars-precise tirea-stars-small" aria-hidden="true">
+            <span class="tirea-stars-bg">★★★★★</span>
+            <span class="tirea-stars-fg" style="width: <?php echo esc_attr($tirea_sel_fill); ?>%;">★★★★★</span>
+          </span>
+          <span class="tirea-rating-value"><?php echo esc_html(number_format($tirea_sel_avg, 1, ',', '')); ?></span>
+          <span class="tirea-rating-count">(<?php echo esc_html($tirea_sel_cnt); ?> avis vérifiés)</span>
+        </div>
+      <?php else: ?>
+        <div class="tirea-rating tirea-rating-mini" data-tirea-rating="empty">
+          <span class="tirea-rating-stars" aria-hidden="true"><span>★★★★★</span></span>
+          <span class="tirea-rating-label">Avis à venir</span>
+          <button type="button" class="tirea-rating-help" aria-label="En savoir plus sur nos avis" aria-expanded="false" aria-controls="tireaAvisBubbleMini">?</button>
+          <div class="tirea-rating-bubble" id="tireaAvisBubbleMini" role="note" hidden>
+            <p class="tirea-rating-bubble-text">Nos avis sont désormais vérifiés par un organisme tiers français indépendant : on repart de zéro pour ne montrer que du 100% vérifié, contrôlé par un tiers et pas par nous. En attendant : plus de 1000 commandes expédiées, moins de 1% de retour.</p>
+          </div>
+        </div>
+      <?php endif; ?>
      
       <div class="tirea-pack-label">Choisissez votre pack</div>
 

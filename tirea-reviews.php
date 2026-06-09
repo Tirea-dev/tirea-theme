@@ -159,7 +159,6 @@ $tirea_total_count = defined('TIREA_GLOBAL_COUNT') ? TIREA_GLOBAL_COUNT : 0;
   </section>
   <?php endif; ?>
 
-  <div class="tirea-reviews-mention">Score de satisfaction historique · Plus de 1000 produits expédiés</div>
   <div class="tirea-photos-mention">Photos issues de nos réseaux (@Tirea.fr)</div>
 
   <?php // Carrousel photos ?>
