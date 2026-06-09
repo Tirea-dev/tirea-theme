@@ -30,6 +30,132 @@ if (!defined('TIREA_GLOBAL_RATING')) {
     define('TIREA_GLOBAL_COUNT', 0);
 }
 
+/**
+ * AVIS VERIFIES : Societe des Avis Garantis (API publique, sans cle privee).
+ * Recupere note + avis, met en cache (transient) pour ne pas appeler l'API a chaque vue.
+ * API en panne OU zero avis => etat vide conserve, aucun AggregateRating emis (jamais de fausse note).
+ */
+if (!defined('TIREA_SAG_PUBLIC_KEY')) {
+    define('TIREA_SAG_PUBLIC_KEY', 'beae07cf5d99603174a3236c03bb4708');
+}
+if (!defined('TIREA_SAG_SCOPE')) {
+    // Mono-produit : 'site' = avis collectes sur la boutique (= avis du produit).
+    // Passe a l'ID produit (ex. '758') si tu actives la collecte par produit chez SAG.
+    define('TIREA_SAG_SCOPE', 'site');
+}
+if (!defined('TIREA_SAG_CACHE')) {
+    define('TIREA_SAG_CACHE', 12 * HOUR_IN_SECONDS); // duree du cache quand il y a des avis
+}
+if (!defined('TIREA_SAG_MAX_DISPLAY')) {
+    define('TIREA_SAG_MAX_DISPLAY', 30); // nb max d'avis rendus dans la liste
+}
+
+function tirea_sag_get_data($scope = '') {
+    $scope = $scope !== '' ? $scope : TIREA_SAG_SCOPE;
+    $empty = ['total' => 0, 'average' => 0.0, 'distribution' => [5 => 0, 4 => 0, 3 => 0, 2 => 0, 1 => 0], 'reviews' => []];
+
+    if (TIREA_SAG_PUBLIC_KEY === '') {
+        return $empty;
+    }
+
+    $cache_key = 'tirea_sag_' . md5($scope);
+    $cached = get_transient($cache_key);
+    if (is_array($cached)) {
+        return $cached;
+    }
+
+    $url = 'https://api.guaranteed-reviews.com/public/v3/reviews/'
+         . rawurlencode(TIREA_SAG_PUBLIC_KEY) . '/' . rawurlencode($scope);
+
+    $response = wp_remote_get($url, [
+        'timeout' => 8,
+        'headers' => ['Accept' => 'application/json'],
+    ]);
+
+    if (is_wp_error($response) || (int) wp_remote_retrieve_response_code($response) !== 200) {
+        set_transient($cache_key, $empty, 5 * MINUTE_IN_SECONDS); // repli court : on retentera vite
+        return $empty;
+    }
+
+    $body = json_decode(wp_remote_retrieve_body($response), true);
+    if (!is_array($body) || !isset($body['ratings'])) {
+        set_transient($cache_key, $empty, 5 * MINUTE_IN_SECONDS);
+        return $empty;
+    }
+
+    $ratings = $body['ratings'];
+    $dist_src = isset($ratings['distribution']) && is_array($ratings['distribution']) ? $ratings['distribution'] : [];
+    $distribution = [];
+    for ($i = 5; $i >= 1; $i--) {
+        if (isset($dist_src[$i])) {
+            $distribution[$i] = (int) $dist_src[$i];
+        } elseif (isset($dist_src[(string) $i])) {
+            $distribution[$i] = (int) $dist_src[(string) $i];
+        } else {
+            $distribution[$i] = 0;
+        }
+    }
+
+    $reviews = [];
+    if (!empty($body['reviews']) && is_array($body['reviews'])) {
+        foreach ($body['reviews'] as $rv) {
+            if (!is_array($rv)) {
+                continue;
+            }
+            $reviews[] = [
+                'name'  => isset($rv['c']) ? (string) $rv['c'] : '',
+                'rate'  => isset($rv['r']) ? (int) $rv['r'] : 0,
+                'text'  => isset($rv['txt']) ? (string) $rv['txt'] : '',
+                'date'  => isset($rv['date']) ? (string) $rv['date'] : '',
+                'reply' => isset($rv['reply']) ? (string) $rv['reply'] : '',
+                'rdate' => isset($rv['rdate']) ? (string) $rv['rdate'] : '',
+            ];
+        }
+    }
+
+    $data = [
+        'total'        => isset($ratings['total']) ? (int) $ratings['total'] : count($reviews),
+        'average'      => isset($ratings['average']) ? (float) $ratings['average'] : 0.0,
+        'distribution' => $distribution,
+        'reviews'      => $reviews,
+    ];
+
+    $ttl = ($data['total'] > 0) ? TIREA_SAG_CACHE : HOUR_IN_SECONDS; // court tant qu'il n'y a aucun avis
+    set_transient($cache_key, $data, $ttl);
+    return $data;
+}
+
+function tirea_sag_format_date($raw) {
+    $ts = strtotime((string) $raw);
+    if (!$ts) {
+        return '';
+    }
+    return date_i18n('j F Y', $ts);
+}
+
+/**
+ * Injecte un AggregateRating REEL dans le schema Produit de Rank Math,
+ * uniquement sur la fiche produit ET seulement s'il existe au moins un avis verifie.
+ */
+function tirea_sag_product_schema($entity) {
+    if (!function_exists('is_product') || !is_product()) {
+        return $entity;
+    }
+    $data = tirea_sag_get_data();
+    if (empty($data['total']) || (int) $data['total'] < 1) {
+        return $entity;
+    }
+    $entity['aggregateRating'] = [
+        '@type'       => 'AggregateRating',
+        'ratingValue' => round((float) $data['average'], 1),
+        'reviewCount' => (int) $data['total'],
+        'bestRating'  => '5',
+        'worstRating' => '1',
+    ];
+    return $entity;
+}
+add_filter('rank_math/snippet/rich_snippet_product_entity', 'tirea_sag_product_schema');
+
 // END ENQUEUE PARENT ACTION
 // ============================================
 // TIREA — Sélecteur de packs WooCommerce

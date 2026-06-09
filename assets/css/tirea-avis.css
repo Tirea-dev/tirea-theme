@@ -214,3 +214,213 @@
     transform: none;
   }
 }
+
+/* ============================================
+   AVIS VERIFIES SAG : note reelle (etat avec avis)
+   ============================================ */
+.tirea-avis-real {
+  max-width: 720px;
+  margin: 0 auto 40px;
+  padding: 0 20px;
+  scroll-margin-top: 100px;
+  font-family: var(--tirea-font);
+  text-align: left;
+}
+
+.tirea-avis-real-title {
+  margin: 0 0 20px;
+  text-align: center;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--tirea-color-text);
+}
+.tirea-avis-real-title .tirea-accent {
+  color: var(--tirea-color-primary);
+  font-style: italic;
+}
+
+/* Resume : note globale + barres de repartition */
+.tirea-avis-summary {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 28px;
+  align-items: center;
+  padding: 18px 20px;
+  margin-bottom: 24px;
+  border: 1px solid var(--tirea-color-border);
+  border-radius: 14px;
+  background: var(--tirea-color-bg-soft);
+}
+.tirea-avis-summary-score {
+  display: block;
+  white-space: nowrap;
+}
+.tirea-avis-summary-avg {
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--tirea-color-text);
+}
+.tirea-avis-summary-out {
+  margin-left: 2px;
+  font-size: 14px;
+  color: var(--tirea-color-text-muted);
+}
+.tirea-avis-summary-score .tirea-stars-precise {
+  display: block;
+  margin: 8px 0 4px;
+}
+.tirea-avis-summary-count {
+  display: block;
+  font-size: 13px;
+  color: var(--tirea-color-text-muted);
+}
+
+.tirea-avis-summary-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.tirea-avis-bar-row {
+  display: grid;
+  grid-template-columns: 30px 1fr 28px;
+  align-items: center;
+  gap: 10px;
+}
+.tirea-avis-bar-label {
+  font-size: 12px;
+  color: var(--tirea-color-text-muted);
+}
+.tirea-avis-bar {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--tirea-color-border);
+  overflow: hidden;
+}
+.tirea-avis-bar-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  height: 100%;
+  border-radius: 999px;
+  background: #f5b400;
+}
+.tirea-avis-bar-n {
+  font-size: 12px;
+  color: var(--tirea-color-text-muted);
+  text-align: right;
+}
+
+/* Liste d'avis */
+.tirea-avis-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.tirea-avis-card {
+  padding: 16px 18px;
+  border: 1px solid var(--tirea-color-border);
+  border-radius: 12px;
+  background: var(--tirea-color-white);
+}
+.tirea-avis-card[hidden] {
+  display: none;
+}
+.tirea-avis-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.tirea-avis-card-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--tirea-color-text);
+}
+.tirea-avis-card-date {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--tirea-color-text-muted);
+}
+.tirea-avis-card-text {
+  margin: 10px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--tirea-color-text-soft);
+}
+.tirea-avis-card-reply {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--tirea-color-primary-bg);
+  border-left: 3px solid var(--tirea-color-primary);
+}
+.tirea-avis-card-reply-label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--tirea-color-primary);
+}
+.tirea-avis-card-reply-text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--tirea-color-text-soft);
+}
+
+/* Bouton voir plus / voir moins */
+.tirea-avis-more {
+  display: block;
+  margin: 18px auto 0;
+  padding: 11px 22px;
+  border: 1px solid var(--tirea-color-primary);
+  border-radius: 999px;
+  background: var(--tirea-color-white);
+  color: var(--tirea-color-primary);
+  font-family: var(--tirea-font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--tirea-duration-fast) var(--tirea-ease), color var(--tirea-duration-fast) var(--tirea-ease);
+}
+.tirea-avis-more:hover {
+  background: var(--tirea-color-primary);
+  color: var(--tirea-color-white);
+}
+.tirea-avis-more:focus-visible {
+  outline: 2px solid var(--tirea-color-primary);
+  outline-offset: 2px;
+}
+
+/* Attribution tiers */
+.tirea-avis-source {
+  margin: 18px 0 0;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--tirea-color-text-muted);
+}
+
+@media (max-width: 600px) {
+  .tirea-avis-summary {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .tirea-avis-real-title {
+    font-size: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tirea-avis-more {
+    transition: none;
+  }
+}

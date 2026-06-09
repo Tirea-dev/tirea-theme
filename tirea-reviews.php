@@ -78,12 +78,86 @@ $tirea_total_count = defined('TIREA_GLOBAL_COUNT') ? TIREA_GLOBAL_COUNT : 0;
   <div class="tirea-section-overline">Sur le terrain</div>
   <h2 class="tirea-section-title">En conditions <span class="tirea-accent">réelles</span></h2>
 
-  <?php // ===== ZONE AVIS - etat "Avis a venir" (cible du scroll, remplacable par le widget SAG) ===== ?>
+  <?php // ===== ZONE AVIS : avis reels SAG si presents, sinon etat "Avis a venir" ===== ?>
+  <?php
+  $tirea_sag = function_exists('tirea_sag_get_data') ? tirea_sag_get_data() : ['total' => 0, 'average' => 0, 'distribution' => [5 => 0, 4 => 0, 3 => 0, 2 => 0, 1 => 0], 'reviews' => []];
+  $tirea_has_reviews = !empty($tirea_sag['total']) && (int) $tirea_sag['total'] > 0;
+  ?>
+  <?php if ($tirea_has_reviews):
+    $tirea_avg     = (float) $tirea_sag['average'];
+    $tirea_cnt     = (int) $tirea_sag['total'];
+    $tirea_fill    = max(0, min(100, ($tirea_avg / 5) * 100));
+    $tirea_dist    = $tirea_sag['distribution'];
+    $tirea_initial = 8;
+    $tirea_max     = defined('TIREA_SAG_MAX_DISPLAY') ? TIREA_SAG_MAX_DISPLAY : 30;
+    $tirea_list    = array_slice($tirea_sag['reviews'], 0, $tirea_max);
+  ?>
+  <section id="avis-tirea" class="tirea-avis-real" aria-labelledby="tireaAvisRealLabel">
+    <h3 id="tireaAvisRealLabel" class="tirea-avis-real-title">Avis clients <span class="tirea-accent">vérifiés</span></h3>
+
+    <div class="tirea-avis-summary">
+      <div class="tirea-avis-summary-score">
+        <span class="tirea-avis-summary-avg"><?php echo esc_html(number_format($tirea_avg, 1, ',', '')); ?></span>
+        <span class="tirea-avis-summary-out">/5</span>
+        <span class="tirea-stars-precise" aria-hidden="true">
+          <span class="tirea-stars-bg">★★★★★</span>
+          <span class="tirea-stars-fg" style="width: <?php echo esc_attr($tirea_fill); ?>%;">★★★★★</span>
+        </span>
+        <span class="tirea-avis-summary-count"><?php echo esc_html(sprintf('%d avis vérifiés', $tirea_cnt)); ?></span>
+      </div>
+      <div class="tirea-avis-summary-bars">
+        <?php foreach ($tirea_dist as $tirea_star => $tirea_n):
+          $tirea_bar = $tirea_cnt > 0 ? round(($tirea_n / $tirea_cnt) * 100) : 0; ?>
+          <div class="tirea-avis-bar-row">
+            <span class="tirea-avis-bar-label"><?php echo esc_html($tirea_star); ?>★</span>
+            <span class="tirea-avis-bar"><span class="tirea-avis-bar-fill" style="width: <?php echo esc_attr($tirea_bar); ?>%;"></span></span>
+            <span class="tirea-avis-bar-n"><?php echo esc_html($tirea_n); ?></span>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
+
+    <ul class="tirea-avis-list" data-initial="<?php echo esc_attr($tirea_initial); ?>">
+      <?php foreach ($tirea_list as $tirea_i => $tirea_rv):
+        $tirea_rfill = max(0, min(100, (((int) $tirea_rv['rate']) / 5) * 100));
+        $tirea_is_hidden = $tirea_i >= $tirea_initial; ?>
+        <li class="tirea-avis-card"<?php echo $tirea_is_hidden ? ' hidden' : ''; ?>>
+          <div class="tirea-avis-card-head">
+            <span class="tirea-avis-card-name"><?php echo esc_html($tirea_rv['name'] !== '' ? $tirea_rv['name'] : 'Client vérifié'); ?></span>
+            <span class="tirea-stars-precise tirea-stars-small" aria-hidden="true">
+              <span class="tirea-stars-bg">★★★★★</span>
+              <span class="tirea-stars-fg" style="width: <?php echo esc_attr($tirea_rfill); ?>%;">★★★★★</span>
+            </span>
+          </div>
+          <?php if (!empty($tirea_rv['date'])): ?>
+            <span class="tirea-avis-card-date"><?php echo esc_html(tirea_sag_format_date($tirea_rv['date'])); ?></span>
+          <?php endif; ?>
+          <?php if (!empty($tirea_rv['text'])): ?>
+            <p class="tirea-avis-card-text"><?php echo esc_html($tirea_rv['text']); ?></p>
+          <?php endif; ?>
+          <?php if (!empty($tirea_rv['reply'])): ?>
+            <div class="tirea-avis-card-reply">
+              <span class="tirea-avis-card-reply-label">Réponse de Tirea</span>
+              <p class="tirea-avis-card-reply-text"><?php echo esc_html($tirea_rv['reply']); ?></p>
+            </div>
+          <?php endif; ?>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+
+    <?php if (count($tirea_list) > $tirea_initial): ?>
+      <button type="button" class="tirea-avis-more" aria-expanded="false">Voir plus d'avis</button>
+    <?php endif; ?>
+
+    <p class="tirea-avis-source">Avis collectés, vérifiés et publiés par un organisme tiers indépendant (Société des Avis Garantis).</p>
+  </section>
+  <?php else: ?>
   <section id="avis-tirea" class="tirea-avis-explain" aria-labelledby="tireaAvisExplainLabel">
     <span class="tirea-avis-explain-stars" aria-hidden="true"><span>★★★★★</span></span>
     <p id="tireaAvisExplainLabel" class="tirea-avis-explain-overline">Avis à venir, 100% vérifiés</p>
     <p class="tirea-avis-explain-text">Tirea, c'est pas nouveau. Lancée en 2019, la marque a expédié plus de 1000 commandes avec moins de 1% de retour. On relance aujourd'hui la boutique officielle, et on a fait un choix simple sur les avis : on les confie à un organisme tiers français indépendant qui ne publie que des avis d'acheteurs vérifiés. Chaque avis vient d'un client ayant réellement commandé, vérifié et contrôlé en dehors de chez nous, pour une information la plus objective possible. Et c'est un acteur français, soumis au droit français comme nous.</p>
   </section>
+  <?php endif; ?>
 
   <div class="tirea-reviews-mention">Score de satisfaction historique · Plus de 1000 produits expédiés</div>
   <div class="tirea-photos-mention">Photos issues de nos réseaux (@Tirea.fr)</div>

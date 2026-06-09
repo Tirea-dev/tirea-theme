@@ -107,15 +107,34 @@ $steps = [
     <div class="tirea-product-info">
       <h1 class="tirea-product-title"><?php echo esc_html($product->get_name()); ?></h1>
 
-      <?php // ===== ZONE NOTE - etat "Avis a venir" (modulaire, remplacable par le widget SAG) ===== ?>
-      <div class="tirea-rating" data-tirea-rating="empty">
-        <span class="tirea-rating-stars" data-tirea-scroll="#avis-tirea" aria-hidden="true"><span>★★★★★</span></span>
-        <span class="tirea-rating-label">Avis à venir</span>
-        <button type="button" class="tirea-rating-help" aria-label="En savoir plus sur nos avis" aria-expanded="false" aria-controls="tireaAvisBubble">?</button>
-        <div class="tirea-rating-bubble" id="tireaAvisBubble" role="note" hidden>
-          <p class="tirea-rating-bubble-text">Nos avis sont désormais vérifiés par un organisme tiers français indépendant : on repart de zéro pour ne montrer que du 100% vérifié, contrôlé par un tiers et pas par nous. En attendant : plus de 1000 commandes expédiées, moins de 1% de retour. <button type="button" class="tirea-rating-bubble-link" data-tirea-scroll="#avis-tirea">En savoir plus</button></p>
+      <?php // ===== ZONE NOTE : note reelle SAG si avis verifies, sinon "Avis a venir" ===== ?>
+      <?php
+      $tirea_sag = function_exists('tirea_sag_get_data') ? tirea_sag_get_data() : ['total' => 0, 'average' => 0];
+      $tirea_has_reviews = !empty($tirea_sag['total']) && (int) $tirea_sag['total'] > 0;
+      ?>
+      <?php if ($tirea_has_reviews):
+        $tirea_avg  = (float) $tirea_sag['average'];
+        $tirea_fill = max(0, min(100, ($tirea_avg / 5) * 100));
+        $tirea_cnt  = (int) $tirea_sag['total'];
+      ?>
+        <a href="#avis-tirea" class="tirea-rating-link" data-tirea-scroll="#avis-tirea" aria-label="<?php echo esc_attr(sprintf('Note %s sur 5, %d avis verifies. Voir les avis.', number_format($tirea_avg, 1, ',', ''), $tirea_cnt)); ?>">
+          <span class="tirea-stars-precise tirea-stars-small" aria-hidden="true">
+            <span class="tirea-stars-bg">★★★★★</span>
+            <span class="tirea-stars-fg" style="width: <?php echo esc_attr($tirea_fill); ?>%;">★★★★★</span>
+          </span>
+          <span class="tirea-rating-value"><?php echo esc_html(number_format($tirea_avg, 1, ',', '')); ?></span>
+          <span class="tirea-rating-count">(<?php echo esc_html($tirea_cnt); ?> avis vérifiés)</span>
+        </a>
+      <?php else: ?>
+        <div class="tirea-rating" data-tirea-rating="empty">
+          <span class="tirea-rating-stars" data-tirea-scroll="#avis-tirea" aria-hidden="true"><span>★★★★★</span></span>
+          <span class="tirea-rating-label">Avis à venir</span>
+          <button type="button" class="tirea-rating-help" aria-label="En savoir plus sur nos avis" aria-expanded="false" aria-controls="tireaAvisBubble">?</button>
+          <div class="tirea-rating-bubble" id="tireaAvisBubble" role="note" hidden>
+            <p class="tirea-rating-bubble-text">Nos avis sont désormais vérifiés par un organisme tiers français indépendant : on repart de zéro pour ne montrer que du 100% vérifié, contrôlé par un tiers et pas par nous. En attendant : plus de 1000 commandes expédiées, moins de 1% de retour. <button type="button" class="tirea-rating-bubble-link" data-tirea-scroll="#avis-tirea">En savoir plus</button></p>
+          </div>
         </div>
-      </div>
+      <?php endif; ?>
 
       <?php if ($product->get_short_description()): ?>
         <div class="tirea-product-description"><?php echo wp_kses_post(wpautop($product->get_short_description())); ?></div>
