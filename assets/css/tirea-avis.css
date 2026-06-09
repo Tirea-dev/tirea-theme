@@ -2,51 +2,103 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   margin-bottom: 20px;
   font-family: var(--tirea-font);
 }
 
+/* ===== Encadre etoiles (haut + rappel bas) : pastille premium ===== */
+.tirea-rating-stars,
+.tirea-avis-explain-stars {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 11px;
+  border: 1px solid var(--tirea-color-border);
+  border-radius: 9px;
+  background: var(--tirea-color-border-soft);
+  box-shadow: var(--tirea-shadow-pill);
+}
+
+.tirea-rating-stars::before,
+.tirea-avis-explain-stars::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border: 1px solid var(--tirea-color-white);
+  border-radius: 6px;
+  pointer-events: none;
+}
+
 .tirea-rating-stars {
+  cursor: pointer;
+}
+
+.tirea-rating-stars > span,
+.tirea-avis-explain-stars > span {
   font-size: 15px;
   line-height: 1;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  margin-right: -2px;
   font-family: Arial, sans-serif;
   color: var(--tirea-color-text-faint);
-  opacity: 0.45;
-  cursor: pointer;
-  white-space: nowrap;
+  opacity: 0.55;
 }
 
 .tirea-rating-label {
   font-size: 13px;
-  font-weight: 600;
-  color: var(--tirea-color-text-muted);
+  font-weight: 500;
+  color: var(--tirea-color-text-faint);
 }
 
+/* ===== Bouton "?" : style info de formulaire iOS, glossy subtil ===== */
 .tirea-rating-help {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   padding: 0;
-  border: 1.5px solid var(--tirea-color-text-muted);
+  border: 1px solid var(--tirea-color-border);
   border-radius: 50%;
-  background: transparent;
-  color: var(--tirea-color-text-muted);
+  background: linear-gradient(180deg, var(--tirea-color-white), var(--tirea-color-border-soft));
+  color: var(--tirea-color-text-faint);
   font-size: 12px;
   font-weight: 700;
   font-family: var(--tirea-font);
   line-height: 1;
   cursor: pointer;
-  transition: color var(--tirea-duration-fast) var(--tirea-ease), border-color var(--tirea-duration-fast) var(--tirea-ease);
+  box-shadow: var(--tirea-shadow-pill), inset 0 1px 1px rgba(255, 255, 255, 0.9), inset 0 -2px 3px rgba(0, 0, 0, 0.05);
+  transition: box-shadow var(--tirea-duration-fast) var(--tirea-ease), color var(--tirea-duration-fast) var(--tirea-ease), transform var(--tirea-duration-fast) var(--tirea-ease);
+}
+
+.tirea-rating-help::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 72%;
+  height: 42%;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0));
+  pointer-events: none;
 }
 
 .tirea-rating-help:hover,
 .tirea-rating-help:focus-visible {
-  color: var(--tirea-color-text);
-  border-color: var(--tirea-color-text);
+  color: var(--tirea-color-text-faint);
+  transform: translateY(-1px);
+  box-shadow: var(--tirea-shadow-sm), inset 0 1px 1px rgba(255, 255, 255, 0.95), inset 0 -2px 3px rgba(0, 0, 0, 0.05);
+}
+
+.tirea-rating-help:active {
+  transform: translateY(0);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.14);
 }
 
 .tirea-rating-help:focus-visible {
@@ -54,6 +106,7 @@
   outline-offset: 2px;
 }
 
+/* ===== Bulle d'info ===== */
 .tirea-rating-bubble {
   position: absolute;
   top: calc(100% + 10px);
@@ -90,18 +143,32 @@
   margin: 0;
   padding: 0;
   border: 0;
-  background: transparent;
-  color: var(--tirea-color-primary);
   font: inherit;
   font-weight: 600;
   text-decoration: underline;
   cursor: pointer;
 }
 
+.tirea-rating-bubble .tirea-rating-bubble-link,
+.tirea-rating-bubble .tirea-rating-bubble-link:hover,
+.tirea-rating-bubble .tirea-rating-bubble-link:focus,
+.tirea-rating-bubble .tirea-rating-bubble-link:focus-visible,
+.tirea-rating-bubble .tirea-rating-bubble-link:active {
+  background: transparent !important;
+  color: var(--tirea-color-primary) !important;
+  box-shadow: none !important;
+}
+
 .tirea-rating-bubble-link:hover {
   text-decoration: none;
 }
 
+.tirea-rating-bubble-link:focus-visible {
+  outline: 2px solid var(--tirea-color-primary);
+  outline-offset: 2px;
+}
+
+/* ===== Section explicative (cible du scroll) ===== */
 .tirea-avis-explain {
   max-width: 720px;
   margin: 0 auto 40px;
@@ -109,6 +176,10 @@
   scroll-margin-top: 100px;
   text-align: center;
   font-family: var(--tirea-font);
+}
+
+.tirea-avis-explain-stars {
+  margin-bottom: 16px;
 }
 
 .tirea-avis-explain-overline {
@@ -136,5 +207,10 @@
 @media (prefers-reduced-motion: reduce) {
   .tirea-rating-help {
     transition: none;
+  }
+  .tirea-rating-help:hover,
+  .tirea-rating-help:focus-visible,
+  .tirea-rating-help:active {
+    transform: none;
   }
 }

@@ -255,7 +255,7 @@ foreach ($variations as $index => $variation) {
           <span class="tirea-price-guarantee-toggle">Voir les conditions</span>
         </summary>
         <div class="tirea-price-guarantee-conditions">
-          <p>Garantie valable sur le produit neuf et identique, vendu par un site marchand professionnel établi en France (mentions légales et SIREN valides), au prix public affiché TTC, frais de port inclus. Sont exclus les places de marché et vendeurs tiers (Amazon, AliExpress, eBay, Temu, Cdiscount Marketplace, Leboncoin…), le déstockage, les ventes privées et les produits d'occasion ou reconditionnés. Remboursement de la différence sur présentation d'une preuve datée (lien ou capture) fournie sous 14 jours après la commande.</p>
+          <p>Garantie valable sur le produit neuf et identique, vendu par un site marchand professionnel établi en France, en direct sur son propre site officiel (mentions légales et SIRET valides), au prix public affiché TTC, frais de port inclus. Sont exclus le déstockage, les ventes privées, les offres promotionnelles temporaires, ainsi que les produits d'occasion ou reconditionnés. Remboursement de la différence sur présentation d'une preuve datée (lien ou capture) fournie sous 14 jours après la commande.</p>
         </div>
       </details>
 
@@ -269,7 +269,7 @@ foreach ($variations as $index => $variation) {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
           </svg>
-          Satisfait ou remboursé
+          Satisfait ou remboursé 30j
         </div>
         <div class="tirea-mini-badge">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

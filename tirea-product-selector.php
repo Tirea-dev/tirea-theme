@@ -109,11 +109,11 @@ $steps = [
 
       <?php // ===== ZONE NOTE - etat "Avis a venir" (modulaire, remplacable par le widget SAG) ===== ?>
       <div class="tirea-rating" data-tirea-rating="empty">
-        <span class="tirea-rating-stars" data-tirea-scroll="#avis-tirea" aria-hidden="true">★★★★★</span>
+        <span class="tirea-rating-stars" data-tirea-scroll="#avis-tirea" aria-hidden="true"><span>★★★★★</span></span>
         <span class="tirea-rating-label">Avis à venir</span>
         <button type="button" class="tirea-rating-help" aria-label="En savoir plus sur nos avis" aria-expanded="false" aria-controls="tireaAvisBubble">?</button>
         <div class="tirea-rating-bubble" id="tireaAvisBubble" role="note" hidden>
-          <p class="tirea-rating-bubble-text">Pas encore de notes affichées. Nos avis sont désormais vérifiés par un organisme tiers français indépendant : seuls les avis d'acheteurs réels sont publiés. On repart de zéro pour ne montrer que du 100% vérifié, contrôlé par un tiers et pas par nous. En attendant : plus de 1000 commandes expédiées, moins de 1% de retour. <button type="button" class="tirea-rating-bubble-link" data-tirea-scroll="#avis-tirea">En savoir plus</button></p>
+          <p class="tirea-rating-bubble-text">Nos avis sont désormais vérifiés par un organisme tiers français indépendant : on repart de zéro pour ne montrer que du 100% vérifié, contrôlé par un tiers et pas par nous. En attendant : plus de 1000 commandes expédiées, moins de 1% de retour. <button type="button" class="tirea-rating-bubble-link" data-tirea-scroll="#avis-tirea">En savoir plus</button></p>
         </div>
       </div>
 
@@ -282,7 +282,7 @@ $steps = [
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
           </svg>
-          Satisfait ou remboursé
+          Satisfait ou remboursé 30j
         </div>
         <div class="tirea-mini-badge">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

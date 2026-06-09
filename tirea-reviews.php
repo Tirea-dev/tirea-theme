@@ -80,8 +80,9 @@ $tirea_total_count = defined('TIREA_GLOBAL_COUNT') ? TIREA_GLOBAL_COUNT : 0;
 
   <?php // ===== ZONE AVIS - etat "Avis a venir" (cible du scroll, remplacable par le widget SAG) ===== ?>
   <section id="avis-tirea" class="tirea-avis-explain" aria-labelledby="tireaAvisExplainLabel">
+    <span class="tirea-avis-explain-stars" aria-hidden="true"><span>★★★★★</span></span>
     <p id="tireaAvisExplainLabel" class="tirea-avis-explain-overline">Avis à venir, 100% vérifiés</p>
-    <p class="tirea-avis-explain-text">Tirea, c'est pas nouveau. Lancée en 2019, la marque a expédié plus de 1000 commandes avec moins de 1% de retour. On relance aujourd'hui la boutique officielle, et on a fait un choix simple sur les avis : on les confie à un organisme tiers français indépendant qui ne publie que des avis d'acheteurs vérifiés. Concrètement, ce n'est pas nous qui gérons nos notes, c'est ce tiers : chaque avis vient d'un client ayant réellement commandé, vérifié et contrôlé en dehors de chez nous, pour l'info la plus objective possible. Et c'est un acteur français, soumis au droit français comme nous. Voilà pourquoi on repart de zéro : on préfère ne montrer que du 100% vérifié. Les vrais avis arrivent.</p>
+    <p class="tirea-avis-explain-text">Tirea, c'est pas nouveau. Lancée en 2019, la marque a expédié plus de 1000 commandes avec moins de 1% de retour. On relance aujourd'hui la boutique officielle, et on a fait un choix simple sur les avis : on les confie à un organisme tiers français indépendant qui ne publie que des avis d'acheteurs vérifiés. Chaque avis vient d'un client ayant réellement commandé, vérifié et contrôlé en dehors de chez nous, pour une information la plus objective possible. Et c'est un acteur français, soumis au droit français comme nous.</p>
   </section>
 
   <div class="tirea-reviews-mention">Score de satisfaction historique · Plus de 1000 produits expédiés</div>
