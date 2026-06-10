@@ -70,7 +70,7 @@ if (!defined('ABSPATH')) exit; ?>
 <section class="tirea-legal-section" id="s07">
   <span class="tirea-legal-section-num">07</span>
   <h2>Livraison</h2>
-  <p>Les commandes sont préparées et expédiées sous <strong>24 heures ouvrées</strong> depuis nos entrepôts <strong>en France métropolitaine</strong>. Le délai de livraison estimatif est de <strong>24 à 72 heures</strong> après expédition, selon la zone et le transporteur.</p>
+  <p>Les commandes sont préparées et expédiées sous <strong>24 heures ouvrées</strong> depuis nos entrepôts <strong>en France métropolitaine</strong>. Le délai de livraison estimatif est de <strong>24 à 48 heures</strong> après expédition, selon la zone et le transporteur.</p>
   <h3>Zones desservies et tarifs</h3>
   <p>La <strong>livraison est offerte en France métropolitaine</strong>. Nous livrons également en Corse, dans les DROM-COM et dans l'Union européenne moyennant des frais de port supplémentaires. Les frais et délais exacts varient selon la destination et sont précisés au moment du paiement.</p>
   <h3>Suivi & réception</h3>

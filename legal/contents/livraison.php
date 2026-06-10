@@ -29,7 +29,7 @@ if (!defined('ABSPATH')) exit; ?>
   <h2>Délais de livraison</h2>
   <p>Une fois votre colis expédié, le délai de livraison estimatif est de :</p>
   <ul>
-    <li><strong>France métropolitaine :</strong> 24 à 72 heures.</li>
+    <li><strong>France métropolitaine :</strong> 24 à 48 heures.</li>
     <li><strong>Corse :</strong> 3 à 5 jours ouvrés.</li>
     <li><strong>DROM-COM :</strong> 5 à 10 jours ouvrés.</li>
     <li><strong>Union européenne :</strong> 3 à 7 jours ouvrés selon le pays.</li>

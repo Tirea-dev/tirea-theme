@@ -300,10 +300,10 @@
                 setInterval(updateShipping, 1000);
             }
 
-            // Ligne "réception estimée" : jour de départ + 3 jours ouvrés
+            // Ligne "réception estimée" : jour de départ + 2 jours ouvrés
             if ($receptionValue.length) {
                 function updateReception() {
-                    $receptionValue.text(formatDate(addBusinessDays(getShipDay(new Date()), 3)));
+                    $receptionValue.text(formatDate(addBusinessDays(getShipDay(new Date()), 2)));
                 }
 
                 updateReception();
