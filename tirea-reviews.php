@@ -63,12 +63,6 @@ $tirea_review_photos = [
     ['url' => 'https://tirea.fr/wp-content/uploads/2026/06/insta-4.webp', 'name' => "Silhouette ajustée avec l'Ajusteur Tirea™"],
     ['url' => 'https://tirea.fr/wp-content/uploads/2026/06/insta-6.webp', 'name' => "L'Ajusteur Tirea™ utilisé au quotidien"],
 ];
-
-// Note globale (récupérée depuis functions.php)
-$tirea_avg_rating = defined('TIREA_GLOBAL_RATING') ? TIREA_GLOBAL_RATING : 4.5;
-$tirea_fill_percent = ($tirea_avg_rating / 5) * 100;
-$tirea_show_count = defined('TIREA_GLOBAL_SHOW_COUNT') ? TIREA_GLOBAL_SHOW_COUNT : false;
-$tirea_total_count = defined('TIREA_GLOBAL_COUNT') ? TIREA_GLOBAL_COUNT : 0;
 ?>
 
 <?php /* ============================================

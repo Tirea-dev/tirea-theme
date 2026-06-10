@@ -1444,3 +1444,35 @@ function tirea_render_socials() {
     </ul>
     <?php
 }
+
+// ----- PayPal : retire scripts + styles partout sauf au checkout -----
+function tirea_dequeue_paypal_hors_checkout() {
+    if ( is_admin() ) {
+        return;
+    }
+    if ( function_exists('is_checkout') && is_checkout() ) {
+        return; // PayPal reste actif sur le checkout
+    }
+
+    $slug = 'woocommerce-paypal-payments';
+
+    if ( isset($GLOBALS['wp_scripts']) ) {
+        foreach ( $GLOBALS['wp_scripts']->registered as $handle => $dep ) {
+            $by_src = ! empty($dep->src) && strpos($dep->src, $slug) !== false;
+            if ( $by_src || strpos($handle, 'ppcp') !== false || strpos($handle, 'paypal') !== false ) {
+                wp_dequeue_script($handle);
+            }
+        }
+    }
+
+    if ( isset($GLOBALS['wp_styles']) ) {
+        foreach ( $GLOBALS['wp_styles']->registered as $handle => $dep ) {
+            $by_src = ! empty($dep->src) && strpos($dep->src, $slug) !== false;
+            if ( $by_src || strpos($handle, 'ppcp') !== false || strpos($handle, 'paypal') !== false ) {
+                wp_dequeue_style($handle);
+            }
+        }
+    }
+}
+add_action('wp_enqueue_scripts', 'tirea_dequeue_paypal_hors_checkout', 100);
+add_action('wp_print_styles', 'tirea_dequeue_paypal_hors_checkout', 100);

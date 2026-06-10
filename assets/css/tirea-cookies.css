@@ -79,7 +79,7 @@
 /* --- Mobile : on récupère de la hauteur (paddings/marges resserrés) --- */
 @media (max-width: 600px) {
   #wpconsent-container::part(wpconsent-banner) {
-    padding: 5px 10px;
+    padding: 10px 10px;
   }
   #wpconsent-container::part(wpconsent-banner-body) {
     font-size: 13px;
