@@ -310,69 +310,146 @@
                 setInterval(updateReception, 60000);
             }
         }
-    });
 
-// ============================================
+        // ============================================
         // BLOC AVIS
         // ============================================
 
-        // ===== Photos : pause auto + reprise après 3s + swipe =====
+        // ===== Photos : carrousel avec glissé (doigt + souris) =====
+        // Le track défile en CSS (tirea-photos-scroll). Au glissé, on fige
+        // l'animation et on déplace le track à la main (boucle infinie préservée),
+        // puis on relance l'auto-défilement 3 s après le relâchement.
         $('.tirea-photos-carousel').each(function() {
             const $carousel = $(this);
-            let resumeTimer = null;
+            const $track = $carousel.find('.tirea-photos-track');
+            const DURATION = 40; // doit matcher la CSS : tirea-photos-scroll 40s
 
-            function pauseCarousel() {
-                $carousel.attr('data-paused', 'true');
-                if (resumeTimer) clearTimeout(resumeTimer);
+            let resumeTimer = null;
+            let isDown = false;
+            let moved = false;
+            let touchUsed = false;
+            let isHovering = false;
+            let startX = 0;
+            let baseX = 0;
+
+            function readX() {
+                const m = window.getComputedStyle($track[0]).transform;
+                if (!m || m === 'none') return 0;
+                const parts = m.match(/matrix.*\((.+)\)/);
+                if (!parts) return 0;
+                return parseFloat(parts[1].split(', ')[4]) || 0;
+            }
+
+            function half() {
+                return ($track[0].scrollWidth || 0) / 2;
+            }
+
+            // Fige le track à sa position courante (stoppe l'animation CSS)
+            function freeze() {
+                const x = readX();
+                $track.css({ animation: 'none', transition: 'none', transform: 'translateX(' + x + 'px)' });
+                return x;
+            }
+
+            // Relance l'auto-défilement depuis la position x (continuité parfaite)
+            function resumeFrom(x) {
+                const h = half();
+                if (h <= 0) { $track.css({ animation: '', transition: '', transform: '' }); return; }
+                let nx = x % h;
+                if (nx > 0) nx -= h;
+                const progress = Math.abs(nx) / h;
+                $track.css('transition', 'none');
+                $track.css('transform', 'translateX(' + nx + 'px)');
+                $track.css('animation', 'tirea-photos-scroll ' + DURATION + 's linear infinite');
+                $track.css('animation-delay', '-' + (DURATION * progress) + 's');
             }
 
             function scheduleResume() {
                 if (resumeTimer) clearTimeout(resumeTimer);
-                resumeTimer = setTimeout(function() {
-                    $carousel.attr('data-paused', 'false');
-                }, 3000);
+                const x = readX();
+                resumeTimer = setTimeout(function() { resumeFrom(x); }, 3000);
             }
 
-            // Desktop : pause au survol, reprise au mouseleave
-            $carousel.on('mouseenter', pauseCarousel);
-            $carousel.on('mouseleave', function() {
-                $carousel.attr('data-paused', 'false');
-                if (resumeTimer) clearTimeout(resumeTimer);
-            });
+            function start(clientX) {
+                isDown = true;
+                moved = false;
+                if (resumeTimer) { clearTimeout(resumeTimer); resumeTimer = null; }
+                baseX = freeze();
+                startX = clientX;
+                $carousel.data('tireaDragged', false);
+            }
 
-            // Mobile/tablette : tap = pause, reprise auto 3s après
-            let touchStartX = 0;
-            let touchStartY = 0;
-
-            $carousel.on('touchstart', function(e) {
-                pauseCarousel();
-                touchStartX = e.originalEvent.touches[0].clientX;
-                touchStartY = e.originalEvent.touches[0].clientY;
-            });
-
-            $carousel.on('touchend', function() {
-                scheduleResume();
-            });
-
-            // Empêcher le tap sur les photos d'ouvrir la lightbox si c'était un swipe
-            $carousel.find('.tirea-photo-item').on('touchend', function(e) {
-                // Si le doigt a bougé de plus de 10px, c'est un swipe, pas un tap
-                const lastTouch = e.originalEvent.changedTouches[0];
-                const dx = Math.abs(lastTouch.clientX - touchStartX);
-                const dy = Math.abs(lastTouch.clientY - touchStartY);
-                if (dx > 10 || dy > 10) {
-                    e.preventDefault();
-                    return false;
+            function drag(clientX) {
+                if (!isDown) return;
+                const delta = clientX - startX;
+                if (Math.abs(delta) > 6) { moved = true; $carousel.data('tireaDragged', true); }
+                let x = baseX + delta;
+                const h = half();
+                if (h > 0) {
+                    while (x > 0) x -= h;
+                    while (x <= -h) x += h;
                 }
+                $track.css('transform', 'translateX(' + x + 'px)');
+            }
+
+            function end() {
+                if (!isDown) return;
+                isDown = false;
+                if (isHovering) return; // on reste figé tant que la souris survole
+                scheduleResume();
+            }
+
+            // Touch (mobile / tablette)
+            $carousel.on('touchstart', function(e) {
+                touchUsed = true;
+                start(e.originalEvent.touches[0].clientX);
+            });
+            $carousel.on('touchmove', function(e) {
+                if (!isDown) return;
+                drag(e.originalEvent.touches[0].clientX);
+                if (moved) e.preventDefault(); // évite le scroll vertical pendant le glissé horizontal
+            });
+            $carousel.on('touchend touchcancel', end);
+
+            // Souris (desktop)
+            $carousel.css('cursor', 'grab');
+            $carousel.on('mousedown', function(e) {
+                start(e.clientX);
+                $carousel.css('cursor', 'grabbing');
+                e.preventDefault();
+            });
+            $(document).on('mousemove.tireaPhotos', function(e) {
+                if (isDown) drag(e.clientX);
+            });
+            $(document).on('mouseup.tireaPhotos', function() {
+                if (!isDown) return;
+                $carousel.css('cursor', 'grab');
+                end();
+            });
+
+            // Desktop : pause au survol (désactivé dès qu'on a utilisé le tactile)
+            $carousel.on('mouseenter', function() {
+                if (touchUsed || isDown) return;
+                isHovering = true;
+                if (resumeTimer) { clearTimeout(resumeTimer); resumeTimer = null; }
+                freeze();
+            });
+            $carousel.on('mouseleave', function() {
+                if (touchUsed) return;
+                isHovering = false;
+                if (!isDown) resumeFrom(readX());
             });
         });
 
-        // ===== Avis : pause survol + flèches manuelles =====
-        $('.tirea-reviews-roulette').each(function() {
-            const $roulette = $(this);
+        // ===== Avis : roulette verticale (pause survol + flèches sous le cadre) =====
+        $('.tirea-reviews-roulette-wrap').each(function() {
+            const $wrap = $(this);
+            const $roulette = $wrap.find('.tirea-reviews-roulette');
             const $track = $roulette.find('.tirea-reviews-track');
-            const $arrowUp = $roulette.find('.tirea-reviews-arrow-up');
-            const $arrowDown = $roulette.find('.tirea-reviews-arrow-down');
+            const $arrowUp = $wrap.find('.tirea-reviews-arrow-up');
+            const $arrowDown = $wrap.find('.tirea-reviews-arrow-down');
+
+            if (!$roulette.length || !$track.length) return;
 
             // Pause au survol
             $roulette.on('mouseenter', function() {
@@ -382,8 +459,7 @@
                 $roulette.attr('data-paused', 'false');
             });
 
-            // Flèches manuelles : déplacent le track de la hauteur d'une carte (~90px)
-            let manualOffset = 0;
+            // Flèches manuelles : déplacent le track de la hauteur d'une carte
             const cardStep = 100; // décalage par clic
 
             function getCurrentTranslateY($el) {
@@ -416,10 +492,9 @@
                 // Après l'animation manuelle, on reprend l'auto-scroll depuis la nouvelle position
                 clearTimeout($roulette.data('resumeTimer'));
                 $roulette.data('resumeTimer', setTimeout(function() {
-                    // Réactivation auto-scroll : on doit recalculer l'animation depuis newY
+                    // Réactivation auto-scroll : on recalcule l'animation depuis newY
                     const animDuration = 60; // secondes
                     const remainingPercent = Math.abs(newY) / halfHeight;
-                    const remainingTime = animDuration * (1 - remainingPercent);
 
                     $track.css('transition', 'none');
                     $track.css('animation', 'tirea-reviews-scroll ' + animDuration + 's linear infinite');
@@ -447,7 +522,14 @@
         // Mémorise le focus précédent pour le restituer à la fermeture
         let lightboxPreviousFocus = null;
 
-        $('.tirea-photo-item').on('click', function(e) {
+        $('.tirea-photo-item').on('click', function() {
+            // Si le clic vient d'un glissé du carrousel, on n'ouvre pas la lightbox
+            const $carousel = $(this).closest('.tirea-photos-carousel');
+            if ($carousel.length && $carousel.data('tireaDragged')) {
+                $carousel.data('tireaDragged', false);
+                return;
+            }
+
             const $img = $(this).find('img');
             if ($img.length && $img.attr('src')) {
                 lightboxPreviousFocus = document.activeElement;
@@ -495,5 +577,7 @@
                 }
             }
         });
+
+    }); // $(document).ready
 
 })(jQuery);

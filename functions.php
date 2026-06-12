@@ -424,7 +424,27 @@ function tirea_hero_preload() {
           fetchpriority="high">
     <?php
 }
-add_action('wp_head', 'tirea_hero_preload', 1);
+/**
+ * Preload LCP de la fiche produit : l'image principale du slider.
+ */
+function tirea_product_preload() {
+    if (!function_exists('is_product') || !is_product()) return;
+
+    $tirea_preload_product = wc_get_product(get_queried_object_id());
+    if (!$tirea_preload_product) return;
+
+    $tirea_preload_image_id = $tirea_preload_product->get_image_id();
+    if (!$tirea_preload_image_id) return;
+
+    $tirea_preload_url = wp_get_attachment_image_url($tirea_preload_image_id, 'large');
+    if (!$tirea_preload_url) return;
+    ?>
+    <link rel="preload" as="image"
+          href="<?php echo esc_url($tirea_preload_url); ?>"
+          fetchpriority="high">
+    <?php
+}
+add_action('wp_head', 'tirea_product_preload', 1);
 
 function tirea_enqueue_hero_assets() {
     if (!is_front_page()) return;

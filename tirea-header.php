@@ -66,12 +66,14 @@ $tirea_render_header_block = function($mode, $deps) {
     $id_pfx = ($mode === 'sticky') ? 'tireaSticky'   : 'tirea';
     $wrapper_class = ($mode === 'sticky') ? 'tirea-sticky-header' : 'tirea-header';
     $wrapper_attrs = ($mode === 'sticky') ? ' id="tireaStickyHeader" aria-hidden="true"' : '';
-    // Le logo header normal réclamait fetchpriority="high" comme LCP.
-    // Sur la home, le vrai LCP est l'image du hero, donc on retire le signal de priorité
-    // uniquement sur la home pour ne pas concurrencer le hero. Ailleurs (ex. fiche produit)
-    // le logo redevient un candidat LCP légitime et garde sa priorité haute.
+    // Le logo ne doit jamais concurrencer le vrai LCP de la page :
+    // - Home : le LCP est l'image du hero (preload + fetchpriority dans le <head>).
+    // - Fiche produit : le LCP est l'image principale du produit (preload + fetchpriority).
+    // Sur ces deux pages, le logo perd son signal de priorité. Ailleurs (pages légales,
+    // FAQ, suivi...), il reste un candidat LCP légitime et garde sa priorité haute.
     if ($mode === 'normal') {
-        $logo_priority = is_front_page() ? '' : ' fetchpriority="high"';
+        $tirea_logo_no_priority = is_front_page() || (function_exists('is_product') && is_product());
+        $logo_priority = $tirea_logo_no_priority ? '' : ' fetchpriority="high"';
     } else {
         $logo_priority = ' loading="lazy"';
     }

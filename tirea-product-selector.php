@@ -79,7 +79,7 @@ $steps = [
                src="<?php echo esc_url($img['url']); ?>"
                alt="<?php echo esc_attr($img['alt']); ?>"
                data-slide-index="<?php echo esc_attr($i); ?>"
-               <?php echo $i > 0 ? 'loading="lazy"' : ''; ?>>
+               <?php echo $i > 0 ? 'loading="lazy"' : 'fetchpriority="high"'; ?>>
         <?php endforeach; ?>
 
         <?php // Flèches navigation (desktop) ?>

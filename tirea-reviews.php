@@ -174,32 +174,36 @@ $tirea_review_photos = [
     <div class="tirea-photos-fade tirea-photos-fade-right"></div>
   </div>
 
-  <?php // Roulette use cases avec flèches manuelles ?>
-  <div class="tirea-reviews-roulette" data-paused="false">
-    <div class="tirea-reviews-track">
-      <?php
-      $tirea_usecases_loop = array_merge($tirea_usecases, $tirea_usecases);
-      foreach ($tirea_usecases_loop as $tirea_usecase): ?>
-        <div class="tirea-usecase-card">
-          <div class="tirea-usecase-badge"><?php echo esc_html($tirea_usecase['badge']); ?></div>
-          <div class="tirea-usecase-title"><?php echo esc_html($tirea_usecase['title']); ?></div>
-          <div class="tirea-usecase-text"><?php echo esc_html($tirea_usecase['text']); ?></div>
-        </div>
-      <?php endforeach; ?>
+  <?php // Roulette use cases avec flèches manuelles (sorties sous le cadre) ?>
+  <div class="tirea-reviews-roulette-wrap">
+    <div class="tirea-reviews-roulette" data-paused="false">
+      <div class="tirea-reviews-track">
+        <?php
+        $tirea_usecases_loop = array_merge($tirea_usecases, $tirea_usecases);
+        foreach ($tirea_usecases_loop as $tirea_usecase): ?>
+          <div class="tirea-usecase-card">
+            <div class="tirea-usecase-badge"><?php echo esc_html($tirea_usecase['badge']); ?></div>
+            <div class="tirea-usecase-title"><?php echo esc_html($tirea_usecase['title']); ?></div>
+            <div class="tirea-usecase-text"><?php echo esc_html($tirea_usecase['text']); ?></div>
+          </div>
+        <?php endforeach; ?>
+      </div>
+      <div class="tirea-reviews-fade tirea-reviews-fade-top"></div>
+      <div class="tirea-reviews-fade tirea-reviews-fade-bottom"></div>
     </div>
-    <div class="tirea-reviews-fade tirea-reviews-fade-top"></div>
-    <div class="tirea-reviews-fade tirea-reviews-fade-bottom"></div>
 
-    <button class="tirea-reviews-arrow tirea-reviews-arrow-up" aria-label="Précédent">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="18 15 12 9 6 15"/>
-      </svg>
-    </button>
-    <button class="tirea-reviews-arrow tirea-reviews-arrow-down" aria-label="Suivant">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9"/>
-      </svg>
-    </button>
+    <div class="tirea-reviews-controls">
+      <button class="tirea-reviews-arrow tirea-reviews-arrow-up" aria-label="Précédent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="18 15 12 9 6 15"/>
+        </svg>
+      </button>
+      <button class="tirea-reviews-arrow tirea-reviews-arrow-down" aria-label="Suivant">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+    </div>
   </div>
 </section>
 
