@@ -22,12 +22,12 @@ $tirea_result_title    = 'Une efficacité <span class="tirea-accent">indiscutabl
 $tirea_result_subtitle = "L'élasticité durable et l'adhérence continue : deux atouts qui permettent de garantir un <strong>maintien discret, sans effort</strong>.";
 
 $tirea_result_image_before = [
-    'url' => 'https://tirea.fr/wp-content/uploads/2026/05/sans-lajusteur-tirea.webp',
+    'url' => 'https://tirea.fr/wp-content/uploads/2026/06/sans-ajusteur-tirea.webp',
     'alt' => 'Sans l\'ajusteur TIREA',
 ];
 
 $tirea_result_image_after = [
-    'url' => 'https://tirea.fr/wp-content/uploads/2026/05/avec-lajusteur-tirea.webp',
+    'url' => 'https://tirea.fr/wp-content/uploads/2026/06/avec-ajusteur-tirea.webp',
     'alt' => 'Avec l\'ajusteur TIREA',
 ];
 
@@ -48,8 +48,9 @@ $tirea_result_quote = "<em>C'est l'accessoire qu'on remarque…</em> uniquement 
 
   <div class="tirea-result-wrapper">
     <div class="tirea-result-labels">
-      <div class="tirea-result-label before"><?php echo esc_html($tirea_result_label_before); ?></div>
+      <?php // Pastille AVEC (bleue) à gauche, pastille SANS (grise) à droite ?>
       <div class="tirea-result-label after"><?php echo esc_html($tirea_result_label_after); ?></div>
+      <div class="tirea-result-label before"><?php echo esc_html($tirea_result_label_before); ?></div>
     </div>
 
     <div class="tirea-result-image">
@@ -62,17 +63,17 @@ $tirea_result_quote = "<em>C'est l'accessoire qu'on remarque…</em> uniquement 
            aria-valuemax="100"
            aria-valuenow="50">
 
-        <?php // Image AFTER (fond, visible à droite) ?>
+        <?php // Image SANS (fond, visible à droite). Classe -after conservée pour le mécanisme du slider. ?>
         <img class="tirea-result-img tirea-result-img-after"
-             src="<?php echo esc_url($tirea_result_image_after['url']); ?>"
-             alt="<?php echo esc_attr($tirea_result_image_after['alt']); ?>"
+             src="<?php echo esc_url($tirea_result_image_before['url']); ?>"
+             alt="<?php echo esc_attr($tirea_result_image_before['alt']); ?>"
              loading="lazy"
              decoding="async">
 
-        <?php // Image BEFORE (overlay, clippée par le curseur, visible à gauche) ?>
+        <?php // Image AVEC (overlay, clippée par le curseur, visible à gauche). Classes -before conservées pour le mécanisme du slider. ?>
         <div class="tirea-result-before-wrap" aria-hidden="true">
           <img class="tirea-result-img tirea-result-img-before"
-               src="<?php echo esc_url($tirea_result_image_before['url']); ?>"
+               src="<?php echo esc_url($tirea_result_image_after['url']); ?>"
                alt=""
                loading="lazy"
                decoding="async">

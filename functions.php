@@ -399,8 +399,8 @@ add_shortcode('tirea_header', 'tirea_header_shortcode');
  */
 function tirea_hero_images() {
     return [
-        'desktop' => 'https://tirea.fr/wp-content/uploads/2026/05/ajusteur-tirea-homme-femme.webp',
-        'mobile'  => 'https://tirea.fr/wp-content/uploads/2026/05/ajusteur-tirea-unisexe.webp',
+        'desktop' => 'https://tirea.fr/wp-content/uploads/2026/06/large-tirea-home.webp',
+        'mobile'  => 'https://tirea.fr/wp-content/uploads/2026/06/long-tirea-home.webp',
     ];
 }
 

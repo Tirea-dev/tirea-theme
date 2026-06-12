@@ -24,7 +24,7 @@ $tirea_hero_badge_text = "LA MARQUE FRANÇAISE QUI REDÉFINIT L'ÉLÉGANCE";
 $tirea_hero_title_line1 = "L'élégance";
 $tirea_hero_title_line2 = "Invisible.";
 
-$tirea_hero_subtitle = "L'accessoire qui sublime votre silhouette. Gardez votre chemise parfaitement ajustée, toute la journée.";
+$tirea_hero_subtitle = "L'accessoire indispensable pour une allure irréprochable. Ajustez votre chemise à tout moment, d'un simple geste.";
 
 $tirea_hero_cta_primary = [
     'label' => 'Commander Maintenant',

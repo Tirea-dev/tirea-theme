@@ -344,7 +344,7 @@ $steps = [
 <?php // ===== SECTION 7 — PHOTO LIFESTYLE FINALE + CTA ===== ?>
 <section class="tirea-lifestyle-section">
   <div class="tirea-lifestyle-image">
-    <img src="https://tirea.fr/wp-content/uploads/2026/05/ajusteur-tirea-homme-femme.webp" alt="Une silhouette parfaite pour tous" loading="lazy">
+    <img src="https://tirea.fr/wp-content/uploads/2026/06/long-tirea-home.webp" alt="Une silhouette parfaite pour tous" loading="lazy">
   </div>
   <div class="tirea-lifestyle-content">
     <div class="tirea-section-overline">Pour elle. Pour lui.</div>
