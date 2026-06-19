@@ -117,7 +117,7 @@ foreach ($variations as $index => $variation) {
           <span class="tirea-rating-label">Avis à venir</span>
           <button type="button" class="tirea-rating-help" aria-label="En savoir plus sur nos avis" aria-expanded="false" aria-controls="tireaAvisBubbleMini">?</button>
           <div class="tirea-rating-bubble" id="tireaAvisBubbleMini" role="note" hidden>
-            <p class="tirea-rating-bubble-text">Nos avis sont désormais vérifiés par un organisme tiers français indépendant : on repart de zéro pour montrer uniquement du 100% vérifié. En attendant : plus de 1000 commandes et moins de 1% de retour.</p>
+            <p class="tirea-rating-bubble-text">Nos avis sont désormais vérifiés par Trustpilot, un organisme tiers indépendant : on repart de zéro pour montrer uniquement du 100% vérifié. En attendant : plus de 1000 commandes et moins de 1% de retour.</p>
           </div>
         </div>
       <?php endif; ?>

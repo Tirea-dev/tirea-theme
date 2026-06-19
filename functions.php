@@ -156,6 +156,35 @@ function tirea_sag_product_schema($entity) {
 }
 add_filter('rank_math/snippet/rich_snippet_product_entity', 'tirea_sag_product_schema');
 
+// ============================================
+// TRUSTPILOT — Automatic Feedback Service (AFS)
+// Ajoute l'adresse BCC unique Trustpilot sur l'e-mail WooCommerce
+// de declenchement. L'adresse est definie dans wp-config.php
+// (hors depot Git), jamais en dur ici. Delai d'envoi regle cote Trustpilot.
+// ============================================
+if (!defined('TIREA_TRUSTPILOT_TRIGGER_EMAIL')) {
+    // E-mail WooCommerce declencheur.
+    // 'customer_processing_order' = confirmation de commande (chaque commande payee).
+    // 'customer_completed_order' = a l'expedition (si tu passes tes commandes en "Terminee").
+    define('TIREA_TRUSTPILOT_TRIGGER_EMAIL', 'customer_processing_order');
+}
+
+function tirea_trustpilot_bcc_header($headers, $email_id, $order = null) {
+    if (!defined('TIREA_TRUSTPILOT_BCC')) {
+        return $headers;
+    }
+    $bcc = sanitize_email(TIREA_TRUSTPILOT_BCC);
+    if ($bcc === '' || !is_email($bcc)) {
+        return $headers;
+    }
+    if ($email_id !== TIREA_TRUSTPILOT_TRIGGER_EMAIL) {
+        return $headers;
+    }
+    $headers .= 'Bcc: ' . $bcc . "\r\n";
+    return $headers;
+}
+add_filter('woocommerce_email_headers', 'tirea_trustpilot_bcc_header', 10, 3);
+
 // END ENQUEUE PARENT ACTION
 // ============================================
 // TIREA — Sélecteur de packs WooCommerce

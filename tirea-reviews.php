@@ -143,13 +143,13 @@ $tirea_review_photos = [
       <button type="button" class="tirea-avis-more" aria-expanded="false">Voir plus d'avis</button>
     <?php endif; ?>
 
-    <p class="tirea-avis-source">Avis collectés, vérifiés et publiés par un organisme tiers indépendant (Société des Avis Garantis).</p>
+    <p class="tirea-avis-source">Avis collectés, vérifiés et publiés par Trustpilot, un organisme tiers indépendant.</p>
   </section>
   <?php else: ?>
   <section id="avis-tirea" class="tirea-avis-explain" aria-labelledby="tireaAvisExplainLabel">
     <span class="tirea-avis-explain-stars" aria-hidden="true"><span>★★★★★</span></span>
     <p id="tireaAvisExplainLabel" class="tirea-avis-explain-overline">Avis à venir, 100% vérifiés</p>
-    <p class="tirea-avis-explain-text">Tirea, c'est pas nouveau. Lancée en 2019, la marque a expédié plus de 1000 commandes avec moins de 1% de retour. On relance aujourd'hui la boutique officielle, et on a fait un choix simple sur les avis : on les confie à un organisme tiers français indépendant qui ne publie que des avis d'acheteurs vérifiés. Chaque avis vient d'un client ayant réellement commandé, vérifié et contrôlé en dehors de chez nous, pour une information la plus objective possible.</p>
+    <p class="tirea-avis-explain-text">Tirea, c'est pas nouveau. Lancée en 2019, la marque a expédié plus de 1000 commandes avec moins de 1% de retour. On relance aujourd'hui la boutique officielle, et on a fait un choix simple sur les avis : on les confie à Trustpilot, un organisme tiers indépendant qui ne publie que des avis d'acheteurs vérifiés. Chaque avis vient d'un client ayant réellement commandé, vérifié et contrôlé en dehors de chez nous, pour une information la plus objective possible.</p>
   </section>
   <?php endif; ?>
 

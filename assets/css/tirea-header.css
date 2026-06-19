@@ -680,6 +680,12 @@ button.tirea-sticky-burger-mobile {
   transition: background 0.25s ease, transform 0.25s ease;
 }
 .tirea-back-to-top:hover { background: var(--tirea-color-primary); transform: translateY(-2px); }
+/* Etats focus/actif : neutralise le rose herite d'Elementor, garde un focus clavier accessible */
+.tirea-back-to-top:focus,
+.tirea-back-to-top:active { background: var(--tirea-color-primary); }
+.tirea-back-to-top:focus:not(:focus-visible) { outline: none; }
+.tirea-back-to-top:focus-visible { outline: 2px solid var(--tirea-color-primary); outline-offset: 3px; }
+.tirea-back-to-top { -webkit-tap-highlight-color: transparent; }
 .tirea-back-to-top svg { width: 18px; height: 18px; }
 .tirea-back-to-top-desktop {
   position: fixed;
