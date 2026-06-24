@@ -112,6 +112,17 @@ foreach ($variations as $index => $variation) {
           <span class="tirea-rating-count">(<?php echo esc_html($tirea_sel_cnt); ?> avis vérifiés)</span>
         </div>
       <?php else: ?>
+        <?php // ===== NOTE HISTORIQUE EN DUR (temporaire). A retirer quand Trustpilot renvoie des avis. ===== ?>
+        <div class="tirea-rating tirea-rating-mini">
+          <span class="tirea-stars-precise tirea-stars-small" aria-hidden="true">
+            <span class="tirea-stars-bg">★★★★★</span>
+            <span class="tirea-stars-fg" style="width: 96%;">★★★★★</span>
+          </span>
+          <span class="tirea-rating-value">4,8</span>
+        </div>
+
+        <?php // ===== ANCIEN ETAT "AVIS A VENIR" conserve et desactive. Pour revenir dessus : supprimer le bloc 4,8 ci-dessus, puis passer if(false) a if(true). ===== ?>
+        <?php if ( false ) : ?>
         <div class="tirea-rating tirea-rating-mini" data-tirea-rating="empty">
           <span class="tirea-rating-stars" aria-hidden="true"><span>★★★★★</span></span>
           <span class="tirea-rating-label">Avis à venir</span>
@@ -120,6 +131,7 @@ foreach ($variations as $index => $variation) {
             <p class="tirea-rating-bubble-text">Nos avis sont désormais vérifiés par Trustpilot, un organisme tiers indépendant : on repart de zéro pour montrer uniquement du 100% vérifié. En attendant : plus de 1000 commandes et moins de 1% de retour.</p>
           </div>
         </div>
+        <?php endif; ?>
       <?php endif; ?>
      
       <div class="tirea-pack-label">Choisissez votre pack</div>

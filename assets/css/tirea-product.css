@@ -548,7 +548,7 @@
   .tirea-product-grid { gap: 40px; }
   .tirea-main-image { border-radius: 18px; margin-bottom: 12px; }
   .tirea-thumbnails { gap: 8px; }
-  .tirea-thumbnail { border-radius: 10px; flex: 0 0 23%; }
+  .tirea-thumbnail { border-radius: 10px; flex: 0 0 calc((100% - 32px) / 5); }
   .tirea-product-title {
     font-size: 32px;
     letter-spacing: 0;
@@ -1550,6 +1550,26 @@
 
 .tirea-reviews-arrow:active {
   transform: scale(0.94);
+}
+
+/* Une feuille externe (reste Elementor) force un fond rose + couleur claire en !important
+   sur focus/active. On ecrase uniquement le fond et la couleur de l'icone pour ces fleches. */
+.tirea-reviews-arrow,
+.tirea-reviews-arrow:focus,
+.tirea-reviews-arrow:active {
+  background: #fff !important;
+  color: var(--tirea-color-text-soft) !important;
+}
+.tirea-reviews-arrow:hover {
+  background: var(--tirea-color-primary) !important;
+  border-color: var(--tirea-color-primary);
+  color: #fff !important;
+}
+.tirea-reviews-arrow:focus {
+  outline: none;
+}
+.tirea-reviews-arrow {
+  -webkit-tap-highlight-color: transparent;
 }
 
 .tirea-reviews-arrow:focus-visible {
