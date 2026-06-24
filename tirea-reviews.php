@@ -146,6 +146,16 @@ $tirea_review_photos = [
     <p class="tirea-avis-source">Avis collectés, vérifiés et publiés par Trustpilot, un organisme tiers indépendant.</p>
   </section>
   <?php else: ?>
+  <?php // ===== NOTE HISTORIQUE EN DUR (temporaire, identique au haut de fiche). A retirer quand Trustpilot renvoie des avis verifies. ===== ?>
+  <div class="tirea-rating">
+    <span class="tirea-stars-precise tirea-stars-small" aria-hidden="true">
+      <span class="tirea-stars-bg">★★★★★</span>
+      <span class="tirea-stars-fg" style="width: 96%;">★★★★★</span>
+    </span>
+    <span class="tirea-rating-value">4,8</span>
+  </div>
+  <div class="tirea-photos-mention">Moyenne client depuis 2019</div>
+
   <?php // ===== ETAT "AVIS A VENIR" du bas DESACTIVE tant que la note 4,8 est en dur en haut (evite l'incoherence). Pour le reactiver : passer if(false) a if(true). ===== ?>
   <?php if ( false ) : ?>
   <section id="avis-tirea" class="tirea-avis-explain" aria-labelledby="tireaAvisExplainLabel">
