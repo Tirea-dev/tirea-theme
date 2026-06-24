@@ -197,8 +197,12 @@ $steps = [
               </div>
               <div class="tirea-pack-pricing">
                 <div class="tirea-pack-price"><?php echo wc_price($price_html); ?></div>
-                <?php if ($on_sale): ?>
-                  <div class="tirea-pack-old-price"><?php echo wc_price($regular_price); ?></div>
+                <?php if ($on_sale):
+                  $tirea_pct = ($regular_price > 0) ? (int) round((1 - ($price_html / $regular_price)) * 100) : 0; ?>
+                  <div class="tirea-pack-old-line">
+                    <?php if ($tirea_pct > 0): ?><span class="tirea-pack-discount">-<?php echo $tirea_pct; ?>%</span><?php endif; ?>
+                    <span class="tirea-pack-old-price"><?php echo wc_price($regular_price); ?></span>
+                  </div>
                 <?php endif; ?>
               </div>
             </div>
