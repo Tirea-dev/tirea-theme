@@ -195,20 +195,6 @@
   text-decoration: line-through;
 }
 
-.tirea-pack-old-line {
-  display: flex;
-  align-items: baseline;
-  justify-content: flex-end;
-  gap: 8px;
-}
-
-.tirea-pack-discount {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  color: var(--tirea-color-primary);
-}
-
 .tirea-pack-badge {
   position: absolute;
   top: -10px;
@@ -575,7 +561,6 @@
   .tirea-pack-detail { font-size: 12px; }
   .tirea-pack-price { font-size: 16px; }
   .tirea-pack-old-price { font-size: 12px; }
-  .tirea-pack-discount { font-size: 11px; }
   .tirea-pack-badge { font-size: 9px; padding: 3px 8px; top: -8px; }
   .tirea-total-card { padding: 20px; }
   .tirea-total-price { font-size: 24px; }

@@ -245,7 +245,7 @@ foreach ($variations as $index => $variation) {
         </div>
         <div class="tirea-payments-logos">
           <span class="tirea-pay-logo" title="Visa">
-            <img src="https://tirea.fr/wp-content/uploads/2026/05/Visa_Inc._logo_2021–present.svg" alt="Visa" loading="lazy">
+            <img src="https://tirea.fr/wp-content/uploads/2026/05/Visa_Inc._logo_2021%E2%80%93present.svg" alt="Visa" loading="lazy">
           </span>
           <span class="tirea-pay-logo" title="Mastercard">
             <img src="https://tirea.fr/wp-content/uploads/2026/05/Mastercard-logo.svg" alt="Mastercard" loading="lazy">

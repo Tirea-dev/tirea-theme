@@ -54,6 +54,10 @@ function tirea_sag_get_data($scope = '') {
     $scope = $scope !== '' ? $scope : TIREA_SAG_SCOPE;
     $empty = ['total' => 0, 'average' => 0.0, 'distribution' => [5 => 0, 4 => 0, 3 => 0, 2 => 0, 1 => 0], 'reviews' => []];
 
+    // SAG desactive (migration Trustpilot). Coupe tout appel externe : renvoie un etat vide,
+    // donc les templates affichent la note historique en dur. Pour reactiver SAG : supprimer ce return.
+    return $empty;
+
     if (TIREA_SAG_PUBLIC_KEY === '') {
         return $empty;
     }
@@ -474,6 +478,7 @@ function tirea_product_preload() {
     <?php
 }
 add_action('wp_head', 'tirea_product_preload', 1);
+add_action('wp_head', 'tirea_hero_preload', 1);
 
 function tirea_enqueue_hero_assets() {
     if (!is_front_page()) return;
